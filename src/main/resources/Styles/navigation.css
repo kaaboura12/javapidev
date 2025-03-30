@@ -1,0 +1,30 @@
+.app-title {
+    -fx-font-family: "Segoe UI", Arial, sans-serif;
+    -fx-text-fill: #d17842;
+    -fx-font-weight: bold;
+    -fx-font-size: 24px;
+}
+
+.nav-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: #666666;
+    -fx-font-family: "Segoe UI", Arial, sans-serif;
+    -fx-font-size: 13px;
+    -fx-font-weight: normal;
+    -fx-cursor: hand;
+}
+
+.nav-button:hover {
+    -fx-text-fill: #d17842;
+}
+
+.nav-button:pressed {
+    -fx-text-fill: #b25b2c;
+}
+
+.username {
+    -fx-font-family: "Segoe UI", Arial, sans-serif;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333333;
+    -fx-font-size: 14px;
+} 

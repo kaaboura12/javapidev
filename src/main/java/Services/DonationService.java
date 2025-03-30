@@ -1,5 +1,6 @@
 package Services;
 
+import Interfaces.ICrud;
 import Models.Donation;
 import Models.Event;
 import Models.User;
@@ -22,46 +23,67 @@ public class DonationService implements ICrud<Donation> {
 
     @Override
     public void insert(Donation obj) throws SQLException {
-        String sql = "INSERT INTO donation(idevent, userid, donorname, email, montant, date, payment_method, num_tlf) VALUES('"
-                + obj.getIdevent() + "','"
-                + (obj.getUserid() != null ? obj.getUserid() : "NULL") + "','"
-                + obj.getDonorname() + "','"
-                + obj.getEmail() + "','"
-                + obj.getMontant() + "','"
-                + obj.getDate() + "','"
-                + obj.getPayment_method() + "','"
-                + obj.getNum_tlf() + "')";
-        Statement stmt = this.con.createStatement();
-        stmt.executeUpdate(sql);
+        String sql = "INSERT INTO donation(idevent, userid, donorname, email, montant, date, payment_method, num_tlf) VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
+        PreparedStatement pstmt = this.con.prepareStatement(sql);
+        pstmt.setInt(1, obj.getIdevent());
+        if (obj.getUserid() != null) {
+            pstmt.setInt(2, obj.getUserid());
+        } else {
+            pstmt.setNull(2, Types.INTEGER);
+        }
+        pstmt.setString(3, obj.getDonorname());
+        pstmt.setString(4, obj.getEmail());
+        pstmt.setDouble(5, obj.getMontant());
+        if (obj.getDate() != null) {
+            pstmt.setDate(6, Date.valueOf(obj.getDate()));
+        } else {
+            pstmt.setNull(6, Types.DATE);
+        }
+        pstmt.setString(7, obj.getPayment_method());
+        pstmt.setString(8, obj.getNum_tlf());
+        pstmt.executeUpdate();
+        pstmt.close();
     }
 
     @Override
     public void update(Donation obj) throws SQLException {
-        String sql = "UPDATE donation SET idevent='" + obj.getIdevent()
-                + "', userid=" + (obj.getUserid() != null ? ("'" + obj.getUserid() + "'") : "NULL")
-                + ", donorname='" + obj.getDonorname()
-                + "', email='" + obj.getEmail()
-                + "', montant='" + obj.getMontant()
-                + "', date='" + obj.getDate()
-                + "', payment_method='" + obj.getPayment_method()
-                + "', num_tlf='" + obj.getNum_tlf()
-                + "' WHERE iddon = '" + obj.getIddon() + "'";
-        Statement stmt = this.con.createStatement();
-        stmt.executeUpdate(sql);
+        String sql = "UPDATE donation SET idevent=?, userid=?, donorname=?, email=?, montant=?, date=?, payment_method=?, num_tlf=? WHERE iddon = ?";
+        PreparedStatement pstmt = this.con.prepareStatement(sql);
+        pstmt.setInt(1, obj.getIdevent());
+        if (obj.getUserid() != null) {
+            pstmt.setInt(2, obj.getUserid());
+        } else {
+            pstmt.setNull(2, Types.INTEGER);
+        }
+        pstmt.setString(3, obj.getDonorname());
+        pstmt.setString(4, obj.getEmail());
+        pstmt.setDouble(5, obj.getMontant());
+        if (obj.getDate() != null) {
+            pstmt.setDate(6, Date.valueOf(obj.getDate()));
+        } else {
+            pstmt.setNull(6, Types.DATE);
+        }
+        pstmt.setString(7, obj.getPayment_method());
+        pstmt.setString(8, obj.getNum_tlf());
+        pstmt.setInt(9, obj.getIddon());
+        pstmt.executeUpdate();
+        pstmt.close();
     }
 
     @Override
     public void delete(Donation obj) throws SQLException {
-        String sql = "DELETE FROM donation WHERE iddon = '" + obj.getIddon() + "'";
-        Statement stmt = this.con.createStatement();
-        stmt.executeUpdate(sql);
+        String sql = "DELETE FROM donation WHERE iddon = ?";
+        PreparedStatement pstmt = this.con.prepareStatement(sql);
+        pstmt.setInt(1, obj.getIddon());
+        pstmt.executeUpdate();
+        pstmt.close();
     }
 
     @Override
     public List<Donation> findAll() throws SQLException {
         String sql = "SELECT * FROM donation";
-        Statement stmt = this.con.createStatement();
-        ResultSet rs = stmt.executeQuery(sql);
+        PreparedStatement pstmt = this.con.prepareStatement(sql);
+        ResultSet rs = pstmt.executeQuery();
         List<Donation> list = new ArrayList<>();
         while (rs.next()) {
             Donation donation = new Donation();
@@ -96,15 +118,17 @@ public class DonationService implements ICrud<Donation> {
             
             list.add(donation);
         }
-
+        rs.close();
+        pstmt.close();
         return list;
     }
     
     // Find a donation by its ID
     public Donation findById(int id) throws SQLException {
-        String sql = "SELECT * FROM donation WHERE iddon = " + id;
-        Statement stmt = this.con.createStatement();
-        ResultSet rs = stmt.executeQuery(sql);
+        String sql = "SELECT * FROM donation WHERE iddon = ?";
+        PreparedStatement pstmt = this.con.prepareStatement(sql);
+        pstmt.setInt(1, id);
+        ResultSet rs = pstmt.executeQuery();
         
         if (rs.next()) {
             Donation donation = new Donation();
@@ -137,17 +161,22 @@ public class DonationService implements ICrud<Donation> {
                 donation.setEvent(event);
             }
             
+            rs.close();
+            pstmt.close();
             return donation;
         }
         
+        rs.close();
+        pstmt.close();
         return null;
     }
     
     // Find all donations by event ID
     public List<Donation> findByEventId(int eventId) throws SQLException {
-        String sql = "SELECT * FROM donation WHERE idevent = " + eventId;
-        Statement stmt = this.con.createStatement();
-        ResultSet rs = stmt.executeQuery(sql);
+        String sql = "SELECT * FROM donation WHERE idevent = ?";
+        PreparedStatement pstmt = this.con.prepareStatement(sql);
+        pstmt.setInt(1, eventId);
+        ResultSet rs = pstmt.executeQuery();
         List<Donation> list = new ArrayList<>();
         
         while (rs.next()) {
@@ -172,14 +201,17 @@ public class DonationService implements ICrud<Donation> {
             list.add(donation);
         }
         
+        rs.close();
+        pstmt.close();
         return list;
     }
     
     // Find all donations by user ID
     public List<Donation> findByUserId(int userId) throws SQLException {
-        String sql = "SELECT * FROM donation WHERE userid = " + userId;
-        Statement stmt = this.con.createStatement();
-        ResultSet rs = stmt.executeQuery(sql);
+        String sql = "SELECT * FROM donation WHERE userid = ?";
+        PreparedStatement pstmt = this.con.prepareStatement(sql);
+        pstmt.setInt(1, userId);
+        ResultSet rs = pstmt.executeQuery();
         List<Donation> list = new ArrayList<>();
         
         while (rs.next()) {
@@ -199,6 +231,8 @@ public class DonationService implements ICrud<Donation> {
             list.add(donation);
         }
         
+        rs.close();
+        pstmt.close();
         return list;
     }
 } 

@@ -1,5 +1,6 @@
 package Services;
 
+import Interfaces.ICrud;
 import Models.Reservation;
 import Models.Event;
 import Models.User;
@@ -22,40 +23,77 @@ public class ReservationService implements ICrud<Reservation> {
 
     @Override
     public void insert(Reservation obj) throws SQLException {
-        String sql = "INSERT INTO reservation(userid, idevent, reservation_date, seats_reserved, total_amount) VALUES("
-                + (obj.getUserid() != null ? ("'" + obj.getUserid() + "'") : "NULL") + ","
-                + (obj.getIdevent() != null ? ("'" + obj.getIdevent() + "'") : "NULL") + ",'"
-                + obj.getReservation_date() + "','"
-                + obj.getSeats_reserved() + "','"
-                + obj.getTotal_amount() + "')";
-        Statement stmt = this.con.createStatement();
-        stmt.executeUpdate(sql);
+        String sql = "INSERT INTO reservation(userid, idevent, reservation_date, seats_reserved, total_amount) VALUES(?, ?, ?, ?, ?)";
+        PreparedStatement pstmt = this.con.prepareStatement(sql);
+        
+        if (obj.getUserid() != null) {
+            pstmt.setInt(1, obj.getUserid());
+        } else {
+            pstmt.setNull(1, Types.INTEGER);
+        }
+        
+        if (obj.getIdevent() != null) {
+            pstmt.setInt(2, obj.getIdevent());
+        } else {
+            pstmt.setNull(2, Types.INTEGER);
+        }
+        
+        if (obj.getReservation_date() != null) {
+            pstmt.setDate(3, Date.valueOf(obj.getReservation_date()));
+        } else {
+            pstmt.setNull(3, Types.DATE);
+        }
+        
+        pstmt.setInt(4, obj.getSeats_reserved());
+        pstmt.setDouble(5, obj.getTotal_amount());
+        pstmt.executeUpdate();
+        pstmt.close();
     }
 
     @Override
     public void update(Reservation obj) throws SQLException {
-        String sql = "UPDATE reservation SET userid=" + (obj.getUserid() != null ? ("'" + obj.getUserid() + "'") : "NULL")
-                + ", idevent=" + (obj.getIdevent() != null ? ("'" + obj.getIdevent() + "'") : "NULL")
-                + ", reservation_date='" + obj.getReservation_date()
-                + "', seats_reserved='" + obj.getSeats_reserved()
-                + "', total_amount='" + obj.getTotal_amount()
-                + "' WHERE id_reservation = '" + obj.getId_reservation() + "'";
-        Statement stmt = this.con.createStatement();
-        stmt.executeUpdate(sql);
+        String sql = "UPDATE reservation SET userid=?, idevent=?, reservation_date=?, seats_reserved=?, total_amount=? WHERE id_reservation = ?";
+        PreparedStatement pstmt = this.con.prepareStatement(sql);
+        
+        if (obj.getUserid() != null) {
+            pstmt.setInt(1, obj.getUserid());
+        } else {
+            pstmt.setNull(1, Types.INTEGER);
+        }
+        
+        if (obj.getIdevent() != null) {
+            pstmt.setInt(2, obj.getIdevent());
+        } else {
+            pstmt.setNull(2, Types.INTEGER);
+        }
+        
+        if (obj.getReservation_date() != null) {
+            pstmt.setDate(3, Date.valueOf(obj.getReservation_date()));
+        } else {
+            pstmt.setNull(3, Types.DATE);
+        }
+        
+        pstmt.setInt(4, obj.getSeats_reserved());
+        pstmt.setDouble(5, obj.getTotal_amount());
+        pstmt.setInt(6, obj.getId_reservation());
+        pstmt.executeUpdate();
+        pstmt.close();
     }
 
     @Override
     public void delete(Reservation obj) throws SQLException {
-        String sql = "DELETE FROM reservation WHERE id_reservation = '" + obj.getId_reservation() + "'";
-        Statement stmt = this.con.createStatement();
-        stmt.executeUpdate(sql);
+        String sql = "DELETE FROM reservation WHERE id_reservation = ?";
+        PreparedStatement pstmt = this.con.prepareStatement(sql);
+        pstmt.setInt(1, obj.getId_reservation());
+        pstmt.executeUpdate();
+        pstmt.close();
     }
 
     @Override
     public List<Reservation> findAll() throws SQLException {
         String sql = "SELECT * FROM reservation";
-        Statement stmt = this.con.createStatement();
-        ResultSet rs = stmt.executeQuery(sql);
+        PreparedStatement pstmt = this.con.prepareStatement(sql);
+        ResultSet rs = pstmt.executeQuery();
         List<Reservation> list = new ArrayList<>();
         while (rs.next()) {
             Reservation reservation = new Reservation();
@@ -91,15 +129,17 @@ public class ReservationService implements ICrud<Reservation> {
             
             list.add(reservation);
         }
-
+        rs.close();
+        pstmt.close();
         return list;
     }
     
     // Find a reservation by its ID
     public Reservation findById(int id) throws SQLException {
-        String sql = "SELECT * FROM reservation WHERE id_reservation = " + id;
-        Statement stmt = this.con.createStatement();
-        ResultSet rs = stmt.executeQuery(sql);
+        String sql = "SELECT * FROM reservation WHERE id_reservation = ?";
+        PreparedStatement pstmt = this.con.prepareStatement(sql);
+        pstmt.setInt(1, id);
+        ResultSet rs = pstmt.executeQuery();
         
         if (rs.next()) {
             Reservation reservation = new Reservation();
@@ -133,17 +173,22 @@ public class ReservationService implements ICrud<Reservation> {
             reservation.setSeats_reserved(rs.getInt("seats_reserved"));
             reservation.setTotal_amount(rs.getDouble("total_amount"));
             
+            rs.close();
+            pstmt.close();
             return reservation;
         }
         
+        rs.close();
+        pstmt.close();
         return null;
     }
     
     // Find all reservations by user ID
     public List<Reservation> findByUserId(int userId) throws SQLException {
-        String sql = "SELECT * FROM reservation WHERE userid = " + userId;
-        Statement stmt = this.con.createStatement();
-        ResultSet rs = stmt.executeQuery(sql);
+        String sql = "SELECT * FROM reservation WHERE userid = ?";
+        PreparedStatement pstmt = this.con.prepareStatement(sql);
+        pstmt.setInt(1, userId);
+        ResultSet rs = pstmt.executeQuery();
         List<Reservation> list = new ArrayList<>();
         
         while (rs.next()) {
@@ -165,14 +210,17 @@ public class ReservationService implements ICrud<Reservation> {
             list.add(reservation);
         }
         
+        rs.close();
+        pstmt.close();
         return list;
     }
     
     // Find all reservations by event ID
     public List<Reservation> findByEventId(int eventId) throws SQLException {
-        String sql = "SELECT * FROM reservation WHERE idevent = " + eventId;
-        Statement stmt = this.con.createStatement();
-        ResultSet rs = stmt.executeQuery(sql);
+        String sql = "SELECT * FROM reservation WHERE idevent = ?";
+        PreparedStatement pstmt = this.con.prepareStatement(sql);
+        pstmt.setInt(1, eventId);
+        ResultSet rs = pstmt.executeQuery();
         List<Reservation> list = new ArrayList<>();
         
         while (rs.next()) {
@@ -195,19 +243,27 @@ public class ReservationService implements ICrud<Reservation> {
             list.add(reservation);
         }
         
+        rs.close();
+        pstmt.close();
         return list;
     }
     
     // Calculate total reserved seats for an event
     public int getTotalReservedSeatsForEvent(int eventId) throws SQLException {
-        String sql = "SELECT SUM(seats_reserved) as total FROM reservation WHERE idevent = " + eventId;
-        Statement stmt = this.con.createStatement();
-        ResultSet rs = stmt.executeQuery(sql);
+        String sql = "SELECT SUM(seats_reserved) as total FROM reservation WHERE idevent = ?";
+        PreparedStatement pstmt = this.con.prepareStatement(sql);
+        pstmt.setInt(1, eventId);
+        ResultSet rs = pstmt.executeQuery();
         
         if (rs.next()) {
-            return rs.getInt("total");
+            int total = rs.getInt("total");
+            rs.close();
+            pstmt.close();
+            return total;
         }
         
+        rs.close();
+        pstmt.close();
         return 0;
     }
 } 

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="Controllers.event.EventCardController"
+      styleClass="event-card">
+    
+    <!-- Date Display -->
+    <StackPane styleClass="event-date-container">
+        <VBox alignment="CENTER" styleClass="event-date">
+            <Label fx:id="eventDay" text="08" styleClass="event-day"/>
+            <Label fx:id="eventMonth" text="June, 2024" styleClass="event-month"/>
+        </VBox>
+    </StackPane>
+    
+    <!-- Event Details -->
+    <VBox styleClass="event-details">
+        <Label fx:id="eventTitle" text="Are There Specific Unique Events" styleClass="event-title"/>
+        <HBox styleClass="event-location">
+            <Label fx:id="eventLocation" text="New York, Rodices120/32" styleClass="event-location-text"/>
+        </HBox>
+        <HBox styleClass="event-actions" spacing="10">
+            <Button fx:id="getTicketButton" text="GET TICKET" styleClass="get-ticket-button"/>
+            <Button fx:id="donateButton" text="DONATE" styleClass="donate-button"/>
+        </HBox>
+    </VBox>
+    
+    <!-- Event Image -->
+    <ImageView fx:id="eventImage" fitWidth="350" fitHeight="200" preserveRatio="true" 
+              styleClass="event-image"/>
+</VBox> 

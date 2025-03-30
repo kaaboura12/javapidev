@@ -1,0 +1,385 @@
+/* Events Page Styling */
+
+.event-scroll-pane {
+    -fx-background-color: transparent;
+    -fx-border-width: 0;
+    -fx-padding: 0;
+}
+
+.event-scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+.events-container {
+    -fx-background-color: white;
+}
+
+.page-title-container {
+    -fx-padding: 10px 0 25px 0;
+}
+
+.page-title {
+    -fx-font-size: 32px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333333;
+    -fx-font-family: "Segoe UI", Arial, sans-serif;
+}
+
+.events-grid {
+    -fx-alignment: center;
+}
+
+/* Event Card Styling */
+.event-card {
+    -fx-background-color: white;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 0);
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-min-width: 350px;
+    -fx-max-width: 350px;
+    -fx-spacing: 0;
+}
+
+.event-date-container {
+    -fx-padding: 0;
+    -fx-alignment: center-left;
+}
+
+.event-date {
+    -fx-background-color: #d17842;
+    -fx-padding: 15px 25px;
+    -fx-min-width: 130px;
+    -fx-max-width: 130px;
+    -fx-alignment: center;
+}
+
+.event-day {
+    -fx-font-size: 36px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+    -fx-font-family: "Segoe UI", Arial, sans-serif;
+}
+
+.event-month {
+    -fx-font-size: 14px;
+    -fx-font-weight: normal;
+    -fx-text-fill: white;
+    -fx-font-family: "Segoe UI", Arial, sans-serif;
+}
+
+.event-details {
+    -fx-padding: 20px 25px;
+    -fx-spacing: 10;
+}
+
+.event-title {
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333333;
+    -fx-font-family: "Segoe UI", Arial, sans-serif;
+    -fx-wrap-text: true;
+}
+
+.event-location {
+    -fx-padding: 5px 0;
+}
+
+.event-location-text {
+    -fx-font-size: 14px;
+    -fx-text-fill: #666666;
+    -fx-font-family: "Segoe UI", Arial, sans-serif;
+}
+
+.event-actions {
+    -fx-padding: 10px 0 0 0;
+}
+
+.get-ticket-button {
+    -fx-background-color: #d17842;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+    -fx-padding: 8px 15px;
+    -fx-background-radius: 3px;
+    -fx-cursor: hand;
+}
+
+.get-ticket-button:hover {
+    -fx-background-color: #c06835;
+}
+
+.donate-button {
+    -fx-background-color: #5a8a5e;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+    -fx-padding: 8px 15px;
+    -fx-background-radius: 3px;
+    -fx-cursor: hand;
+}
+
+.donate-button:hover {
+    -fx-background-color: #4a7a4e;
+}
+
+.event-image {
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 5, 0, 0, 0);
+}
+
+/* Pagination Styling */
+.events-pagination {
+    -fx-padding: 20px 0;
+}
+
+.pagination {
+    -fx-page-information-visible: false;
+}
+
+.pagination .pagination-control .button {
+    -fx-background-color: #f4f4f4;
+    -fx-border-color: #e0e0e0;
+    -fx-text-fill: #666666;
+}
+
+.pagination .pagination-control .button:hover {
+    -fx-background-color: #e8e8e8;
+}
+
+.pagination .pagination-control .page-number {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.pagination .pagination-control .page-number:selected {
+    -fx-background-color: #d17842;
+    -fx-text-fill: white;
+}
+
+/* Reservation Form Styling */
+.cancel-button {
+    -fx-background-color: #f4f4f4;
+    -fx-text-fill: #666666;
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+    -fx-padding: 8px 15px;
+    -fx-background-radius: 3px;
+    -fx-cursor: hand;
+    -fx-border-color: #e0e0e0;
+    -fx-border-radius: 3px;
+}
+
+.cancel-button:hover {
+    -fx-background-color: #e8e8e8;
+}
+
+/* Enhanced Reservation Form Styling */
+.reservation-container {
+    -fx-padding: 20px 40px 40px 40px;
+    -fx-background-color: #f9f9f9;
+}
+
+.reservation-header {
+    -fx-padding: 15px 0 10px 0;
+    -fx-border-color: transparent transparent #eeeeee transparent;
+    -fx-border-width: 0 0 1px 0;
+}
+
+.reservation-title {
+    -fx-font-size: 32px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333333;
+    -fx-font-family: "Segoe UI", Arial, sans-serif;
+}
+
+.section-title {
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333333;
+    -fx-font-family: "Segoe UI", Arial, sans-serif;
+    -fx-padding: 0 0 10px 0;
+}
+
+.section-subtitle {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #555555;
+    -fx-font-family: "Segoe UI", Arial, sans-serif;
+    -fx-padding: 0 0 5px 0;
+}
+
+/* Event Info Card */
+.event-info-card {
+    -fx-background-color: white;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 8, 0, 0, 0);
+    -fx-padding: 20px;
+    -fx-spacing: 15;
+    -fx-background-radius: 8px;
+}
+
+.event-info-row {
+    -fx-spacing: 10;
+    -fx-padding: 5px 0;
+}
+
+.event-info-icon {
+    -fx-font-size: 18px;
+    -fx-min-width: 25px;
+}
+
+.event-info-text {
+    -fx-font-size: 15px;
+    -fx-text-fill: #555555;
+    -fx-font-family: "Segoe UI", Arial, sans-serif;
+}
+
+.event-info-label {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #666666;
+    -fx-font-family: "Segoe UI", Arial, sans-serif;
+}
+
+.event-info-value {
+    -fx-font-size: 14px;
+    -fx-text-fill: #d17842;
+    -fx-font-weight: bold;
+    -fx-font-family: "Segoe UI", Arial, sans-serif;
+}
+
+/* Event Description Card */
+.event-description-card {
+    -fx-background-color: white;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 8, 0, 0, 0);
+    -fx-padding: 20px;
+    -fx-spacing: 10;
+    -fx-background-radius: 8px;
+}
+
+.event-description-text {
+    -fx-font-size: 14px;
+    -fx-text-fill: #666666;
+    -fx-font-family: "Segoe UI", Arial, sans-serif;
+    -fx-line-spacing: 1.5;
+}
+
+/* Reservation Form Card */
+.reservation-form-card {
+    -fx-background-color: white;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 8, 0, 0, 0);
+    -fx-background-radius: 8px;
+    -fx-spacing: 0;
+}
+
+.form-header {
+    -fx-background-color: #d17842;
+    -fx-padding: 15px 20px;
+    -fx-background-radius: 8px 8px 0 0;
+}
+
+.form-header-text {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+    -fx-font-family: "Segoe UI", Arial, sans-serif;
+}
+
+.form-section {
+    -fx-padding: 20px;
+    -fx-spacing: 15;
+}
+
+.form-section-title {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #555555;
+    -fx-font-family: "Segoe UI", Arial, sans-serif;
+}
+
+.user-name {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333333;
+    -fx-font-family: "Segoe UI", Arial, sans-serif;
+}
+
+.user-email {
+    -fx-font-size: 14px;
+    -fx-text-fill: #666666;
+    -fx-font-family: "Segoe UI", Arial, sans-serif;
+}
+
+.form-divider {
+    -fx-stroke: #eeeeee;
+    -fx-stroke-width: 1;
+}
+
+.form-field {
+    -fx-spacing: 15;
+    -fx-alignment: CENTER_LEFT;
+}
+
+.form-label {
+    -fx-font-size: 14px;
+    -fx-text-fill: #555555;
+    -fx-font-family: "Segoe UI", Arial, sans-serif;
+    -fx-min-width: 120px;
+}
+
+.seats-spinner {
+    -fx-pref-width: 100px;
+}
+
+.price-value, .fee-value {
+    -fx-font-size: 14px;
+    -fx-text-fill: #333333;
+    -fx-font-weight: bold;
+    -fx-font-family: "Segoe UI", Arial, sans-serif;
+}
+
+.total-section {
+    -fx-padding: 15px 20px;
+    -fx-background-color: #f8f8f8;
+    -fx-alignment: CENTER_LEFT;
+    -fx-spacing: 15;
+}
+
+.total-label {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333333;
+    -fx-font-family: "Segoe UI", Arial, sans-serif;
+    -fx-min-width: 120px;
+}
+
+.grand-total-value {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #d17842;
+    -fx-font-family: "Segoe UI", Arial, sans-serif;
+}
+
+.agreement-section {
+    -fx-padding: 15px 20px;
+    -fx-alignment: CENTER_LEFT;
+}
+
+.terms-checkbox {
+    -fx-font-size: 13px;
+    -fx-text-fill: #666666;
+    -fx-font-family: "Segoe UI", Arial, sans-serif;
+}
+
+.action-buttons {
+    -fx-padding: 10px 20px 20px 20px;
+    -fx-alignment: CENTER_RIGHT;
+    -fx-spacing: 15;
+}
+
+.status-message {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #d17842;
+    -fx-padding: 5px 0 0 0;
+    -fx-alignment: CENTER;
+    -fx-font-family: "Segoe UI", Arial, sans-serif;
+} 

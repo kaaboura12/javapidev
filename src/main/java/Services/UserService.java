@@ -1,12 +1,10 @@
 package Services;
 
+import Interfaces.ICrud;
 import Models.User;
 import Utils.MyDb;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,48 +17,53 @@ public class UserService implements ICrud<User> {
 
     @Override
     public void insert(User obj) throws SQLException {
-        String sql = "INSERT INTO user(nom,prenom,email,password,numtlf,age,avatar_url,roles,is_verified) VALUES('" 
-                    + obj.getNom() + "','" 
-                    + obj.getPrenom() + "','" 
-                    + obj.getEmail() + "','" 
-                    + obj.getPassword() + "','" 
-                    + obj.getNumtlf() + "','" 
-                    + obj.getAge() + "','" 
-                    + obj.getAvatar_url() + "','" 
-                    + obj.getRoles() + "','" 
-                    + obj.isIs_verified() + "')";
-        Statement stmt = this.con.createStatement();
-        stmt.executeUpdate(sql);
+        String sql = "INSERT INTO user(nom,prenom,email,password,numtlf,age,avatar_url,roles,is_verified) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        PreparedStatement pstmt = this.con.prepareStatement(sql);
+        pstmt.setString(1, obj.getNom());
+        pstmt.setString(2, obj.getPrenom());
+        pstmt.setString(3, obj.getEmail());
+        pstmt.setString(4, obj.getPassword());
+        pstmt.setString(5, obj.getNumtlf());
+        pstmt.setInt(6, obj.getAge());
+        pstmt.setString(7, obj.getAvatar_url());
+        pstmt.setString(8, obj.getRoles());
+        pstmt.setBoolean(9, obj.isIs_verified());
+        pstmt.executeUpdate();
+        pstmt.close();
     }
 
     @Override
     public void update(User obj) throws SQLException {
-        String sql = "UPDATE user SET nom='" + obj.getNom() 
-                    + "', prenom='" + obj.getPrenom() 
-                    + "', email='" + obj.getEmail() 
-                    + "', password='" + obj.getPassword() 
-                    + "', numtlf='" + obj.getNumtlf() 
-                    + "', age='" + obj.getAge() 
-                    + "', avatar_url='" + obj.getAvatar_url() 
-                    + "', roles='" + obj.getRoles() 
-                    + "', is_verified='" + obj.isIs_verified() 
-                    + "' WHERE user_id = '" + obj.getUser_id() + "'";
-        Statement stmt = this.con.createStatement();
-        stmt.executeUpdate(sql);
+        String sql = "UPDATE user SET nom=?, prenom=?, email=?, password=?, numtlf=?, age=?, avatar_url=?, roles=?, is_verified=? WHERE user_id = ?";
+        PreparedStatement pstmt = this.con.prepareStatement(sql);
+        pstmt.setString(1, obj.getNom());
+        pstmt.setString(2, obj.getPrenom());
+        pstmt.setString(3, obj.getEmail());
+        pstmt.setString(4, obj.getPassword());
+        pstmt.setString(5, obj.getNumtlf());
+        pstmt.setInt(6, obj.getAge());
+        pstmt.setString(7, obj.getAvatar_url());
+        pstmt.setString(8, obj.getRoles());
+        pstmt.setBoolean(9, obj.isIs_verified());
+        pstmt.setInt(10, obj.getUser_id());
+        pstmt.executeUpdate();
+        pstmt.close();
     }
 
     @Override
     public void delete(User obj) throws SQLException {
-        String sql = "DELETE FROM user WHERE user_id = '" + obj.getUser_id() + "'";
-        Statement stmt = this.con.createStatement();
-        stmt.executeUpdate(sql);
+        String sql = "DELETE FROM user WHERE user_id = ?";
+        PreparedStatement pstmt = this.con.prepareStatement(sql);
+        pstmt.setInt(1, obj.getUser_id());
+        pstmt.executeUpdate();
+        pstmt.close();
     }
 
     @Override
     public List<User> findAll() throws SQLException {
         String sql = "SELECT * FROM user";
-        Statement stmt = this.con.createStatement();
-        ResultSet rs = stmt.executeQuery(sql);
+        PreparedStatement pstmt = this.con.prepareStatement(sql);
+        ResultSet rs = pstmt.executeQuery();
         List<User> list = new ArrayList<>();
         while (rs.next()) {
             User user = new User();
@@ -83,15 +86,17 @@ public class UserService implements ICrud<User> {
             }
             list.add(user);
         }
-
+        rs.close();
+        pstmt.close();
         return list;
     }
 
     // Find a user by ID
     public User findById(int id) throws SQLException {
-        String sql = "SELECT * FROM user WHERE user_id = " + id;
-        Statement stmt = this.con.createStatement();
-        ResultSet rs = stmt.executeQuery(sql);
+        String sql = "SELECT * FROM user WHERE user_id = ?";
+        PreparedStatement pstmt = this.con.prepareStatement(sql);
+        pstmt.setInt(1, id);
+        ResultSet rs = pstmt.executeQuery();
         
         if (rs.next()) {
             User user = new User();
@@ -112,9 +117,13 @@ public class UserService implements ICrud<User> {
             if (rs.getTimestamp("last_login_at") != null) {
                 user.setLast_login_at(rs.getTimestamp("last_login_at").toLocalDateTime());
             }
+            rs.close();
+            pstmt.close();
             return user;
         }
         
+        rs.close();
+        pstmt.close();
         return null;
     }
 }

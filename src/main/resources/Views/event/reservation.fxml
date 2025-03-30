@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.shape.Line?>
+
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="Controllers.event.ReservationController"
+            prefHeight="700.0" prefWidth="900.0"
+            styleClass="events-container"
+            stylesheets="/Styles/events.css">
+
+    <ScrollPane fitToWidth="true" AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" 
+            AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="0.0" 
+            styleClass="event-scroll-pane">
+        <VBox spacing="30" styleClass="reservation-container">
+            
+            <!-- Header Section -->
+            <HBox styleClass="reservation-header">
+                <Label text="Event Reservation" styleClass="reservation-title"/>
+            </HBox>
+            
+            <!-- Main Content -->
+            <HBox spacing="30">
+                <!-- Left Column - Event Info -->
+                <VBox spacing="20" styleClass="reservation-event-info" HBox.hgrow="ALWAYS">
+                    <Label text="Event Details" styleClass="section-title"/>
+                    
+                    <!-- Event Card -->
+                    <VBox styleClass="event-info-card">
+                        <!-- Event Title -->
+                        <Label fx:id="eventTitleLabel" text="[Event Title]" 
+                               styleClass="event-title"/>
+                        
+                        <!-- Event Date & Time -->
+                        <HBox styleClass="event-info-row" alignment="CENTER_LEFT">
+                            <Label styleClass="event-info-icon" text="📅"/>
+                            <Label fx:id="eventDateLabel" text="[Event Date]" 
+                                   styleClass="event-info-text"/>
+                        </HBox>
+                        
+                        <!-- Event Location -->
+                        <HBox styleClass="event-info-row" alignment="CENTER_LEFT">
+                            <Label styleClass="event-info-icon" text="📍"/>
+                            <Label fx:id="eventLocationLabel" text="[Event Location]" 
+                                   styleClass="event-info-text"/>
+                        </HBox>
+                        
+                        <!-- Ticket Price -->
+                        <HBox styleClass="event-info-row" alignment="CENTER_LEFT">
+                            <Label styleClass="event-info-icon" text="💲"/>
+                            <HBox alignment="CENTER_LEFT" spacing="5">
+                                <Label text="Price per seat:" styleClass="event-info-label"/>
+                                <Label fx:id="seatPriceLabel" text="[Price]" 
+                                       styleClass="event-info-value"/>
+                            </HBox>
+                        </HBox>
+                        
+                        <!-- Available Seats -->
+                        <HBox styleClass="event-info-row" alignment="CENTER_LEFT">
+                            <Label styleClass="event-info-icon" text="🪑"/>
+                            <HBox alignment="CENTER_LEFT" spacing="5">
+                                <Label text="Available seats:" styleClass="event-info-label"/>
+                                <Label fx:id="availableSeatsLabel" text="[Available]" 
+                                       styleClass="event-info-value"/>
+                            </HBox>
+                        </HBox>
+                    </VBox>
+                    
+                    <!-- Event Description (placeholder) -->
+                    <VBox styleClass="event-description-card">
+                        <Label text="Event Description" styleClass="section-subtitle"/>
+                        <Label text="Experience an unforgettable event with world-class performances and activities. Join us for this special occasion that promises to deliver memories that will last a lifetime." 
+                               styleClass="event-description-text" wrapText="true"/>
+                    </VBox>
+                </VBox>
+                
+                <!-- Right Column - Reservation Form -->
+                <VBox spacing="20" styleClass="reservation-form" minWidth="400">
+                    <Label text="Reservation Form" styleClass="section-title"/>
+                    
+                    <!-- Reservation Form Card -->
+                    <VBox styleClass="reservation-form-card">
+                        <!-- Form Header -->
+                        <HBox styleClass="form-header">
+                            <Label text="Booking Details" styleClass="form-header-text"/>
+                        </HBox>
+                        
+                        <!-- Attendee Information -->
+                        <VBox styleClass="form-section">
+                            <Label text="Attendee Information" styleClass="form-section-title"/>
+                            
+                            <!-- Name Field (for display only - would be linked to user account) -->
+                            <Label text="John Doe" styleClass="user-name"/>
+                            <Label text="john.doe@example.com" styleClass="user-email"/>
+                        </VBox>
+                        
+                        <Line styleClass="form-divider"/>
+                        
+                        <!-- Ticket Selection -->
+                        <VBox styleClass="form-section">
+                            <Label text="Ticket Selection" styleClass="form-section-title"/>
+                            
+                            <!-- Number of Seats -->
+                            <HBox styleClass="form-field">
+                                <Label text="Number of Seats:" styleClass="form-label"/>
+                                <Spinner fx:id="seatsSpinner" min="1" max="10" initialValue="1" 
+                                         editable="true" styleClass="seats-spinner"/>
+                            </HBox>
+                            
+                            <!-- Total Price -->
+                            <HBox styleClass="form-field">
+                                <Label text="Subtotal:" styleClass="form-label"/>
+                                <Label fx:id="totalPriceLabel" text="\$0.00" 
+                                       styleClass="price-value"/>
+                            </HBox>
+                            
+                            <!-- Service Fee -->
+                            <HBox styleClass="form-field">
+                                <Label text="Service Fee:" styleClass="form-label"/>
+                                <Label text="\$2.50" styleClass="fee-value"/>
+                            </HBox>
+                        </VBox>
+                        
+                        <Line styleClass="form-divider"/>
+                        
+                        <!-- Total Amount -->
+                        <HBox styleClass="total-section">
+                            <Label text="Total Amount:" styleClass="total-label"/>
+                            <Label fx:id="grandTotalLabel" text="\$0.00" 
+                                   styleClass="grand-total-value"/>
+                        </HBox>
+                        
+                        <!-- Agreement Section -->
+                        <HBox styleClass="agreement-section">
+                            <CheckBox fx:id="termsCheckBox" text="I agree to the terms and conditions" 
+                                     styleClass="terms-checkbox"/>
+                        </HBox>
+                        
+                        <!-- Action Buttons -->
+                        <HBox styleClass="action-buttons">
+                            <Button fx:id="cancelButton" text="CANCEL" 
+                                    onAction="#handleCancel" styleClass="cancel-button"/>
+                            <Button fx:id="confirmButton" text="CONFIRM BOOKING" 
+                                    onAction="#handleConfirmReservation" styleClass="get-ticket-button"/>
+                        </HBox>
+                    </VBox>
+                </VBox>
+            </HBox>
+            
+            <!-- Status Message -->
+            <Label fx:id="statusMessageLabel" styleClass="status-message"/>
+            
+        </VBox>
+    </ScrollPane>
+</AnchorPane>

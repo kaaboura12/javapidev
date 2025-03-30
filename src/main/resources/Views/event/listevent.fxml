@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+
+<StackPane fx:id="rootPane" xmlns="http://javafx.com/javafx"
+          xmlns:fx="http://javafx.com/fxml"
+          fx:controller="Controllers.event.ListeventController" 
+          stylesheets="@../../Styles/events.css">
+          
+    <ScrollPane fitToWidth="true" fitToHeight="true" styleClass="event-scroll-pane">
+        <VBox spacing="30" styleClass="events-container">
+            <padding>
+                <Insets top="30" right="30" bottom="30" left="30"/>
+            </padding>
+            
+            <!-- Page Title -->
+            <HBox alignment="CENTER_LEFT" styleClass="page-title-container">
+                <Label text="Upcoming Events" styleClass="page-title"/>
+            </HBox>
+            
+            <!-- Events Grid -->
+            <FlowPane fx:id="eventsContainer" hgap="20" vgap="30" styleClass="events-grid"/>
+            
+            <!-- Events Pagination -->
+            <HBox alignment="CENTER">
+                <Pagination fx:id="eventsPagination" pageCount="1" styleClass="events-pagination"/>
+            </HBox>
+        </VBox>
+    </ScrollPane>
+    
+    <!-- Template for Event Card (will be created dynamically in the controller) -->
+    <fx:define>
+        <VBox fx:id="eventCardTemplate" styleClass="event-card" visible="false">
+            <!-- Date Display -->
+            <StackPane styleClass="event-date-container">
+                <VBox alignment="CENTER" styleClass="event-date">
+                    <Label fx:id="eventDay" text="08" styleClass="event-day"/>
+                    <Label fx:id="eventMonth" text="June, 2024" styleClass="event-month"/>
+                </VBox>
+            </StackPane>
+            
+            <!-- Event Details -->
+            <VBox styleClass="event-details">
+                <Label fx:id="eventTitle" text="Are There Specific Unique Events" styleClass="event-title"/>
+                <HBox styleClass="event-location">
+                    <Label fx:id="eventLocation" text="New York, Rodices120/32" styleClass="event-location-text"/>
+                </HBox>
+                <HBox styleClass="event-actions">
+                    <Button fx:id="getTicketButton" text="GET TICKET" styleClass="get-ticket-button"/>
+                </HBox>
+            </VBox>
+            
+            <!-- Event Image (Right Side) -->
+            <ImageView fx:id="eventImage" fitWidth="350" fitHeight="200" preserveRatio="true" 
+                       styleClass="event-image"/>
+        </VBox>
+    </fx:define>
+</StackPane>
