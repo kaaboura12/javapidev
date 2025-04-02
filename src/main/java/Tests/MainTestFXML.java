@@ -16,7 +16,12 @@ public class MainTestFXML extends Application {
     public void start(Stage primaryStage) {
         try {
             // Load the basefront FXML file
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/basefront.fxml"));
+            URL baseFxmlUrl = getClass().getResource("/Views/basefront.fxml");
+            if (baseFxmlUrl == null) {
+                throw new IOException("Cannot find /Views/basefront.fxml");
+            }
+            
+            FXMLLoader loader = new FXMLLoader(baseFxmlUrl);
             Parent root = loader.load();
             
             // Get the controller to navigate to the events page
@@ -29,43 +34,20 @@ public class MainTestFXML extends Application {
             scene.setUserData(controller);
             
             // Configure the stage
-            primaryStage.setTitle("ArtXCope");
+            primaryStage.setTitle("ArtXCape");
             primaryStage.setScene(scene);
             primaryStage.setMinWidth(900);
             primaryStage.setMinHeight(600);
             primaryStage.setResizable(true);
             primaryStage.show();
             
-            // Try to navigate to the events page
-            // Try different possible paths (in case of case sensitivity or different naming conventions)
-            String[] possiblePaths = {
-                "/Views/event/listevent.fxml",
-                "/Views/Events/ListEvent.fxml",
-                "/Views/event/ListEvent.fxml",
-                "/Views/Events/listevent.fxml"
-            };
-            
-            boolean navigated = false;
-            for (String path : possiblePaths) {
-                URL url = getClass().getResource(path);
-                if (url != null) {
-                    controller.navigateTo(path);
-                    System.out.println("Successfully navigated to: " + path);
-                    navigated = true;
-                    break;
-                }
-            }
-            
-            if (!navigated) {
-                System.err.println("Could not find the event list view. Please check the path.");
-            }
+            // Navigate to the events page using the correct method
+            controller.navigateTo("/Views/home.fxml");
             
         } catch (IOException e) {
+            e.printStackTrace();
             System.err.println("Error loading FXML: " + e.getMessage());
-            e.printStackTrace();
-        } catch (Exception e) {
-            System.err.println("Unexpected error: " + e.getMessage());
-            e.printStackTrace();
+            System.exit(1);
         }
     }
 

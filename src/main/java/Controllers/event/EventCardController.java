@@ -11,8 +11,13 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import javafx.geometry.Pos;
+import javafx.scene.text.TextAlignment;
+import javafx.scene.effect.DropShadow;
+import javafx.scene.paint.Color;
 
 import java.io.File;
 import java.io.IOException;
@@ -43,6 +48,9 @@ public class EventCardController implements Initializable {
     @FXML
     private ImageView eventImage;
     
+    @FXML
+    private HBox eventLocationHBox;
+    
     private Event event;
     
     @Override
@@ -50,11 +58,71 @@ public class EventCardController implements Initializable {
         // Add event handlers
         if (getTicketButton != null) {
             getTicketButton.setOnAction(e -> handleGetTicket());
+            addButtonHoverEffect(getTicketButton);
         }
         
         if (donateButton != null) {
             donateButton.setOnAction(e -> handleDonation());
+            addButtonHoverEffect(donateButton);
         }
+        
+        // Apply styles to event title
+        if (eventTitle != null) {
+            eventTitle.setWrapText(true);
+            eventTitle.setTextAlignment(TextAlignment.LEFT);
+        }
+        
+        // Initialize location icon if HBox exists
+        initializeLocationIcon();
+    }
+    
+    /**
+     * Initialize location icon in the HBox
+     */
+    private void initializeLocationIcon() {
+        if (eventLocation != null) {
+            try {
+                // Create location icon
+                ImageView locationIcon = new ImageView(new Image(getClass().getResourceAsStream("/Assets/icons/location-pin.png")));
+                if (locationIcon.getImage().isError()) {
+                    // Try another resource path
+                    locationIcon = new ImageView(new Image(getClass().getResourceAsStream("/Assets/location-pin.png")));
+                }
+                
+                // Set icon size
+                locationIcon.setFitWidth(16);
+                locationIcon.setFitHeight(16);
+                locationIcon.setPreserveRatio(true);
+                
+                // Find parent HBox and add icon
+                HBox parent = (HBox) eventLocation.getParent();
+                if (parent != null && parent.getChildren().size() == 1) {
+                    parent.getChildren().add(0, locationIcon);
+                    parent.setAlignment(Pos.CENTER_LEFT);
+                    parent.setSpacing(5);
+                }
+            } catch (Exception e) {
+                // Silently fail if icon cannot be loaded
+                System.out.println("Could not load location icon: " + e.getMessage());
+            }
+        }
+    }
+    
+    /**
+     * Add hover effect to buttons
+     */
+    private void addButtonHoverEffect(Button button) {
+        // Store original style
+        String originalStyle = button.getStyle();
+        
+        // Add hover effect
+        button.setOnMouseEntered(e -> {
+            button.setStyle(originalStyle + "-fx-scale-x: 1.05; -fx-scale-y: 1.05; -fx-scale-z: 1.05;");
+        });
+        
+        button.setOnMouseExited(e -> {
+            button.setStyle(originalStyle);
+        });
     }
     
     /**
@@ -94,6 +162,14 @@ public class EventCardController implements Initializable {
         // Load image
         if (eventImage != null) {
             loadEventImage();
+            
+            // Add shadow effect to image
+            DropShadow dropShadow = new DropShadow();
+            dropShadow.setRadius(5.0);
+            dropShadow.setOffsetX(0);
+            dropShadow.setOffsetY(1);
+            dropShadow.setColor(Color.color(0, 0, 0, 0.3));
+            eventImage.setEffect(dropShadow);
         }
     }
     
@@ -251,35 +327,55 @@ public class EventCardController implements Initializable {
             // Get the root StackPane from parent controllers
             StackPane contentArea = findContentArea();
             if (contentArea != null) {
-                // Here you would load the donation view
-                // For example, if you had a donation.fxml:
-                // FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/event/donation.fxml"));
-                // Parent donationView = loader.load();
-                // 
-                // Get the controller and set the event
-                // DonationController controller = loader.getController();
-                // controller.setEvent(event);
-                // 
-                // Replace the content in the main content area
-                // contentArea.getChildren().clear();
-                // contentArea.getChildren().add(donationView);
+                // Load the donation view
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/event/donation.fxml"));
+                Parent donationView = loader.load();
                 
-                // For now, just show a status message
-                System.out.println("Donate to event: " + event.getTitre());
-                showDonationDialog();
+                // Get the controller and set the event
+                DonationController controller = loader.getController();
+                controller.setEvent(event);
+                
+                // Replace the content in the main content area
+                contentArea.getChildren().clear();
+                contentArea.getChildren().add(donationView);
             } else {
                 System.err.println("Content area not found for navigation");
-                showDonationDialog();
+                openDonationInNewWindow();
             }
         } catch (Exception e) {
             System.err.println("Error navigating to donation view: " + e.getMessage());
             e.printStackTrace();
+            openDonationInNewWindow();
+        }
+    }
+    
+    /**
+     * Open the donation form in a new window as a fallback
+     */
+    private void openDonationInNewWindow() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/event/donation.fxml"));
+            Parent donationView = loader.load();
+            
+            // Get the controller and set the event
+            DonationController controller = loader.getController();
+            controller.setEvent(event);
+            
+            // Create and show a new stage
+            Stage stage = new Stage();
+            stage.setTitle("Donate to " + event.getTitre());
+            stage.setScene(new Scene(donationView));
+            stage.show();
+        } catch (IOException e) {
+            System.err.println("Error opening donation in new window: " + e.getMessage());
+            e.printStackTrace();
+            // Fallback to simple dialog if everything else fails
             showDonationDialog();
         }
     }
     
     /**
-     * Show a simple donation dialog as a placeholder
+     * Show a simple donation dialog as a fallback
      */
     private void showDonationDialog() {
         try {

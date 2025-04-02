@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.text.Font?>
+
+<ScrollPane fitToWidth="true" xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="Controllers.event.DonationController"
+            prefHeight="600.0" prefWidth="800.0"
+            styleClass="event-scroll-pane" stylesheets="@../../Styles/events.css">
+    <content>
+        <VBox styleClass="reservation-container" spacing="20">
+            <!-- Header -->
+            <HBox styleClass="donation-header">
+                <VBox.margin>
+                    <Insets bottom="20.0" />
+                </VBox.margin>
+                <VBox alignment="CENTER" HBox.hgrow="ALWAYS">
+                    <Label styleClass="donation-title" text="Make a Donation" />
+                    <Label styleClass="donation-subtitle" text="Your support helps make this event possible" />
+                </VBox>
+            </HBox>
+            
+            <!-- Event Information Section -->
+            <VBox styleClass="event-info-card" spacing="15">
+                <Label styleClass="section-title" text="Event Information" />
+                
+                <HBox spacing="10" alignment="CENTER_LEFT">
+                    <Label styleClass="event-info-label" text="Event:" />
+                    <Label fx:id="eventNameLabel" styleClass="event-info-value" text="Event Name" />
+                </HBox>
+                
+                <HBox spacing="10" alignment="CENTER_LEFT">
+                    <Label styleClass="event-info-label" text="Date:" />
+                    <Label fx:id="eventDateLabel" styleClass="event-info-value" text="Event Date" />
+                </HBox>
+            </VBox>
+            
+            <!-- Donation Form Section -->
+            <VBox styleClass="reservation-form-card">
+                <HBox styleClass="form-header">
+                    <Label styleClass="form-header-text" text="Donation Details" />
+                </HBox>
+                
+                <VBox styleClass="form-section">
+                    <!-- Donation Amount Options -->
+                    <Label styleClass="form-section-title" text="Choose an Amount" />
+                    
+                    <HBox styleClass="amount-container" alignment="CENTER">
+                        <Button fx:id="amount10Btn" text="/$10" styleClass="donation-amount" onAction="#handleAmountSelection" />
+                        <Button fx:id="amount25Btn" text="/$25" styleClass="donation-amount" onAction="#handleAmountSelection" />
+                        <Button fx:id="amount50Btn" text="/$50" styleClass="donation-amount" onAction="#handleAmountSelection" />
+                        <Button fx:id="amount100Btn" text="/$100" styleClass="donation-amount" onAction="#handleAmountSelection" />
+                        <Button fx:id="amountCustomBtn" text="Custom" styleClass="donation-amount" onAction="#handleCustomAmount" />
+                    </HBox>
+                    
+                    <!-- Personal Information Section -->
+                    <Label styleClass="form-section-title" text="Personal Information">
+                        <VBox.margin>
+                            <Insets top="15.0" />
+                        </VBox.margin>
+                    </Label>
+                    
+                    <HBox styleClass="form-field">
+                        <Label styleClass="form-label" text="Name:" />
+                        <TextField fx:id="nameField" promptText="Enter your full name" HBox.hgrow="ALWAYS" />
+                    </HBox>
+                    
+                    <HBox styleClass="form-field">
+                        <Label styleClass="form-label" text="Email:" />
+                        <TextField fx:id="emailField" promptText="Enter your email address" HBox.hgrow="ALWAYS" />
+                    </HBox>
+                    
+                    <HBox styleClass="form-field">
+                        <Label styleClass="form-label" text="Phone:" />
+                        <TextField fx:id="phoneField" promptText="Enter your phone number" HBox.hgrow="ALWAYS" />
+                    </HBox>
+                    
+                    <!-- Donation Details Section -->
+                    <Label styleClass="form-section-title" text="Donation Details">
+                        <VBox.margin>
+                            <Insets top="15.0" />
+                        </VBox.margin>
+                    </Label>
+                    
+                    <HBox styleClass="form-field">
+                        <Label styleClass="form-label" text="Amount ($):" />
+                        <Spinner fx:id="amountSpinner" editable="true" prefWidth="150" />
+                    </HBox>
+                    
+                    <VBox styleClass="donation-info">
+                        <Label text="Your donation helps us achieve our event goals and support our mission." wrapText="true" />
+                    </VBox>
+                    
+                    <Label styleClass="form-section-title" text="Payment Method">
+                        <VBox.margin>
+                            <Insets top="15.0" />
+                        </VBox.margin>
+                    </Label>
+                    
+                    <HBox styleClass="form-field">
+                        <Label styleClass="form-label" text="Method:" />
+                        <ComboBox fx:id="paymentMethodCombo" prefWidth="200" />
+                    </HBox>
+                </VBox>
+                
+                <!-- Action Buttons -->
+                <HBox styleClass="action-buttons">
+                    <Button fx:id="cancelButton" styleClass="cancel-button" text="Cancel" onAction="#handleCancel" />
+                    <Button fx:id="submitButton" styleClass="donate-button" text="Make Donation" onAction="#handleSubmit" />
+                </HBox>
+            </VBox>
+        </VBox>
+    </content>
+</ScrollPane>

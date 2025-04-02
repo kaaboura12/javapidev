@@ -46,6 +46,11 @@ public class BasefrontController implements Initializable {
             usernameLabel.setText("Username");
         }
         
+        // Store this controller in scene user data for access by child controllers
+        if (contentArea != null && contentArea.getScene() != null) {
+            contentArea.getScene().setUserData(this);
+        }
+        
         // Initialize components
         setupButtons();
         
@@ -90,6 +95,11 @@ public class BasefrontController implements Initializable {
             System.out.println("Navigating to: " + fxmlPath);
             // Check if ViewLoader class exists
             try {
+                // Set this controller as userData if the scene is null
+                if (contentArea.getScene() != null && contentArea.getScene().getUserData() == null) {
+                    contentArea.getScene().setUserData(this);
+                }
+                
                 Class.forName("Utils.ViewLoader");
                 ViewLoader.loadView(contentArea, fxmlPath);
             } catch (ClassNotFoundException e) {

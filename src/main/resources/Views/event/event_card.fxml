@@ -9,11 +9,20 @@
 <?import javafx.scene.text.*?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.image.Image?>
+<?import javafx.scene.effect.*?>
 
 <VBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="Controllers.event.EventCardController"
       styleClass="event-card">
+    
+    <!-- Event Image at the top -->
+    <ImageView fx:id="eventImage" fitWidth="350" fitHeight="200" preserveRatio="true" 
+              styleClass="event-image">
+        <effect>
+            <ColorAdjust brightness="-0.1" contrast="0.1" />
+        </effect>
+    </ImageView>
     
     <!-- Date Display -->
     <StackPane styleClass="event-date-container">
@@ -21,21 +30,31 @@
             <Label fx:id="eventDay" text="08" styleClass="event-day"/>
             <Label fx:id="eventMonth" text="June, 2024" styleClass="event-month"/>
         </VBox>
+        
+        <!-- Event status indicator -->
+        <HBox alignment="CENTER_RIGHT" StackPane.alignment="CENTER_RIGHT">
+            <padding><Insets right="15" /></padding>
+            <Label text="Coming soon" styleClass="event-status-label"/>
+        </HBox>
     </StackPane>
     
     <!-- Event Details -->
     <VBox styleClass="event-details">
         <Label fx:id="eventTitle" text="Are There Specific Unique Events" styleClass="event-title"/>
-        <HBox styleClass="event-location">
+        <HBox styleClass="event-location" fx:id="eventLocationHBox">
             <Label fx:id="eventLocation" text="New York, Rodices120/32" styleClass="event-location-text"/>
         </HBox>
         <HBox styleClass="event-actions" spacing="10">
-            <Button fx:id="getTicketButton" text="GET TICKET" styleClass="get-ticket-button"/>
-            <Button fx:id="donateButton" text="DONATE" styleClass="donate-button"/>
+            <Button fx:id="getTicketButton" text="GET TICKET" styleClass="get-ticket-button">
+                <graphic>
+                    <Region styleClass="ticket-icon" minWidth="16" minHeight="16"/>
+                </graphic>
+            </Button>
+            <Button fx:id="donateButton" text="DONATE" styleClass="donate-button">
+                <graphic>
+                    <Region styleClass="heart-icon" minWidth="16" minHeight="16"/>
+                </graphic>
+            </Button>
         </HBox>
     </VBox>
-    
-    <!-- Event Image -->
-    <ImageView fx:id="eventImage" fitWidth="350" fitHeight="200" preserveRatio="true" 
-              styleClass="event-image"/>
 </VBox> 

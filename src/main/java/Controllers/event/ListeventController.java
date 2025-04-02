@@ -3,6 +3,11 @@ package Controllers.event;
 import Controllers.BasefrontController;
 import Models.Event;
 import Services.EventService;
+import javafx.animation.FadeTransition;
+import javafx.animation.ParallelTransition;
+import javafx.animation.ScaleTransition;
+import javafx.animation.TranslateTransition;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -10,6 +15,7 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import javafx.util.Duration;
 
 import java.io.File;
 import java.net.URL;
@@ -18,6 +24,9 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ExecutorService;
 
 public class ListeventController extends BasefrontController {
     
@@ -37,23 +46,71 @@ public class ListeventController extends BasefrontController {
     private EventService eventService;
     
     // List to store all events
-    private List<Event> eventsList;
+    private List<Event> eventsList = new ArrayList<>();
     
     // Number of events to display per page
     private final int EVENTS_PER_PAGE = 6;
+    
+    // Thread pool for loading images
+    private ExecutorService executorService;
     
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         super.initialize(location, resources);
         
+        // Create thread pool for loading images
+        executorService = Executors.newFixedThreadPool(3);
+        
+        // Add a loading indicator
+        showLoadingIndicator();
+        
         // Initialize service
         eventService = new EventService();
         
-        // Load events from database
-        loadEvents();
+        // Load events from database asynchronously
+        CompletableFuture.runAsync(this::loadEvents)
+            .thenRun(() -> Platform.runLater(() -> {
+                hideLoadingIndicator();
+                setupPagination();
+            }));
         
-        // Set up pagination
-        setupPagination();
+        // Apply styles to the container
+        if (eventsContainer != null) {
+            eventsContainer.setHgap(25);
+            eventsContainer.setVgap(35);
+        }
+    }
+    
+    /**
+     * Show loading indicator
+     */
+    private void showLoadingIndicator() {
+        Label loadingLabel = new Label("Loading events...");
+        loadingLabel.setId("loadingIndicator");
+        loadingLabel.getStyleClass().add("loading-indicator");
+        
+        // Create a progress indicator
+        ProgressIndicator progressIndicator = new ProgressIndicator();
+        progressIndicator.setMaxSize(40, 40);
+        
+        VBox loadingBox = new VBox(10, progressIndicator, loadingLabel);
+        loadingBox.setAlignment(javafx.geometry.Pos.CENTER);
+        loadingBox.setStyle("-fx-padding: 30px;");
+        
+        if (eventsContainer != null) {
+            eventsContainer.getChildren().add(loadingBox);
+        }
+    }
+    
+    /**
+     * Hide loading indicator
+     */
+    private void hideLoadingIndicator() {
+        if (eventsContainer != null) {
+            eventsContainer.getChildren().removeIf(node -> 
+                node instanceof VBox && ((VBox) node).getChildren().stream()
+                    .anyMatch(child -> child instanceof Label && "loadingIndicator".equals(child.getId())));
+        }
     }
     
     /**
@@ -64,18 +121,22 @@ public class ListeventController extends BasefrontController {
             // Get all upcoming events
             eventsList = eventService.findUpcomingEvents();
             
-            if (eventsList.isEmpty()) {
-                showNoEventsMessage();
-            } else {
-                // Calculate total pages
-                int pageCount = (int) Math.ceil((double) eventsList.size() / EVENTS_PER_PAGE);
-                eventsPagination.setPageCount(pageCount);
-                
-                // Show first page
-                showEventsPage(0);
-            }
+            Platform.runLater(() -> {
+                if (eventsList.isEmpty()) {
+                    showNoEventsMessage();
+                } else {
+                    // Calculate total pages
+                    int pageCount = (int) Math.ceil((double) eventsList.size() / EVENTS_PER_PAGE);
+                    eventsPagination.setPageCount(pageCount);
+                    
+                    // Show first page
+                    showEventsPage(0);
+                }
+            });
         } catch (SQLException e) {
-            showErrorAlert("Database Error", "Failed to load events.", e.getMessage());
+            Platform.runLater(() -> 
+                showErrorAlert("Database Error", "Failed to load events.", e.getMessage())
+            );
         }
     }
     
@@ -86,6 +147,9 @@ public class ListeventController extends BasefrontController {
         eventsPagination.currentPageIndexProperty().addListener((obs, oldIndex, newIndex) -> {
             showEventsPage(newIndex.intValue());
         });
+        
+        // Style the pagination
+        eventsPagination.getStyleClass().add("custom-pagination");
     }
     
     /**
@@ -100,13 +164,75 @@ public class ListeventController extends BasefrontController {
         int startIndex = pageIndex * EVENTS_PER_PAGE;
         int endIndex = Math.min(startIndex + EVENTS_PER_PAGE, eventsList.size());
         
+        // Show loading indicator
+        showPageLoadingIndicator();
+        
         // Create event cards for this page
         for (int i = startIndex; i < endIndex; i++) {
-            Node eventCard = createEventCard(eventsList.get(i));
-            if (eventCard != null) {
-                eventsContainer.getChildren().add(eventCard);
-            }
+            final int index = i;
+            CompletableFuture.supplyAsync(() -> createEventCard(eventsList.get(index)), executorService)
+                .thenAccept(eventCard -> {
+                    if (eventCard != null) {
+                        Platform.runLater(() -> {
+                            // Add animation delay based on position
+                            int position = index - startIndex;
+                            addCardWithAnimation(eventCard, position * 100);
+                        });
+                    }
+                });
         }
+        
+        // Hide loading indicator after a short delay
+        CompletableFuture.delayedExecutor(500, java.util.concurrent.TimeUnit.MILLISECONDS)
+            .execute(() -> Platform.runLater(this::hidePageLoadingIndicator));
+    }
+    
+    /**
+     * Show loading indicator for page transition
+     */
+    private void showPageLoadingIndicator() {
+        // We could add a subtle loading indicator here if needed
+    }
+    
+    /**
+     * Hide page loading indicator
+     */
+    private void hidePageLoadingIndicator() {
+        // Remove loading indicator if exists
+    }
+    
+    /**
+     * Add card with animation
+     */
+    private void addCardWithAnimation(Node eventCard, int delay) {
+        // First add the card to the container
+        eventsContainer.getChildren().add(eventCard);
+        
+        // Initial state: transparent and slightly shifted down
+        eventCard.setOpacity(0);
+        eventCard.setTranslateY(20);
+        
+        // Create animations
+        FadeTransition fadeIn = new FadeTransition(Duration.millis(400), eventCard);
+        fadeIn.setFromValue(0);
+        fadeIn.setToValue(1);
+        
+        TranslateTransition slideUp = new TranslateTransition(Duration.millis(400), eventCard);
+        slideUp.setFromY(20);
+        slideUp.setToY(0);
+        
+        ScaleTransition scaleIn = new ScaleTransition(Duration.millis(400), eventCard);
+        scaleIn.setFromX(0.95);
+        scaleIn.setFromY(0.95);
+        scaleIn.setToX(1);
+        scaleIn.setToY(1);
+        
+        // Combine animations
+        ParallelTransition parallelTransition = new ParallelTransition(fadeIn, slideUp, scaleIn);
+        parallelTransition.setDelay(Duration.millis(delay));
+        
+        // Play animation
+        parallelTransition.play();
     }
     
     /**
@@ -130,11 +256,47 @@ public class ListeventController extends BasefrontController {
             EventCardController controller = loader.getController();
             controller.setEvent(event);
             
+            // Add mouse hover effect
+            addHoverEffect(eventCard);
+            
             return eventCard;
         } catch (Exception e) {
             // Fallback to programmatic creation if loading fails
+            System.err.println("Error loading event card: " + e.getMessage());
+            e.printStackTrace();
             return createEventCardProgrammatically(event);
         }
+    }
+    
+    /**
+     * Add hover effect to the event card
+     */
+    private void addHoverEffect(Node card) {
+        // Add hover effect with cursor pointer
+        card.setOnMouseEntered(e -> {
+            card.getStyleClass().add("event-card-hover");
+            card.setCursor(javafx.scene.Cursor.HAND);
+        });
+        
+        card.setOnMouseExited(e -> {
+            card.getStyleClass().remove("event-card-hover");
+            card.setCursor(javafx.scene.Cursor.DEFAULT);
+        });
+        
+        // Add click event to navigate to event details
+        card.setOnMouseClicked(e -> {
+            // Animation for click
+            ScaleTransition scaleDown = new ScaleTransition(Duration.millis(100), card);
+            scaleDown.setToX(0.95);
+            scaleDown.setToY(0.95);
+            
+            ScaleTransition scaleUp = new ScaleTransition(Duration.millis(100), card);
+            scaleUp.setToX(1.0);
+            scaleUp.setToY(1.0);
+            
+            scaleDown.setOnFinished(event -> scaleUp.play());
+            scaleDown.play();
+        });
     }
     
     /**
@@ -322,5 +484,14 @@ public class ListeventController extends BasefrontController {
         alert.setHeaderText(header);
         alert.setContentText(content);
         alert.showAndWait();
+    }
+    
+    /**
+     * Clean up resources
+     */
+    public void onClose() {
+        if (executorService != null) {
+            executorService.shutdown();
+        }
     }
 } 

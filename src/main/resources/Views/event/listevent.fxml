@@ -9,6 +9,7 @@
 <?import javafx.scene.text.*?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.image.Image?>
+<?import javafx.scene.effect.*?>
 
 <StackPane fx:id="rootPane" xmlns="http://javafx.com/javafx"
           xmlns:fx="http://javafx.com/fxml"
@@ -21,17 +22,54 @@
                 <Insets top="30" right="30" bottom="30" left="30"/>
             </padding>
             
-            <!-- Page Title -->
-            <HBox alignment="CENTER_LEFT" styleClass="page-title-container">
-                <Label text="Upcoming Events" styleClass="page-title"/>
+            <!-- Page Header with Title and Search -->
+            <HBox styleClass="page-header-container" alignment="CENTER">
+                <VBox HBox.hgrow="ALWAYS">
+                    <!-- Page Title -->
+                    <HBox alignment="CENTER_LEFT" styleClass="page-title-container">
+                        <Label text="Upcoming Events" styleClass="page-title"/>
+                    </HBox>
+                    
+                    <!-- Page Description -->
+                    <Label text="Discover and join our upcoming events or support our causes with donations" 
+                           styleClass="page-description"/>
+                </VBox>
+                
+                <!-- Search Bar -->
+                <HBox alignment="CENTER_RIGHT" styleClass="search-container" spacing="10">
+                    <TextField promptText="Search events..." styleClass="search-field"/>
+                    <Button text="Search" styleClass="search-button"/>
+                </HBox>
+            </HBox>
+            
+            <!-- Events Filter -->
+            <HBox styleClass="events-filter-container" spacing="10">
+                <Button text="All Events" styleClass="filter-button, filter-button-active"/>
+                <Button text="This Month" styleClass="filter-button"/>
+                <Button text="Next Month" styleClass="filter-button"/>
+                <Region HBox.hgrow="ALWAYS" />
+                <ComboBox promptText="Sort by" styleClass="sort-combo"/>
             </HBox>
             
             <!-- Events Grid -->
             <FlowPane fx:id="eventsContainer" hgap="20" vgap="30" styleClass="events-grid"/>
             
             <!-- Events Pagination -->
-            <HBox alignment="CENTER">
+            <HBox alignment="CENTER" styleClass="pagination-container">
                 <Pagination fx:id="eventsPagination" pageCount="1" styleClass="events-pagination"/>
+            </HBox>
+            
+            <!-- Newsletter Signup -->
+            <HBox styleClass="newsletter-container" alignment="CENTER">
+                <VBox alignment="CENTER" styleClass="newsletter-content">
+                    <Label text="Stay Updated" styleClass="newsletter-title"/>
+                    <Label text="Subscribe to our newsletter to get the latest updates on events" 
+                           styleClass="newsletter-description"/>
+                    <HBox spacing="10" alignment="CENTER" styleClass="newsletter-form">
+                        <TextField promptText="Your email address" styleClass="newsletter-input" HBox.hgrow="ALWAYS"/>
+                        <Button text="Subscribe" styleClass="newsletter-button"/>
+                    </HBox>
+                </VBox>
             </HBox>
         </VBox>
     </ScrollPane>
