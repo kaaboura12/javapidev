@@ -1,30 +1,314 @@
+/* Futuristic Navigation Styling */
+
 .app-title {
-    -fx-font-family: "Segoe UI", Arial, sans-serif;
-    -fx-text-fill: #d17842;
+    -fx-font-family: 'Segoe UI', Arial, sans-serif;
+    -fx-text-fill: #ff7e5f;
     -fx-font-weight: bold;
-    -fx-font-size: 24px;
+    -fx-font-size: 28px;
+    -fx-effect: dropshadow(gaussian, rgba(255,126,95,0.4), 5, 0, 0, 0);
 }
 
 .nav-button {
     -fx-background-color: transparent;
-    -fx-text-fill: #666666;
-    -fx-font-family: "Segoe UI", Arial, sans-serif;
+    -fx-text-fill: #e0e0e0;
+    -fx-font-family: 'Segoe UI', Arial, sans-serif;
     -fx-font-size: 13px;
     -fx-font-weight: normal;
     -fx-cursor: hand;
+    -fx-border-width: 0 0 2px 0;
+    -fx-border-color: transparent;
+    -fx-padding: 5px 12px;
+    -fx-background-radius: 20px;
+    -fx-transition: all 0.3s ease;
 }
 
 .nav-button:hover {
-    -fx-text-fill: #d17842;
+    -fx-text-fill: white;
+    -fx-background-color: rgba(255, 126, 95, 0.3);
+    -fx-effect: dropshadow(gaussian, rgba(255,126,95,0.4), 5, 0, 0, 0);
+    -fx-border-color: #ff7e5f;
 }
 
 .nav-button:pressed {
-    -fx-text-fill: #b25b2c;
+    -fx-text-fill: white;
+    -fx-background-color: rgba(254, 180, 123, 0.4);
+    -fx-effect: innershadow(gaussian, rgba(0,0,0,0.2), 1, 0, 0, 1);
+}
+
+.nav-button.active {
+    -fx-text-fill: white;
+    -fx-background-color: rgba(255, 126, 95, 0.4);
+    -fx-border-color: #ff7e5f;
+    -fx-effect: dropshadow(gaussian, rgba(255,126,95,0.5), 8, 0, 0, 0);
+    -fx-font-weight: bold;
 }
 
 .username {
-    -fx-font-family: "Segoe UI", Arial, sans-serif;
-    -fx-font-weight: bold;
-    -fx-text-fill: #333333;
+    -fx-font-family: 'Segoe UI', Arial, sans-serif;
+    -fx-font-weight: 600;
+    -fx-text-fill: #ffffff;
     -fx-font-size: 14px;
+    -fx-padding: 5px 10px;
+    -fx-background-color: rgba(255, 126, 95, 0.2);
+    -fx-background-radius: 20px;
+}
+
+/* Navigation bar styling */
+.nav-bar {
+    -fx-background-color: rgba(30, 30, 48, 0.6);
+    -fx-padding: 10px 20px;
+    -fx-border-width: 0 0 1px 0;
+    -fx-border-color: rgba(255, 126, 95, 0.2);
+}
+
+.logout-button {
+    -fx-background-color: linear-gradient(to right, #ff7e5f, #feb47b);
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 20px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 3, 0, 0, 1);
+    -fx-padding: 6px 15px;
+}
+
+.logout-button:hover {
+    -fx-background-color: linear-gradient(to right, #feb47b, #ff7e5f);
+    -fx-effect: dropshadow(gaussian, rgba(255,126,95,0.5), 8, 0, 0, 0);
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+}
+
+/* Hamburger Menu Button */
+.hamburger-button {
+    -fx-background-color: transparent;
+    -fx-padding: 5px;
+    -fx-background-radius: 5px;
+    -fx-cursor: hand;
+}
+
+.hamburger-button:hover {
+    -fx-background-color: rgba(255, 126, 95, 0.2);
+    -fx-effect: dropshadow(gaussian, rgba(255,126,95,0.3), 5, 0, 0, 0);
+}
+
+.hamburger-button:pressed {
+    -fx-background-color: rgba(255, 126, 95, 0.3);
+    -fx-effect: innershadow(gaussian, rgba(0,0,0,0.2), 1, 0, 0, 1);
+}
+
+/* Mobile Navigation Menu */
+.mobile-nav-menu {
+    -fx-background-color: rgba(30, 30, 48, 0.95);
+    -fx-border-color: rgba(255, 126, 95, 0.3);
+    -fx-border-width: 0 0 1px 0;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 10, 0, 0, 5);
+}
+
+.mobile-nav-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+    -fx-font-family: 'Segoe UI', Arial, sans-serif;
+    -fx-font-size: 14px;
+    -fx-font-weight: normal;
+    -fx-alignment: center-left;
+    -fx-padding: 12px 15px;
+    -fx-border-width: 0 0 1px 0;
+    -fx-border-color: rgba(255, 126, 95, 0.2);
+    -fx-cursor: hand;
+}
+
+.mobile-nav-button:hover {
+    -fx-background-color: rgba(255, 126, 95, 0.2);
+    -fx-effect: dropshadow(gaussian, rgba(255,126,95,0.2), 5, 0, 0, 0);
+}
+
+.mobile-nav-button:pressed {
+    -fx-background-color: rgba(255, 126, 95, 0.3);
+    -fx-effect: innershadow(gaussian, rgba(0,0,0,0.2), 1, 0, 0, 1);
+}
+
+/* Responsive Layout Classes */
+.responsive-hidden {
+    visibility: hidden;
+    -fx-opacity: 0;
+    -fx-scale-x: 0;
+    -fx-scale-y: 0;
+    -fx-max-width: 0;
+    -fx-max-height: 0;
+    -fx-pref-width: 0;
+    -fx-pref-height: 0;
+    -fx-min-width: 0;
+    -fx-min-height: 0;
+    -fx-padding: 0;
+    -fx-margin: 0;
+}
+
+.responsive-visible {
+    visibility: visible;
+    -fx-opacity: 1;
+    -fx-scale-x: 1;
+    -fx-scale-y: 1;
+}
+
+/* Futuristic Scrollbar Styling - App-wide */
+.scroll-pane {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-padding: 0;
+}
+
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane .scroll-bar {
+    -fx-background-color: transparent;
+    -fx-pref-width: 10px;
+    -fx-padding: 2;
+}
+
+.scroll-pane .scroll-bar:vertical {
+    -fx-background-color: transparent;
+    -fx-background-radius: 5px;
+}
+
+.scroll-pane .scroll-bar:vertical .track {
+    -fx-background-color: rgba(255, 255, 255, 0.05);
+    -fx-border-color: transparent;
+    -fx-background-radius: 5px;
+}
+
+.scroll-pane .scroll-bar:vertical .track-background {
+    -fx-background-color: transparent;
+    -fx-background-radius: 5px;
+}
+
+.scroll-pane .scroll-bar:vertical .thumb {
+    -fx-background-color: linear-gradient(to bottom, rgba(255,126,95,0.6), rgba(254,180,123,0.6));
+    -fx-background-radius: 5px;
+    -fx-opacity: 0.6;
+}
+
+.scroll-pane .scroll-bar:vertical .thumb:hover {
+    -fx-background-color: linear-gradient(to bottom, rgba(255,126,95,0.9), rgba(254,180,123,0.9));
+    -fx-opacity: 1.0;
+    -fx-effect: dropshadow(gaussian, rgba(255,126,95,0.5), 5, 0, 0, 0);
+}
+
+.scroll-pane .scroll-bar:vertical .thumb:pressed {
+    -fx-background-color: linear-gradient(to bottom, #ff7e5f, #feb47b);
+}
+
+.scroll-pane .scroll-bar .increment-button,
+.scroll-pane .scroll-bar .decrement-button {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-opacity: 0;
+    -fx-padding: 0 5 0 5;
+}
+
+.scroll-pane .scroll-bar .increment-arrow,
+.scroll-pane .scroll-bar .decrement-arrow {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-padding: 0;
+    -fx-shape: "";
+}
+
+/* Apply scrollbar styling to ListView and TableView */
+.list-view .scroll-bar:vertical,
+.table-view .scroll-bar:vertical {
+    -fx-background-color: transparent;
+    -fx-background-radius: 5px;
+}
+
+.list-view .scroll-bar:vertical .track,
+.table-view .scroll-bar:vertical .track {
+    -fx-background-color: rgba(255, 255, 255, 0.05);
+    -fx-border-color: transparent;
+    -fx-background-radius: 5px;
+}
+
+.list-view .scroll-bar:vertical .thumb,
+.table-view .scroll-bar:vertical .thumb {
+    -fx-background-color: linear-gradient(to bottom, rgba(255,126,95,0.6), rgba(254,180,123,0.6));
+    -fx-background-radius: 5px;
+    -fx-opacity: 0.6;
+}
+
+.list-view .scroll-bar:vertical .thumb:hover,
+.table-view .scroll-bar:vertical .thumb:hover {
+    -fx-background-color: linear-gradient(to bottom, rgba(255,126,95,0.9), rgba(254,180,123,0.9));
+    -fx-opacity: 1.0;
+}
+
+/* App-wide smooth transitions */
+.root {
+    -fx-background-color: transparent;
+}
+
+/* Add subtle pulse animation to active elements */
+@keyframes pulse {
+    0% { -fx-opacity: 1.0; }
+    50% { -fx-opacity: 0.85; }
+    100% { -fx-opacity: 1.0; }
+}
+
+.nav-button.active {
+    -fx-animation: pulse 3s infinite;
+}
+
+/* Animation for Mobile Menu */
+@keyframes slideDown {
+    from {
+        -fx-translate-y: -30px;
+        -fx-opacity: 0;
+    }
+    to {
+        -fx-translate-y: 0;
+        -fx-opacity: 1;
+    }
+}
+
+.mobile-nav-menu.slide-down {
+    -fx-animation: slideDown 0.3s ease-out;
+}
+
+/* Media Queries for Responsive Design */
+/* These are processed by the controller, not directly by JavaFX */
+/* Small screens - Mobile */
+.screen-size-small .app-title {
+    -fx-font-size: 22px;
+}
+
+.screen-size-small #navButtonsContainer {
+    visibility: hidden;
+    -fx-opacity: 0;
+    -fx-max-width: 0;
+    -fx-min-width: 0;
+    -fx-pref-width: 0;
+}
+
+.screen-size-small #hamburgerBtn {
+    visibility: visible;
+    -fx-opacity: 1;
+}
+
+/* Medium screens - Tablet */
+.screen-size-medium .nav-button {
+    -fx-font-size: 11px;
+    -fx-padding: 5px 8px;
+}
+
+.screen-size-medium .app-title {
+    -fx-font-size: 24px;
+}
+
+/* Large screens - Desktop */
+.screen-size-large .nav-button {
+    -fx-font-size: 13px;
+    -fx-padding: 5px 12px;
+}
+
+.screen-size-large .app-title {
+    -fx-font-size: 28px;
 } 

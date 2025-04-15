@@ -19,143 +19,155 @@
     <ScrollPane fitToWidth="true" AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" 
             AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="0.0" 
             styleClass="event-scroll-pane">
-        <VBox spacing="30" styleClass="reservation-container">
+        <VBox spacing="30" styleClass="reservation-container" style="-fx-background-color: transparent;">
             
             <!-- Header Section -->
-            <HBox styleClass="reservation-header">
-                <Label text="Event Reservation" styleClass="reservation-title"/>
+            <HBox styleClass="reservation-header" style="-fx-border-color: transparent transparent rgba(255,126,95,0.3) transparent;">
+                <Label text="Event Reservation" styleClass="reservation-title" style="-fx-text-fill: white; -fx-font-family: 'Segoe UI Semibold'; -fx-effect: dropshadow(gaussian, rgba(255,126,95,0.5), 5, 0, 0, 0);"/>
+            </HBox>
+            
+            <!-- Back Button -->
+            <HBox alignment="CENTER_LEFT" styleClass="back-button-container">
+                <padding>
+                    <Insets bottom="5" />
+                </padding>
+                <Button fx:id="backButton" styleClass="back-button" onAction="#handleBackToEvents" text="Back to Events">
+                    <graphic>
+                        <Region styleClass="back-icon" />
+                    </graphic>
+                </Button>
             </HBox>
             
             <!-- Main Content -->
             <HBox spacing="30">
                 <!-- Left Column - Event Info -->
                 <VBox spacing="20" styleClass="reservation-event-info" HBox.hgrow="ALWAYS">
-                    <Label text="Event Details" styleClass="section-title"/>
+                    <Label text="Event Details" styleClass="section-title" style="-fx-text-fill: white; -fx-effect: dropshadow(gaussian, rgba(255,126,95,0.3), 3, 0, 0, 0);"/>
                     
                     <!-- Event Card -->
-                    <VBox styleClass="event-info-card">
+                    <VBox styleClass="event-info-card" style="-fx-background-color: rgba(255, 255, 255, 0.05); -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 10, 0, 0, 0); -fx-border-color: rgba(255, 255, 255, 0.1); -fx-background-radius: 12px; -fx-border-radius: 12px;">
                         <!-- Event Title -->
                         <Label fx:id="eventTitleLabel" text="[Event Title]" 
-                               styleClass="event-title"/>
+                               styleClass="event-title" style="-fx-text-fill: white;"/>
                         
                         <!-- Event Date & Time -->
                         <HBox styleClass="event-info-row" alignment="CENTER_LEFT">
-                            <Label styleClass="event-info-icon" text="📅"/>
+                            <Label styleClass="event-info-icon" text="📅" style="-fx-text-fill: #ff7e5f;"/>
                             <Label fx:id="eventDateLabel" text="[Event Date]" 
-                                   styleClass="event-info-text"/>
+                                   styleClass="event-info-text" style="-fx-text-fill: #c0c0c0;"/>
                         </HBox>
                         
                         <!-- Event Location -->
                         <HBox styleClass="event-info-row" alignment="CENTER_LEFT">
-                            <Label styleClass="event-info-icon" text="📍"/>
+                            <Label styleClass="event-info-icon" text="📍" style="-fx-text-fill: #ff7e5f;"/>
                             <Label fx:id="eventLocationLabel" text="[Event Location]" 
-                                   styleClass="event-info-text"/>
+                                   styleClass="event-info-text" style="-fx-text-fill: #c0c0c0;"/>
                         </HBox>
                         
                         <!-- Ticket Price -->
                         <HBox styleClass="event-info-row" alignment="CENTER_LEFT">
-                            <Label styleClass="event-info-icon" text="💲"/>
+                            <Label styleClass="event-info-icon" text="💲" style="-fx-text-fill: #ff7e5f;"/>
                             <HBox alignment="CENTER_LEFT" spacing="5">
-                                <Label text="Price per seat:" styleClass="event-info-label"/>
+                                <Label text="Price per seat:" styleClass="event-info-label" style="-fx-text-fill: #c0c0c0;"/>
                                 <Label fx:id="seatPriceLabel" text="[Price]" 
-                                       styleClass="event-info-value"/>
+                                       styleClass="event-info-value" style="-fx-text-fill: #ff7e5f;"/>
                             </HBox>
                         </HBox>
                         
                         <!-- Available Seats -->
                         <HBox styleClass="event-info-row" alignment="CENTER_LEFT">
-                            <Label styleClass="event-info-icon" text="🪑"/>
+                            <Label styleClass="event-info-icon" text="🪑" style="-fx-text-fill: #ff7e5f;"/>
                             <HBox alignment="CENTER_LEFT" spacing="5">
-                                <Label text="Available seats:" styleClass="event-info-label"/>
+                                <Label text="Available seats:" styleClass="event-info-label" style="-fx-text-fill: #c0c0c0;"/>
                                 <Label fx:id="availableSeatsLabel" text="[Available]" 
-                                       styleClass="event-info-value"/>
+                                       styleClass="event-info-value" style="-fx-text-fill: #ff7e5f;"/>
                             </HBox>
                         </HBox>
                     </VBox>
                     
                     <!-- Event Description (placeholder) -->
-                    <VBox styleClass="event-description-card">
-                        <Label text="Event Description" styleClass="section-subtitle"/>
+                    <VBox styleClass="event-description-card" style="-fx-background-color: rgba(255, 255, 255, 0.05); -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 10, 0, 0, 0); -fx-border-color: rgba(255, 255, 255, 0.1); -fx-background-radius: 12px; -fx-border-radius: 12px;">
+                        <Label text="Event Description" styleClass="section-subtitle" style="-fx-text-fill: white;"/>
                         <Label text="Experience an unforgettable event with world-class performances and activities. Join us for this special occasion that promises to deliver memories that will last a lifetime." 
-                               styleClass="event-description-text" wrapText="true"/>
+                               styleClass="event-description-text" wrapText="true" style="-fx-text-fill: #c0c0c0;"/>
                     </VBox>
                 </VBox>
                 
                 <!-- Right Column - Reservation Form -->
                 <VBox spacing="20" styleClass="reservation-form" minWidth="400">
-                    <Label text="Reservation Form" styleClass="section-title"/>
+                    <Label text="Reservation Form" styleClass="section-title" style="-fx-text-fill: white; -fx-effect: dropshadow(gaussian, rgba(255,126,95,0.3), 3, 0, 0, 0);"/>
                     
                     <!-- Reservation Form Card -->
-                    <VBox styleClass="reservation-form-card">
+                    <VBox styleClass="reservation-form-card" style="-fx-background-color: rgba(255, 255, 255, 0.05); -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 10, 0, 0, 0); -fx-border-color: rgba(255, 255, 255, 0.1); -fx-background-radius: 12px; -fx-border-radius: 12px;">
                         <!-- Form Header -->
-                        <HBox styleClass="form-header">
+                        <HBox styleClass="form-header" style="-fx-background-color: linear-gradient(to right, #ff7e5f, #feb47b); -fx-background-radius: 12px 12px 0 0;">
                             <Label text="Booking Details" styleClass="form-header-text"/>
                         </HBox>
                         
                         <!-- Attendee Information -->
                         <VBox styleClass="form-section">
-                            <Label text="Attendee Information" styleClass="form-section-title"/>
+                            <Label text="Attendee Information" styleClass="form-section-title" style="-fx-text-fill: white;"/>
                             
                             <!-- Name Field (for display only - would be linked to user account) -->
-                            <Label text="John Doe" styleClass="user-name"/>
-                            <Label text="john.doe@example.com" styleClass="user-email"/>
+                            <Label text="John Doe" styleClass="user-name" style="-fx-text-fill: white;"/>
+                            <Label text="john.doe@example.com" styleClass="user-email" style="-fx-text-fill: #c0c0c0;"/>
                         </VBox>
                         
-                        <Line styleClass="form-divider"/>
+                        <Line styleClass="form-divider" style="-fx-stroke: rgba(255,126,95,0.3);"/>
                         
                         <!-- Ticket Selection -->
                         <VBox styleClass="form-section">
-                            <Label text="Ticket Selection" styleClass="form-section-title"/>
+                            <Label text="Ticket Selection" styleClass="form-section-title" style="-fx-text-fill: white;"/>
                             
                             <!-- Number of Seats -->
                             <HBox styleClass="form-field">
-                                <Label text="Number of Seats:" styleClass="form-label"/>
+                                <Label text="Number of Seats:" styleClass="form-label" style="-fx-text-fill: #c0c0c0;"/>
                                 <Spinner fx:id="seatsSpinner" min="1" max="10" initialValue="1" 
-                                         editable="true" styleClass="seats-spinner"/>
+                                         editable="true" styleClass="seats-spinner" style="-fx-background-color: rgba(255, 255, 255, 0.1); -fx-border-color: rgba(255, 255, 255, 0.2); -fx-text-fill: white;"/>
                             </HBox>
                             
                             <!-- Total Price -->
                             <HBox styleClass="form-field">
-                                <Label text="Subtotal:" styleClass="form-label"/>
-                                <Label fx:id="totalPriceLabel" text="\$0.00" 
-                                       styleClass="price-value"/>
+                                <Label text="Subtotal:" styleClass="form-label" style="-fx-text-fill: #c0c0c0;"/>
+                                <Label fx:id="totalPriceLabel" text="/$0.00"
+                                       styleClass="price-value" style="-fx-text-fill: #feb47b;"/>
                             </HBox>
                             
                             <!-- Service Fee -->
                             <HBox styleClass="form-field">
-                                <Label text="Service Fee:" styleClass="form-label"/>
-                                <Label text="\$2.50" styleClass="fee-value"/>
+                                <Label text="Service Fee:" styleClass="form-label" style="-fx-text-fill: #c0c0c0;"/>
+                                <Label text="/$2.50" styleClass="fee-value" style="-fx-text-fill: #c0c0c0;"/>
                             </HBox>
                         </VBox>
                         
-                        <Line styleClass="form-divider"/>
+                        <Line styleClass="form-divider" style="-fx-stroke: rgba(255,126,95,0.3);"/>
                         
                         <!-- Total Amount -->
-                        <HBox styleClass="total-section">
-                            <Label text="Total Amount:" styleClass="total-label"/>
-                            <Label fx:id="grandTotalLabel" text="\$0.00" 
-                                   styleClass="grand-total-value"/>
+                        <HBox styleClass="total-section" style="-fx-background-color: rgba(255, 255, 255, 0.05);">
+                            <Label text="Total Amount:" styleClass="total-label" style="-fx-text-fill: white;"/>
+                            <Label fx:id="grandTotalLabel" text="/$0.00"
+                                   styleClass="grand-total-value" style="-fx-text-fill: #ff7e5f;"/>
                         </HBox>
                         
                         <!-- Agreement Section -->
                         <HBox styleClass="agreement-section">
                             <CheckBox fx:id="termsCheckBox" text="I agree to the terms and conditions" 
-                                     styleClass="terms-checkbox"/>
+                                     styleClass="terms-checkbox" style="-fx-text-fill: #c0c0c0;"/>
                         </HBox>
                         
                         <!-- Action Buttons -->
                         <HBox styleClass="action-buttons">
                             <Button fx:id="cancelButton" text="CANCEL" 
-                                    onAction="#handleCancel" styleClass="cancel-button"/>
+                                    onAction="#handleCancel" styleClass="cancel-button" style="-fx-background-color: rgba(255, 255, 255, 0.05); -fx-text-fill: #c0c0c0; -fx-border-color: rgba(255, 255, 255, 0.2); -fx-background-radius: 20px; -fx-border-radius: 20px;"/>
                             <Button fx:id="confirmButton" text="CONFIRM BOOKING" 
-                                    onAction="#handleConfirmReservation" styleClass="get-ticket-button"/>
+                                    onAction="#handleConfirmReservation" styleClass="get-ticket-button" style="-fx-background-color: linear-gradient(to right, #ff7e5f, #feb47b); -fx-text-fill: white; -fx-background-radius: 20px; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 3, 0, 0, 1);"/>
                         </HBox>
                     </VBox>
                 </VBox>
             </HBox>
             
             <!-- Status Message -->
-            <Label fx:id="statusMessageLabel" styleClass="status-message"/>
+            <Label fx:id="statusMessageLabel" styleClass="status-message" style="-fx-text-fill: #ff7e5f;"/>
             
         </VBox>
     </ScrollPane>

@@ -10,6 +10,8 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.effect.*?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.shape.Circle?>
 
 <StackPane fx:id="rootPane" xmlns="http://javafx.com/javafx"
           xmlns:fx="http://javafx.com/fxml"
@@ -22,23 +24,41 @@
                 <Insets top="30" right="30" bottom="30" left="30"/>
             </padding>
             
-            <!-- Page Header with Title and Search -->
+            <!-- Page Header with Title -->
             <HBox styleClass="page-header-container" alignment="CENTER">
                 <VBox HBox.hgrow="ALWAYS">
                     <!-- Page Title -->
                     <HBox alignment="CENTER_LEFT" styleClass="page-title-container">
-                        <Label text="Upcoming Events" styleClass="page-title"/>
+                        <Label text="Featured Events" styleClass="page-title-modern">
+                            <effect>
+                                <DropShadow color="#ff7e5f33" radius="10.0" spread="0.2" />
+                            </effect>
+                        </Label>
                     </HBox>
                     
                     <!-- Page Description -->
-                    <Label text="Discover and join our upcoming events or support our causes with donations" 
-                           styleClass="page-description"/>
+                    <Label text="Discover and join our upcoming events" 
+                           styleClass="page-description-modern"/>
                 </VBox>
                 
-                <!-- Search Bar -->
-                <HBox alignment="CENTER_RIGHT" styleClass="search-container" spacing="10">
+                <!-- Search Bar and Chatbot Button -->
+                <HBox alignment="CENTER_RIGHT" styleClass="search-container" spacing="15">
                     <TextField promptText="Search events..." styleClass="search-field"/>
                     <Button text="Search" styleClass="search-button"/>
+                    <StackPane>
+                        <Button fx:id="chatbotButton" styleClass="enhanced-chatbot-button">
+                            <graphic>
+                                <StackPane>
+                                    <Region styleClass="enhanced-chatbot-icon" minWidth="24" minHeight="24"/>
+                                    <Circle fx:id="chatNotificationDot" radius="5" styleClass="chat-notification-dot" visible="true"
+                                           StackPane.alignment="TOP_RIGHT"/>
+                                </StackPane>
+                            </graphic>
+                            <tooltip>
+                                <Tooltip text="Chat with our AI Assistant" styleClass="enhanced-tooltip"/>
+                            </tooltip>
+                        </Button>
+                    </StackPane>
                 </HBox>
             </HBox>
             
@@ -51,8 +71,8 @@
                 <ComboBox promptText="Sort by" styleClass="sort-combo"/>
             </HBox>
             
-            <!-- Events Grid -->
-            <FlowPane fx:id="eventsContainer" hgap="20" vgap="30" styleClass="events-grid"/>
+            <!-- Events Grid - Using the modern grid class -->
+            <FlowPane fx:id="eventsContainer" styleClass="events-grid-modern"/>
             
             <!-- Events Pagination -->
             <HBox alignment="CENTER" styleClass="pagination-container">
@@ -62,7 +82,11 @@
             <!-- Newsletter Signup -->
             <HBox styleClass="newsletter-container" alignment="CENTER">
                 <VBox alignment="CENTER" styleClass="newsletter-content">
-                    <Label text="Stay Updated" styleClass="newsletter-title"/>
+                    <Label text="Stay Updated" styleClass="newsletter-title">
+                        <effect>
+                            <DropShadow color="#ff7e5f33" radius="10.0" spread="0.2" />
+                        </effect>
+                    </Label>
                     <Label text="Subscribe to our newsletter to get the latest updates on events" 
                            styleClass="newsletter-description"/>
                     <HBox spacing="10" alignment="CENTER" styleClass="newsletter-form">
@@ -76,29 +100,67 @@
     
     <!-- Template for Event Card (will be created dynamically in the controller) -->
     <fx:define>
-        <VBox fx:id="eventCardTemplate" styleClass="event-card" visible="false">
-            <!-- Date Display -->
-            <StackPane styleClass="event-date-container">
-                <VBox alignment="CENTER" styleClass="event-date">
-                    <Label fx:id="eventDay" text="08" styleClass="event-day"/>
-                    <Label fx:id="eventMonth" text="June, 2024" styleClass="event-month"/>
-                </VBox>
+        <VBox fx:id="eventCardTemplate" styleClass="event-card-modern" visible="false">
+            <!-- Card Container with Image at the top -->
+            <StackPane styleClass="event-image-container">
+                <!-- Event Image -->
+                <ImageView fx:id="eventImage" fitWidth="300" fitHeight="180" preserveRatio="true" 
+                          styleClass="event-image-modern">
+                    <effect>
+                        <ColorAdjust brightness="-0.1" contrast="0.1" />
+                    </effect>
+                </ImageView>
+                
+                <!-- Event status indicator -->
+                <HBox alignment="CENTER_RIGHT" StackPane.alignment="TOP_RIGHT">
+                    <padding><Insets top="10" right="10" /></padding>
+                    <Label fx:id="eventStatus" text="Coming Soon" styleClass="event-status-label-modern"/>
+                </HBox>
             </StackPane>
             
             <!-- Event Details -->
-            <VBox styleClass="event-details">
-                <Label fx:id="eventTitle" text="Are There Specific Unique Events" styleClass="event-title"/>
-                <HBox styleClass="event-location">
-                    <Label fx:id="eventLocation" text="New York, Rodices120/32" styleClass="event-location-text"/>
+            <VBox styleClass="event-details-modern" spacing="8">
+                <!-- Title and Date Row -->
+                <HBox spacing="10" alignment="CENTER_LEFT">
+                    <!-- Date Display -->
+                    <VBox alignment="CENTER" styleClass="event-date-modern">
+                        <Label fx:id="eventDay" text="08" styleClass="event-day-modern"/>
+                        <Label fx:id="eventMonth" text="Jun" styleClass="event-month-modern"/>
+                    </VBox>
+                    
+                    <!-- Title -->
+                    <Label fx:id="eventTitle" text="Conference Title Here" styleClass="event-title-modern" wrapText="true" HBox.hgrow="ALWAYS"/>
                 </HBox>
-                <HBox styleClass="event-actions">
-                    <Button fx:id="getTicketButton" text="GET TICKET" styleClass="get-ticket-button"/>
+                
+                <!-- Location display -->
+                <HBox styleClass="event-location-modern" fx:id="eventLocationHBox" spacing="5">
+                    <Region styleClass="location-icon" minWidth="14" minHeight="14"/>
+                    <Label fx:id="eventLocation" text="Location Name" styleClass="event-location-text-modern"/>
+                </HBox>
+                
+                <!-- Timing display -->
+                <HBox styleClass="event-time-modern" fx:id="eventTimeHBox" spacing="5">
+                    <Region styleClass="time-icon" minWidth="14" minHeight="14"/>
+                    <Label fx:id="eventTime" text="7:00 PM" styleClass="event-time-text-modern"/>
+                </HBox>
+                
+                <!-- Bottom Action Area -->
+                <HBox styleClass="event-action-area-modern" alignment="CENTER_LEFT">
+                    <!-- Info/Price -->
+                    <VBox styleClass="event-price-info-modern" HBox.hgrow="ALWAYS">
+                        <Label fx:id="eventPrice" text="/$0.00" styleClass="price-value-modern"/>
+                        <Label fx:id="availableSeats" text="10 seats left" styleClass="seats-value-modern"/>
+                    </VBox>
+                    
+                    <!-- Action Button -->
+                    <Button fx:id="getTicketButton" text="DETAILS" styleClass="get-ticket-button-modern"/>
+                    <Button fx:id="donateButton" styleClass="donate-button-modern" minWidth="40">
+                        <graphic>
+                            <Region styleClass="heart-icon" minWidth="16" minHeight="16"/>
+                        </graphic>
+                    </Button>
                 </HBox>
             </VBox>
-            
-            <!-- Event Image (Right Side) -->
-            <ImageView fx:id="eventImage" fitWidth="350" fitHeight="200" preserveRatio="true" 
-                       styleClass="event-image"/>
         </VBox>
     </fx:define>
 </StackPane>

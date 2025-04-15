@@ -42,6 +42,13 @@
             <version>${javafx.version}</version>
         </dependency>
         
+        <!-- JavaFX 3D Modules -->
+        <dependency>
+            <groupId>org.fxyz3d</groupId>
+            <artifactId>fxyz3d</artifactId>
+            <version>0.5.4</version>
+        </dependency>
+        
         <!-- HTTP Client for API calls -->
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>
@@ -93,5 +100,13 @@
             </plugin>
         </plugins>
     </build>
+    
+    <!-- Add FXyz3D repository -->
+    <repositories>
+        <repository>
+            <id>sonatype-snapshots</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+        </repository>
+    </repositories>
 
 </project>

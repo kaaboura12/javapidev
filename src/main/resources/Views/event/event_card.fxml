@@ -10,47 +10,78 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.effect.*?>
+<?import javafx.scene.shape.Rectangle?>
 
 <VBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="Controllers.event.EventCardController"
-      styleClass="event-card">
+      styleClass="event-card-modern">
     
-    <!-- Event Image at the top -->
-    <ImageView fx:id="eventImage" fitWidth="350" fitHeight="200" preserveRatio="true" 
-              styleClass="event-image">
-        <effect>
-            <ColorAdjust brightness="-0.1" contrast="0.1" />
-        </effect>
-    </ImageView>
-    
-    <!-- Date Display -->
-    <StackPane styleClass="event-date-container">
-        <VBox alignment="CENTER" styleClass="event-date">
-            <Label fx:id="eventDay" text="08" styleClass="event-day"/>
-            <Label fx:id="eventMonth" text="June, 2024" styleClass="event-month"/>
-        </VBox>
+    <!-- Card Container with Image at the top -->
+    <StackPane styleClass="event-image-container">
+        <!-- Event Image -->
+        <ImageView fx:id="eventImage" fitWidth="300" fitHeight="180" preserveRatio="true" 
+                  styleClass="event-image-modern">
+            <effect>
+                <ColorAdjust brightness="-0.1" contrast="0.1" />
+            </effect>
+        </ImageView>
         
         <!-- Event status indicator -->
-        <HBox alignment="CENTER_RIGHT" StackPane.alignment="CENTER_RIGHT">
-            <padding><Insets right="15" /></padding>
-            <Label text="Coming soon" styleClass="event-status-label"/>
+        <HBox alignment="CENTER_RIGHT" StackPane.alignment="TOP_RIGHT">
+            <padding><Insets top="10" right="10" /></padding>
+            <Label fx:id="eventStatus" text="Coming Soon" styleClass="event-status-label-modern">
+                <effect>
+                    <DropShadow color="rgba(0,0,0,0.3)" radius="3.0" />
+                </effect>
+            </Label>
         </HBox>
     </StackPane>
     
     <!-- Event Details -->
-    <VBox styleClass="event-details">
-        <Label fx:id="eventTitle" text="Are There Specific Unique Events" styleClass="event-title"/>
-        <HBox styleClass="event-location" fx:id="eventLocationHBox">
-            <Label fx:id="eventLocation" text="New York, Rodices120/32" styleClass="event-location-text"/>
+    <VBox styleClass="event-details-modern" spacing="8">
+        <!-- Title and Date Row -->
+        <HBox spacing="10" alignment="CENTER_LEFT">
+            <!-- Date Display -->
+            <VBox alignment="CENTER" styleClass="event-date-modern">
+                <Label fx:id="eventDay" text="08" styleClass="event-day-modern"/>
+                <Label fx:id="eventMonth" text="Jun" styleClass="event-month-modern"/>
+            </VBox>
+            
+            <!-- Title -->
+            <Label fx:id="eventTitle" text="Conference Title Here" styleClass="event-title-modern" wrapText="true" HBox.hgrow="ALWAYS">
+                <effect>
+                    <DropShadow color="rgba(0,0,0,0.25)" radius="2.0" />
+                </effect>
+            </Label>
         </HBox>
-        <HBox styleClass="event-actions" spacing="10">
-            <Button fx:id="getTicketButton" text="GET TICKET" styleClass="get-ticket-button">
-                <graphic>
-                    <Region styleClass="ticket-icon" minWidth="16" minHeight="16"/>
-                </graphic>
-            </Button>
-            <Button fx:id="donateButton" text="DONATE" styleClass="donate-button">
+        
+        <!-- Location display -->
+        <HBox styleClass="event-location-modern" fx:id="eventLocationHBox" spacing="5">
+            <Label fx:id="eventLocation" text="Location Name" styleClass="event-location-text-modern"/>
+        </HBox>
+        
+        <!-- Timing display (same line as location) -->
+        <HBox styleClass="event-time-modern" fx:id="eventTimeHBox" spacing="5">
+            <!-- Clock icon will be added here programmatically -->
+            <Label fx:id="eventTime" text="7:00 PM" styleClass="event-time-text-modern"/>
+        </HBox>
+        
+        <!-- Bottom Action Area -->
+        <HBox styleClass="event-action-area-modern" alignment="CENTER_LEFT">
+            <!-- Info/Price -->
+            <VBox styleClass="event-price-info-modern" HBox.hgrow="ALWAYS">
+                <Label fx:id="eventPrice" text="/$0.00" styleClass="price-value-modern">
+                    <effect>
+                        <DropShadow color="#feb47b33" radius="3.0" />
+                    </effect>
+                </Label>
+                <Label fx:id="availableSeats" text="10 seats left" styleClass="seats-value-modern"/>
+            </VBox>
+            
+            <!-- Action Button -->
+            <Button fx:id="getTicketButton" text="DETAILS" styleClass="get-ticket-button-modern"/>
+            <Button fx:id="donateButton" styleClass="donate-button-modern" minWidth="40">
                 <graphic>
                     <Region styleClass="heart-icon" minWidth="16" minHeight="16"/>
                 </graphic>

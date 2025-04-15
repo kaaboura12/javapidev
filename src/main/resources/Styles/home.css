@@ -2,8 +2,9 @@
 
 /* Hero Section */
 .hero-section {
-    -fx-background-color: linear-gradient(to right, #7367f0, #d17842);
+    -fx-background-color: transparent;
     -fx-background-radius: 0;
+    -fx-padding: 30px 0 40px 0;
 }
 
 .hero-title {
@@ -11,7 +12,7 @@
     -fx-font-size: 48px;
     -fx-font-weight: bold;
     -fx-text-fill: white;
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 10, 0, 0, 5);
+    -fx-effect: dropshadow(three-pass-box, rgba(255,126,95,0.5), 10, 0, 0, 5);
 }
 
 .hero-subtitle {
@@ -23,19 +24,23 @@
 
 /* Feature Cards */
 .feature-card {
-    -fx-background-color: white;
-    -fx-background-radius: 10px;
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 0);
+    -fx-background-color: rgba(255, 255, 255, 0.07);
+    -fx-background-radius: 12px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 12, 0, 0, 0);
     -fx-padding: 30px;
     -fx-spacing: 15px;
     -fx-min-width: 220px;
     -fx-min-height: 250px;
     -fx-alignment: center;
+    -fx-border-radius: 12px;
+    -fx-border-color: rgba(255, 255, 255, 0.1);
 }
 
 .feature-card:hover {
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 14, 0, 0, 0);
+    -fx-effect: dropshadow(three-pass-box, rgba(255,126,95,0.3), 16, 0, 0, 0);
     -fx-translate-y: -3px;
+    -fx-border-color: rgba(255,126,95,0.3);
+    -fx-background-color: rgba(255, 255, 255, 0.1);
 }
 
 .feature-icon {
@@ -44,19 +49,20 @@
     -fx-max-width: 60px;
     -fx-max-height: 60px;
     -fx-background-radius: 15px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 5, 0, 0, 0);
 }
 
 .feature-title {
     -fx-font-family: "Segoe UI", Arial, sans-serif;
     -fx-font-size: 22px;
     -fx-font-weight: bold;
-    -fx-text-fill: #333333;
+    -fx-text-fill: white;
 }
 
 .feature-description {
     -fx-font-family: "Segoe UI", Arial, sans-serif;
     -fx-font-size: 14px;
-    -fx-text-fill: #666666;
+    -fx-text-fill: #c0c0c0;
     -fx-text-alignment: center;
     -fx-wrap-text: true;
 }
@@ -66,13 +72,14 @@
     -fx-font-family: "Segoe UI", Arial, sans-serif;
     -fx-font-size: 32px;
     -fx-font-weight: bold;
-    -fx-text-fill: #333333;
+    -fx-text-fill: white;
+    -fx-effect: dropshadow(gaussian, rgba(255,126,95,0.5), 5, 0, 0, 0);
 }
 
 .section-subtitle {
     -fx-font-family: "Segoe UI", Arial, sans-serif;
     -fx-font-size: 18px;
-    -fx-text-fill: #666666;
+    -fx-text-fill: #c0c0c0;
     -fx-wrap-text: true;
     -fx-text-alignment: center;
 }
@@ -87,22 +94,26 @@
 .stat-label {
     -fx-font-family: "Segoe UI", Arial, sans-serif;
     -fx-font-size: 16px;
-    -fx-text-fill: #666666;
+    -fx-text-fill: #c0c0c0;
 }
 
 /* Testimonial Cards */
 .testimonial-card {
-    -fx-background-color: white;
-    -fx-background-radius: 8px;
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.08), 8, 0, 0, 0);
+    -fx-background-color: rgba(255, 255, 255, 0.07);
+    -fx-background-radius: 12px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 10, 0, 0, 0);
     -fx-padding: 25px;
     -fx-min-width: 300px;
     -fx-max-width: 300px;
+    -fx-border-radius: 12px;
+    -fx-border-color: rgba(255, 255, 255, 0.1);
 }
 
 .testimonial-card:hover {
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 12, 0, 0, 0);
-    -fx-background-color: #fafafa;
+    -fx-effect: dropshadow(three-pass-box, rgba(255,126,95,0.3), 12, 0, 0, 0);
+    -fx-background-color: rgba(255, 255, 255, 0.1);
+    -fx-border-color: rgba(255,126,95,0.3);
+    -fx-translate-y: -3px;
 }
 
 .testimonial-quote {
@@ -113,7 +124,7 @@
 .testimonial-text {
     -fx-font-family: "Segoe UI", Arial, sans-serif;
     -fx-font-size: 14px;
-    -fx-text-fill: #555555;
+    -fx-text-fill: #c0c0c0;
     -fx-wrap-text: true;
 }
 
@@ -121,18 +132,20 @@
     -fx-font-family: "Segoe UI", Arial, sans-serif;
     -fx-font-size: 14px;
     -fx-font-weight: bold;
-    -fx-text-fill: #333333;
+    -fx-text-fill: white;
 }
 
 .testimonial-role {
     -fx-font-family: "Segoe UI", Arial, sans-serif;
     -fx-font-size: 12px;
-    -fx-text-fill: #666666;
+    -fx-text-fill: #c0c0c0;
 }
 
 /* Call to Action */
 .cta-section {
-    -fx-background-color: linear-gradient(to right, #d17842, #7367f0);
+    -fx-background-color: linear-gradient(to right, rgba(255,126,95,0.8), rgba(254,180,123,0.8));
+    -fx-border-color: rgba(255,126,95,0.3);
+    -fx-border-width: 1px 0 1px 0;
 }
 
 .cta-title {
@@ -155,17 +168,21 @@
 }
 
 .cta-button {
-    -fx-background-color: white;
-    -fx-text-fill: #7367f0;
+    -fx-background-color: rgba(255, 255, 255, 0.2);
+    -fx-border-color: white;
+    -fx-border-width: 2;
+    -fx-text-fill: white;
     -fx-font-size: 16px;
     -fx-font-weight: bold;
     -fx-padding: 15 40;
     -fx-background-radius: 30;
+    -fx-border-radius: 30;
     -fx-cursor: hand;
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 0);
 }
 
 .cta-button:hover {
+    -fx-background-color: rgba(255, 255, 255, 0.3);
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 14, 0, 0, 0);
     -fx-scale-x: 1.05;
     -fx-scale-y: 1.05;
@@ -173,8 +190,10 @@
 
 /* Footer */
 .footer {
-    -fx-background-color: #2b2b45;
+    -fx-background-color: rgba(30, 30, 48, 0.7);
     -fx-padding: 30px;
+    -fx-border-color: rgba(255,126,95,0.3);
+    -fx-border-width: 1px 0 0 0;
 }
 
 .footer-title {
@@ -182,24 +201,25 @@
     -fx-font-size: 24px;
     -fx-font-weight: bold;
     -fx-text-fill: white;
+    -fx-effect: dropshadow(gaussian, rgba(255,126,95,0.5), 3, 0, 0, 0);
 }
 
 .footer-subtitle {
     -fx-font-family: "Segoe UI", Arial, sans-serif;
     -fx-font-size: 14px;
-    -fx-text-fill: #cccccc;
+    -fx-text-fill: #c0c0c0;
 }
 
 .footer-link {
     -fx-font-family: "Segoe UI", Arial, sans-serif;
     -fx-font-size: 14px;
-    -fx-text-fill: #cccccc;
+    -fx-text-fill: #c0c0c0;
     -fx-cursor: hand;
 }
 
 .footer-link:hover {
-    -fx-text-fill: white;
-    -fx-underline: true;
+    -fx-text-fill: #ff7e5f;
+    -fx-underline: false;
 }
 
 .footer-copyright {
@@ -210,21 +230,25 @@
 
 /* Buttons */
 .primary-button {
-    -fx-background-color: #7367f0;
+    -fx-background-color: linear-gradient(to right, #ff7e5f, #feb47b);
     -fx-text-fill: white;
     -fx-font-size: 16px;
     -fx-font-weight: bold;
     -fx-padding: 15 30;
     -fx-background-radius: 30;
     -fx-cursor: hand;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.25), 5, 0, 0, 0);
 }
 
 .primary-button:hover {
-    -fx-background-color: #5a52c4;
+    -fx-background-color: linear-gradient(to right, #feb47b, #ff7e5f);
+    -fx-effect: dropshadow(gaussian, rgba(255,126,95,0.5), 8, 0, 0, 0);
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
 }
 
 .secondary-button {
-    -fx-background-color: transparent;
+    -fx-background-color: rgba(255, 255, 255, 0.15);
     -fx-border-color: white;
     -fx-border-width: 2;
     -fx-text-fill: white;
@@ -233,15 +257,148 @@
     -fx-background-radius: 30;
     -fx-border-radius: 30;
     -fx-cursor: hand;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.25), 5, 0, 0, 0);
 }
 
 .secondary-button:hover {
-    -fx-background-color: rgba(255, 255, 255, 0.1);
+    -fx-background-color: rgba(255, 255, 255, 0.25);
+    -fx-effect: dropshadow(gaussian, rgba(255,255,255,0.5), 8, 0, 0, 0);
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
 }
 
-/* Animation properties */
+/* Animation */
 .animate-on-hover:hover {
     -fx-scale-x: 1.05;
     -fx-scale-y: 1.05;
-    -fx-transition: -fx-scale-x 0.3s, -fx-scale-y 0.3s;
+    -fx-transition: all 0.3s ease;
+}
+
+/* Scrollbar Styling */
+.scroll-pane {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-padding: 0;
+}
+
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane .scroll-bar {
+    -fx-background-color: transparent;
+    -fx-pref-width: 10px;
+    -fx-padding: 2;
+}
+
+.scroll-pane .scroll-bar:vertical {
+    -fx-background-color: transparent;
+    -fx-background-radius: 5px;
+}
+
+.scroll-pane .scroll-bar:vertical .track {
+    -fx-background-color: rgba(255, 255, 255, 0.05);
+    -fx-border-color: transparent;
+    -fx-background-radius: 5px;
+}
+
+.scroll-pane .scroll-bar:vertical .track-background {
+    -fx-background-color: transparent;
+    -fx-background-radius: 5px;
+}
+
+.scroll-pane .scroll-bar:vertical .thumb {
+    -fx-background-color: linear-gradient(to bottom, rgba(255,126,95,0.6), rgba(254,180,123,0.6));
+    -fx-background-radius: 5px;
+    -fx-opacity: 0.6;
+}
+
+.scroll-pane .scroll-bar:vertical .thumb:hover {
+    -fx-background-color: linear-gradient(to bottom, rgba(255,126,95,0.9), rgba(254,180,123,0.9));
+    -fx-opacity: 1.0;
+    -fx-effect: dropshadow(gaussian, rgba(255,126,95,0.5), 5, 0, 0, 0);
+}
+
+.scroll-pane .scroll-bar:vertical .thumb:pressed {
+    -fx-background-color: linear-gradient(to bottom, #ff7e5f, #feb47b);
+}
+
+.scroll-pane .scroll-bar .increment-button,
+.scroll-pane .scroll-bar .decrement-button {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-opacity: 0;
+    -fx-padding: 0 5 0 5;
+}
+
+.scroll-pane .scroll-bar .increment-arrow,
+.scroll-pane .scroll-bar .decrement-arrow {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-padding: 0;
+    -fx-shape: "";
+}
+
+/* Apply scrollbar styling to ListView and TableView */
+.list-view .scroll-bar:vertical,
+.table-view .scroll-bar:vertical {
+    -fx-background-color: transparent;
+    -fx-background-radius: 5px;
+}
+
+.list-view .scroll-bar:vertical .track,
+.table-view .scroll-bar:vertical .track {
+    -fx-background-color: rgba(255, 255, 255, 0.05);
+    -fx-border-color: transparent;
+    -fx-background-radius: 5px;
+}
+
+.list-view .scroll-bar:vertical .thumb,
+.table-view .scroll-bar:vertical .thumb {
+    -fx-background-color: linear-gradient(to bottom, rgba(255,126,95,0.6), rgba(254,180,123,0.6));
+    -fx-background-radius: 5px;
+    -fx-opacity: 0.6;
+}
+
+.list-view .scroll-bar:vertical .thumb:hover,
+.table-view .scroll-bar:vertical .thumb:hover {
+    -fx-background-color: linear-gradient(to bottom, rgba(255,126,95,0.9), rgba(254,180,123,0.9));
+    -fx-opacity: 1.0;
+}
+
+/* Enhanced hover effects for interactive elements */
+.feature-card, .testimonial-card, .primary-button, .secondary-button {
+    -fx-transition: all 0.3s ease;
+}
+
+/* Smooth transitions for the entire application */
+* {
+    -fx-transition-duration: 0.3s;
+}
+
+/* Smooth scrolling effect for ScrollPane */
+.scroll-pane {
+    -fx-fit-to-width: true;
+    -fx-hbar-policy: never;
+    -fx-transition-duration: 0.3s;
+}
+
+/* Remove border from ScrollPane */
+.scroll-pane, .scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+/* Subtle hover effects for all interactive elements */
+.footer-link, .primary-button, .secondary-button, .cta-button, .feature-card, .testimonial-card {
+    -fx-transition: all 0.2s ease-in-out;
+}
+
+/* Enhance focus state for all controls */
+.button:focused, .text-field:focused, .combo-box:focused {
+    -fx-effect: dropshadow(gaussian, rgba(255,126,95,0.7), 8, 0, 0, 0);
+}
+
+/* Smooth content transitions */
+.hero-section, .feature-card, .testimonial-card, .footer {
+    -fx-transition: opacity 0.5s ease-in-out;
 } 
