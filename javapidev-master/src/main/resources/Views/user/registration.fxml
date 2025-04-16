@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.effect.DropShadow?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="Controllers.user.RegistrationController"
+            stylesheets="@../../Styles/login.css"
+            style="-fx-background-color: linear-gradient(to bottom right, #27273c, #333347, #3d2f3f);">
+            
+    <!-- Top Bar -->
+    <top>
+        <HBox styleClass="nav-bar" alignment="CENTER_LEFT">
+            <HBox alignment="CENTER_LEFT" spacing="15.0">
+                <Label text="ArtXCope" styleClass="app-title"/>
+                <Rectangle width="2" height="25" fill="#ff7e5f" opacity="0.3"/>
+                <Label text="Create Account" styleClass="page-title"/>
+            </HBox>
+            <padding>
+                <Insets top="10.0" right="20.0" bottom="10.0" left="20.0" />
+            </padding>
+        </HBox>
+    </top>
+
+    <!-- Main Content -->
+    <center>
+        <ScrollPane fitToWidth="true" styleClass="transparent-scroll-pane">
+            <StackPane>
+                <padding>
+                    <Insets top="20" right="20" bottom="20" left="20"/>
+                </padding>
+
+                <VBox styleClass="modern-form-container" maxWidth="600" spacing="15" alignment="CENTER">
+                    <effect>
+                        <DropShadow color="rgba(0,0,0,0.3)" radius="10" spread="0.05" />
+                    </effect>
+                    <padding>
+                        <Insets top="25" right="35" bottom="25" left="35"/>
+                    </padding>
+
+                    <Text text="Create Your Account" styleClass="form-title"/>
+
+                    <GridPane hgap="15" vgap="12">
+                        <columnConstraints>
+                            <ColumnConstraints percentWidth="50"/>
+                            <ColumnConstraints percentWidth="50"/>
+                        </columnConstraints>
+
+                        <!-- Last Name -->
+                        <VBox spacing="4" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                            <Label text="Last Name" styleClass="form-label"/>
+                            <TextField fx:id="nomField" promptText="Enter your last name" styleClass="form-field"/>
+                        </VBox>
+
+                        <!-- First Name -->
+                        <VBox spacing="4" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                            <Label text="First Name" styleClass="form-label"/>
+                            <TextField fx:id="prenomField" promptText="Enter your first name" styleClass="form-field"/>
+                        </VBox>
+
+                        <!-- Email -->
+                        <VBox spacing="4" GridPane.columnIndex="0" GridPane.rowIndex="1" GridPane.columnSpan="2">
+                            <Label text="Email Address" styleClass="form-label"/>
+                            <TextField fx:id="emailField" promptText="Enter your email address" styleClass="form-field"/>
+                        </VBox>
+
+                        <!-- Password -->
+                        <VBox spacing="4" GridPane.columnIndex="0" GridPane.rowIndex="2" GridPane.columnSpan="2">
+                            <Label text="Password" styleClass="form-label"/>
+                            <PasswordField fx:id="passwordField" promptText="Enter your password" styleClass="form-field"/>
+                        </VBox>
+
+                        <!-- Phone Number -->
+                        <VBox spacing="4" GridPane.columnIndex="0" GridPane.rowIndex="3">
+                            <Label text="Phone Number" styleClass="form-label"/>
+                            <TextField fx:id="numtlfField" promptText="Enter your phone number" styleClass="form-field"/>
+                        </VBox>
+
+                        <!-- Age -->
+                        <VBox spacing="4" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                            <Label text="Age" styleClass="form-label"/>
+                            <TextField fx:id="ageField" promptText="Enter your age" styleClass="form-field"/>
+                        </VBox>
+
+                        <!-- Profile Picture -->
+                        <VBox spacing="4" GridPane.columnIndex="0" GridPane.rowIndex="4" GridPane.columnSpan="2">
+                            <Label text="Profile Picture" styleClass="form-label"/>
+                            <HBox spacing="8">
+                                <TextField fx:id="avatarUrlField" promptText="Choose a profile picture" 
+                                        styleClass="form-field" HBox.hgrow="ALWAYS"/>
+                                <Button text="Browse" styleClass="secondary-button" onAction="#handleBrowseAvatar"/>
+                            </HBox>
+                        </VBox>
+
+                        <!-- Account Type -->
+                        <VBox spacing="4" GridPane.columnIndex="0" GridPane.rowIndex="5">
+                            <Label text="Account Type" styleClass="form-label"/>
+                            <ComboBox fx:id="rolesComboBox" promptText="Select role" 
+                                    styleClass="form-field" maxWidth="Infinity"/>
+                        </VBox>
+
+                        <!-- Account Status -->
+                        <VBox spacing="4" GridPane.columnIndex="1" GridPane.rowIndex="5" alignment="CENTER_LEFT">
+                            <padding>
+                                <Insets top="15"/>
+                            </padding>
+                            <CheckBox fx:id="isVerifiedCheckBox" text="Verified Account" styleClass="form-checkbox"/>
+                        </VBox>
+                    </GridPane>
+
+                    <!-- Error Label -->
+                    <Label fx:id="errorLabel" styleClass="error-label" textFill="#ff5252" managed="false" visible="false"/>
+
+                    <!-- Buttons -->
+                    <VBox spacing="8" alignment="CENTER">
+                        <padding>
+                            <Insets top="10"/>
+                        </padding>
+                        <Button fx:id="registerButton" text="Create Account" styleClass="primary-button" 
+                                onAction="#handleRegister" maxWidth="Infinity"/>
+                        <Button fx:id="loginButton" text="Already have an account? Login" 
+                                styleClass="link-button" onAction="#handleLogin"/>
+                    </VBox>
+                </VBox>
+            </StackPane>
+        </ScrollPane>
+    </center>
+</BorderPane>

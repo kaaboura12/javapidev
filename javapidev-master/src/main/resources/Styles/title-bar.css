@@ -1,0 +1,87 @@
+/* Custom Title Bar Styling */
+.custom-title-bar {
+    -fx-background-color: linear-gradient(to right, #2c3e50, #4ca1af);
+    -fx-padding: 10px 15px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 8, 0, 0, 2);
+    -fx-border-color: rgba(255,126,95,0.3);
+    -fx-border-width: 0 0 1 0;
+}
+
+/* Allow using titlebar.png as background */
+.custom-title-bar-with-image {
+    -fx-background-color: transparent;
+    -fx-padding: 10px 15px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 8, 0, 0, 2);
+    -fx-border-color: rgba(255,126,95,0.3);
+    -fx-border-width: 0 0 1 0;
+}
+
+.window-title {
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-font-family: 'Segoe UI', Arial, sans-serif;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 3, 0, 0, 1);
+}
+
+.title-bar-buttons {
+    -fx-spacing: 8px;
+    -fx-padding: 0 5px 0 0;
+}
+
+.title-bar-button {
+    -fx-background-color: transparent;
+    -fx-background-radius: 50%;
+    -fx-min-width: 16px;
+    -fx-min-height: 16px;
+    -fx-max-width: 16px;
+    -fx-max-height: 16px;
+    -fx-cursor: hand;
+    -fx-border-width: 0;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 3, 0, 0, 1);
+}
+
+.title-bar-button:hover {
+    -fx-effect: dropshadow(three-pass-box, rgba(255,255,255,0.3), 5, 0, 0, 0);
+    -fx-scale-x: 1.1;
+    -fx-scale-y: 1.1;
+    -fx-transition: -fx-scale-x 0.1s, -fx-scale-y 0.1s;
+}
+
+.minimize-button {
+    -fx-background-color: #f1c40f;
+}
+
+.maximize-button {
+    -fx-background-color: #27ae60;
+}
+
+.close-button {
+    -fx-background-color: #e74c3c;
+}
+
+.close-button:hover {
+    -fx-background-color: #c0392b;
+}
+
+/* Style the entire application window */
+.root {
+    -fx-background-radius: 10px;
+    -fx-border-radius: 10px;
+}
+
+/* Remove the default window border/decorations when going undecorated */
+.transparent-background {
+    -fx-background-color: transparent;
+}
+
+/* Style for the application content area */
+.application-content {
+    -fx-background-color: #f5f5f5;
+    -fx-background-radius: 0 0 10px 10px;
+}
+
+/* Animation for title bar buttons */
+.title-bar-button, .title-bar-button:hover {
+    -fx-transition-duration: 0.2s;
+}

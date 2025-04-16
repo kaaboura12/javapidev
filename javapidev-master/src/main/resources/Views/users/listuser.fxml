@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.CheckBox?>
+
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="Controllers.backuser.ListUserController"
+            prefHeight="700.0" prefWidth="1000.0"
+            styleClass="content-background"
+            stylesheets="@../../Styles/users.css">
+            
+    <VBox spacing="20" AnchorPane.topAnchor="0.0" AnchorPane.rightAnchor="0.0" 
+          AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0">
+        
+        <!-- Page Header -->
+        <HBox styleClass="page-header">
+            <padding>
+                <Insets top="20" right="30" bottom="20" left="30" />
+            </padding>
+            <Label text="USER MANAGEMENT" styleClass="page-title"/>
+        </HBox>
+        
+        <!-- Main Content -->
+        <VBox spacing="20" VBox.vgrow="ALWAYS">
+            <padding>
+                <Insets top="10" right="30" bottom="30" left="30" />
+            </padding>
+            
+            <!-- Stats Bar -->
+            <HBox spacing="20" styleClass="stats-container">
+                <HBox styleClass="stat-box" HBox.hgrow="ALWAYS">
+                    <Label text="Total Users:" styleClass="stat-label"/>
+                    <Region HBox.hgrow="ALWAYS" />
+                    <Label fx:id="totalUsersLabel" text="0" styleClass="stat-value"/>
+                </HBox>
+                <HBox styleClass="stat-box" HBox.hgrow="ALWAYS">
+                    <Label text="Admin Users:" styleClass="stat-label"/>
+                    <Region HBox.hgrow="ALWAYS" />
+                    <Label fx:id="adminUsersLabel" text="0" styleClass="stat-value"/>
+                </HBox>
+                <HBox styleClass="stat-box" HBox.hgrow="ALWAYS">
+                    <Label text="Artist Users:" styleClass="stat-label"/>
+                    <Region HBox.hgrow="ALWAYS" />
+                    <Label fx:id="artistUsersLabel" text="0" styleClass="stat-value"/>
+                </HBox>
+                <HBox styleClass="stat-box" HBox.hgrow="ALWAYS">
+                    <Label text="Verified Users:" styleClass="stat-label"/>
+                    <Region HBox.hgrow="ALWAYS" />
+                    <Label fx:id="verifiedUsersLabel" text="0" styleClass="stat-value"/>
+                </HBox>
+            </HBox>
+            
+            <!-- Search and Add User Section -->
+            <HBox spacing="15" alignment="CENTER_LEFT" styleClass="controls-container">
+                <TextField fx:id="searchField" promptText="Search users..." HBox.hgrow="ALWAYS" styleClass="search-field"/>
+                <Button fx:id="searchButton" text="Search" styleClass="search-button" onAction="#handleSearch"/>
+                <Region HBox.hgrow="ALWAYS" />
+                <Button fx:id="addUserButton" text="+ Add User" styleClass="primary-button" onAction="#showAddUserDialog"/>
+            </HBox>
+            
+            <!-- Users Table -->
+            <TableView fx:id="usersTable" VBox.vgrow="ALWAYS" styleClass="users-table">
+                <columns>
+                    <TableColumn fx:id="idColumn" text="ID" prefWidth="60"/>
+                    <TableColumn fx:id="nomColumn" text="Last Name" prefWidth="120"/>
+                    <TableColumn fx:id="prenomColumn" text="First Name" prefWidth="120"/>
+                    <TableColumn fx:id="emailColumn" text="Email" prefWidth="180"/>
+                    <TableColumn fx:id="ageColumn" text="Age" prefWidth="60"/>
+                    <TableColumn fx:id="phoneColumn" text="Phone" prefWidth="120"/>
+                    <TableColumn fx:id="roleColumn" text="Role" prefWidth="100"/>
+                    <TableColumn fx:id="verifiedColumn" text="Verified" prefWidth="80"/>
+                    <TableColumn fx:id="actionsColumn" text="Actions" prefWidth="160"/>
+                </columns>
+            </TableView>
+        </VBox>
+    </VBox>
+    
+    <!-- User Form Popup (Initially hidden) -->
+    <AnchorPane fx:id="popupOverlay" visible="false" styleClass="popup-overlay"
+                AnchorPane.topAnchor="0.0" AnchorPane.rightAnchor="0.0" 
+                AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0">
+        
+        <VBox fx:id="userFormContainer" styleClass="user-form-container" maxWidth="600" maxHeight="650"
+              AnchorPane.topAnchor="50.0" AnchorPane.leftAnchor="200.0">
+            
+            <HBox styleClass="form-header" alignment="CENTER_LEFT">
+                <Label fx:id="formTitleLabel" text="Add New User" styleClass="form-title"/>
+                <Region HBox.hgrow="ALWAYS" />
+                <Button fx:id="closeFormButton" text="×" styleClass="close-button" onAction="#closeForm"/>
+            </HBox>
+            
+            <VBox spacing="15" styleClass="form-content">
+                <HBox spacing="15">
+                    <VBox spacing="5" HBox.hgrow="ALWAYS">
+                        <Label text="Last Name" styleClass="form-label"/>
+                        <TextField fx:id="nomField" styleClass="form-field"/>
+                    </VBox>
+                    <VBox spacing="5" HBox.hgrow="ALWAYS">
+                        <Label text="First Name" styleClass="form-label"/>
+                        <TextField fx:id="prenomField" styleClass="form-field"/>
+                    </VBox>
+                </HBox>
+                
+                <VBox spacing="5">
+                    <Label text="Email Address" styleClass="form-label"/>
+                    <TextField fx:id="emailField" styleClass="form-field"/>
+                </VBox>
+                
+                <VBox spacing="5">
+                    <Label text="Password" styleClass="form-label"/>
+                    <TextField fx:id="passwordField" styleClass="form-field"/>
+                </VBox>
+                
+                <HBox spacing="15">
+                    <VBox spacing="5" HBox.hgrow="ALWAYS">
+                        <Label text="Phone Number" styleClass="form-label"/>
+                        <TextField fx:id="numtlfField" styleClass="form-field"/>
+                    </VBox>
+                    <VBox spacing="5" HBox.hgrow="ALWAYS">
+                        <Label text="Age" styleClass="form-label"/>
+                        <TextField fx:id="ageField" styleClass="form-field"/>
+                    </VBox>
+                </HBox>
+                
+                <VBox spacing="5">
+                    <Label text="Profile Picture URL" styleClass="form-label"/>
+                    <HBox spacing="10">
+                        <TextField fx:id="avatarUrlField" styleClass="form-field" HBox.hgrow="ALWAYS"/>
+                        <Button text="Browse" styleClass="browse-button" onAction="#handleBrowseAvatar"/>
+                    </HBox>
+                </VBox>
+                
+                <HBox spacing="15">
+                    <VBox spacing="5" HBox.hgrow="ALWAYS">
+                        <Label text="Role" styleClass="form-label"/>
+                        <ComboBox fx:id="rolesComboBox" promptText="Select role" styleClass="form-field" maxWidth="Infinity"/>
+                    </VBox>
+                    <VBox spacing="5" HBox.hgrow="ALWAYS" alignment="CENTER_LEFT">
+                        <padding>
+                            <Insets top="20" />
+                        </padding>
+                        <CheckBox fx:id="isVerifiedCheckBox" text="Verified Account" styleClass="form-checkbox"/>
+                    </VBox>
+                </HBox>
+                
+                <Label fx:id="formErrorLabel" styleClass="error-label" textFill="#ff5252" managed="false" visible="false"/>
+                
+                <HBox spacing="15" alignment="CENTER_RIGHT" styleClass="form-actions">
+                    <Button fx:id="cancelButton" text="Cancel" styleClass="cancel-button" onAction="#closeForm"/>
+                    <Button fx:id="saveButton" text="Save User" styleClass="save-button" onAction="#saveUser"/>
+                </HBox>
+            </VBox>
+        </VBox>
+    </AnchorPane>
+    
+    <!-- Delete Confirmation Dialog (Initially hidden) -->
+    <AnchorPane fx:id="deleteConfirmationOverlay" visible="false" styleClass="popup-overlay"
+                AnchorPane.topAnchor="0.0" AnchorPane.rightAnchor="0.0" 
+                AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0">
+        
+        <VBox fx:id="deleteConfirmationContainer" styleClass="confirmation-container" maxWidth="400"
+              AnchorPane.topAnchor="200.0" AnchorPane.leftAnchor="300.0">
+            
+            <Label text="Confirm Delete" styleClass="confirmation-title"/>
+            
+            <Label fx:id="deleteConfirmationText" text="Are you sure you want to delete this user?" 
+                   styleClass="confirmation-text" wrapText="true"/>
+            
+            <HBox spacing="15" alignment="CENTER_RIGHT" styleClass="confirmation-actions">
+                <Button fx:id="cancelDeleteButton" text="Cancel" styleClass="cancel-button" 
+                        onAction="#cancelDelete"/>
+                <Button fx:id="confirmDeleteButton" text="Delete" styleClass="delete-button" 
+                        onAction="#confirmDelete"/>
+            </HBox>
+        </VBox>
+    </AnchorPane>
+    
+</AnchorPane> 

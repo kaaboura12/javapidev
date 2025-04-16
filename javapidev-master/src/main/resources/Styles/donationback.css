@@ -1,0 +1,180 @@
+/* Main Styles for Donation Dashboard */
+
+/* Base Styles */
+.root {
+    -fx-font-family: 'Segoe UI', Arial, sans-serif;
+    -fx-background-color: #f5f5f5;
+}
+
+/* Header Styles */
+.nav-bar {
+    -fx-background-color: #2c3e50;
+    -fx-padding: 15px;
+    -fx-spacing: 15px;
+}
+
+.dashboard-header {
+    -fx-text-fill: white;
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+}
+
+/* Button Styles */
+.dashboard-button {
+    -fx-background-color: #3498db;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-padding: 8px 15px;
+    -fx-background-radius: 3px;
+    -fx-cursor: hand;
+}
+
+.dashboard-button:hover {
+    -fx-background-color: #2980b9;
+}
+
+.add-button {
+    -fx-background-color: #27ae60;
+}
+
+.add-button:hover {
+    -fx-background-color: #219955;
+}
+
+/* Table Styles */
+.donation-table {
+    -fx-background-color: white;
+    -fx-border-color: #ddd;
+    -fx-border-width: 1px;
+    -fx-table-cell-border-color: #ddd;
+}
+
+.donation-table .column-header {
+    -fx-background-color: #34495e;
+    -fx-padding: 8px;
+}
+
+.donation-table .column-header-background {
+    -fx-background-color: #34495e;
+}
+
+.donation-table .column-header-background .label {
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-alignment: CENTER-LEFT;
+}
+
+.donation-table .table-row-cell {
+    -fx-background-color: white;
+    -fx-border-color: transparent transparent #ddd transparent;
+    -fx-border-width: 0 0 1px 0;
+    -fx-cell-size: 40px;
+}
+
+.donation-table .table-row-cell:odd {
+    -fx-background-color: #f9f9f9;
+}
+
+.donation-table .table-row-cell .table-cell {
+    -fx-alignment: CENTER-LEFT;
+    -fx-padding: 10px;
+    -fx-text-fill: #333;
+}
+
+.donation-table .table-row-cell:empty {
+    -fx-background-color: white;
+}
+
+.donation-table .table-row-cell:selected {
+    -fx-background-color: #eaf2f8;
+    -fx-text-fill: #333;
+}
+
+.id-column {
+    -fx-alignment: CENTER;
+}
+
+/* Pagination Styles */
+.donation-pagination {
+    -fx-page-information-visible: false;
+}
+
+.donation-pagination .pagination-control {
+    -fx-border-color: #ddd;
+    -fx-border-width: 1px 0 0 0;
+    -fx-background-color: #f5f5f5;
+}
+
+.donation-pagination .pagination-control .button {
+    -fx-background-color: transparent;
+    -fx-border-color: #ddd;
+    -fx-border-radius: 3px;
+}
+
+.donation-pagination .pagination-control .button:hover {
+    -fx-background-color: #eee;
+}
+
+.donation-pagination .pagination-control .number-button:selected {
+    -fx-background-color: #3498db;
+    -fx-text-fill: white;
+}
+
+/* Status Colors */
+.status-pending {
+    -fx-text-fill: #3498db;
+}
+
+.status-completed {
+    -fx-text-fill: #27ae60;
+    -fx-font-weight: bold;
+}
+
+.status-rejected {
+    -fx-text-fill: #e74c3c;
+    -fx-font-weight: bold;
+}
+
+/* Search Field Styles */
+.search-field {
+    -fx-background-color: white;
+    -fx-border-color: #ddd;
+    -fx-border-radius: 3px;
+    -fx-padding: 5px 10px;
+}
+
+.action-section {
+    -fx-padding: 0 0 10px 0;
+}
+
+/* Status Section */
+.status-section {
+    -fx-background-color: #ecf0f1;
+    -fx-padding: 10px;
+    -fx-border-color: #ddd;
+    -fx-border-width: 1px 0 0 0;
+}
+
+.status-label {
+    -fx-text-fill: #7f8c8d;
+    -fx-font-size: 12px;
+}
+
+/* Action buttons in table */
+.table-action-button {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-cursor: hand;
+}
+
+.edit-button {
+    -fx-graphic: url('icons/edit.png');
+}
+
+.delete-button {
+    -fx-graphic: url('icons/delete.png');
+}
+
+.view-button {
+    -fx-graphic: url('icons/view.png');
+}

@@ -1,0 +1,554 @@
+package Controllers.backuser;
+
+import Models.User;
+import Services.UserService;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
+import javafx.util.Callback;
+
+import java.io.File;
+import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.ResourceBundle;
+
+public class ListUserController implements Initializable {
+
+    @FXML
+    private Label totalUsersLabel;
+
+    @FXML
+    private Label adminUsersLabel;
+
+    @FXML
+    private Label artistUsersLabel;
+
+    @FXML
+    private Label verifiedUsersLabel;
+
+    @FXML
+    private TextField searchField;
+
+    @FXML
+    private Button searchButton;
+
+    @FXML
+    private Button addUserButton;
+
+    @FXML
+    private TableView<User> usersTable;
+
+    @FXML
+    private TableColumn<User, Integer> idColumn;
+
+    @FXML
+    private TableColumn<User, String> nomColumn;
+
+    @FXML
+    private TableColumn<User, String> prenomColumn;
+
+    @FXML
+    private TableColumn<User, String> emailColumn;
+
+    @FXML
+    private TableColumn<User, Integer> ageColumn;
+
+    @FXML
+    private TableColumn<User, String> phoneColumn;
+
+    @FXML
+    private TableColumn<User, String> roleColumn;
+
+    @FXML
+    private TableColumn<User, Boolean> verifiedColumn;
+
+    @FXML
+    private TableColumn<User, Void> actionsColumn;
+
+    @FXML
+    private AnchorPane popupOverlay;
+
+    @FXML
+    private VBox userFormContainer;
+
+    @FXML
+    private Label formTitleLabel;
+
+    @FXML
+    private TextField nomField;
+
+    @FXML
+    private TextField prenomField;
+
+    @FXML
+    private TextField emailField;
+
+    @FXML
+    private TextField passwordField;
+
+    @FXML
+    private TextField numtlfField;
+
+    @FXML
+    private TextField ageField;
+
+    @FXML
+    private TextField avatarUrlField;
+
+    @FXML
+    private ComboBox<String> rolesComboBox;
+
+    @FXML
+    private CheckBox isVerifiedCheckBox;
+
+    @FXML
+    private Label formErrorLabel;
+
+    @FXML
+    private Button saveButton;
+
+    @FXML
+    private AnchorPane deleteConfirmationOverlay;
+
+    @FXML
+    private Label deleteConfirmationText;
+
+    private UserService userService;
+    private ObservableList<User> usersList;
+    private FilteredList<User> filteredUsers;
+    private User currentUser; // For editing
+    private User userToDelete; // For deletion confirmation
+    private File selectedAvatarFile;
+    private boolean isEditMode = false;
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        userService = new UserService();
+        
+        // Initialize roles combo box
+        rolesComboBox.getItems().addAll("ROLE_USER", "ROLE_ADMIN", "ROLE_ARTIST");
+        rolesComboBox.setValue("ROLE_USER");
+        
+        // Setup table columns
+        setupTableColumns();
+        
+        // Load users
+        loadUsers();
+        
+        // Setup search functionality
+        setupSearch();
+        
+        // Update statistics
+        updateStatistics();
+    }
+    
+    private void setupTableColumns() {
+        idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+        nomColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getNom()));
+        prenomColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getPrenom()));
+        emailColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getEmail()));
+        ageColumn.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getAge()).asObject());
+        phoneColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getNumtlf()));
+        roleColumn.setCellValueFactory(cellData -> {
+            String roles = cellData.getValue().getRoles();
+            if (roles.contains("ROLE_ADMIN")) {
+                return new SimpleStringProperty("Admin");
+            } else if (roles.contains("ROLE_ARTIST")) {
+                return new SimpleStringProperty("Artist");
+            } else {
+                return new SimpleStringProperty("User");
+            }
+        });
+        verifiedColumn.setCellValueFactory(cellData -> new SimpleBooleanProperty(cellData.getValue().isVerified()));
+        
+        // Format the verified column to show checkmarks
+        verifiedColumn.setCellFactory(column -> new TableCell<User, Boolean>() {
+            @Override
+            protected void updateItem(Boolean item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || item == null) {
+                    setText(null);
+                    setGraphic(null);
+                } else {
+                    setText(item ? "✓" : "✗");
+                    setStyle(item ? "-fx-text-fill: green; -fx-font-weight: bold;" : "-fx-text-fill: red;");
+                    setAlignment(Pos.CENTER);
+                }
+            }
+        });
+        
+        // Setup actions column with edit and delete buttons
+        actionsColumn.setCellFactory(createActionsColumnCallback());
+    }
+    
+    private Callback<TableColumn<User, Void>, TableCell<User, Void>> createActionsColumnCallback() {
+        return new Callback<>() {
+            @Override
+            public TableCell<User, Void> call(TableColumn<User, Void> param) {
+                return new TableCell<>() {
+                    private final Button editButton = new Button("Edit");
+                    private final Button deleteButton = new Button("Delete");
+                    private final HBox pane = new HBox(5, editButton, deleteButton);
+                    
+                    {
+                        editButton.getStyleClass().add("edit-button");
+                        deleteButton.getStyleClass().add("delete-button");
+                        pane.setAlignment(Pos.CENTER);
+                        
+                        // Edit button action
+                        editButton.setOnAction(event -> {
+                            User user = getTableView().getItems().get(getIndex());
+                            openEditForm(user);
+                        });
+                        
+                        // Delete button action
+                        deleteButton.setOnAction(event -> {
+                            User user = getTableView().getItems().get(getIndex());
+                            showDeleteConfirmation(user);
+                        });
+                    }
+                    
+                    @Override
+                    protected void updateItem(Void item, boolean empty) {
+                        super.updateItem(item, empty);
+                        setGraphic(empty ? null : pane);
+                    }
+                };
+            }
+        };
+    }
+    
+    private void loadUsers() {
+        try {
+            List<User> users = userService.findAll();
+            usersList = FXCollections.observableArrayList(users);
+            filteredUsers = new FilteredList<>(usersList, p -> true);
+            usersTable.setItems(filteredUsers);
+        } catch (Exception e) {
+            showAlert("Error loading users", e.getMessage(), Alert.AlertType.ERROR);
+            e.printStackTrace();
+        }
+    }
+    
+    private void setupSearch() {
+        searchField.textProperty().addListener((observable, oldValue, newValue) -> {
+            filterUsers(newValue);
+        });
+        
+        searchButton.setOnAction(event -> filterUsers(searchField.getText()));
+    }
+    
+    private void filterUsers(String searchText) {
+        filteredUsers.setPredicate(user -> {
+            if (searchText == null || searchText.isEmpty()) {
+                return true;
+            }
+            
+            String lowerCaseSearch = searchText.toLowerCase();
+            
+            // Check if any field contains the search text
+            return user.getNom().toLowerCase().contains(lowerCaseSearch) ||
+                   user.getPrenom().toLowerCase().contains(lowerCaseSearch) ||
+                   user.getEmail().toLowerCase().contains(lowerCaseSearch) ||
+                   user.getNumtlf().toLowerCase().contains(lowerCaseSearch) ||
+                   user.getRoles().toLowerCase().contains(lowerCaseSearch);
+        });
+    }
+    
+    private void updateStatistics() {
+        int totalUsers = usersList.size();
+        int adminUsers = 0;
+        int artistUsers = 0;
+        int verifiedUsers = 0;
+        
+        for (User user : usersList) {
+            if (user.getRoles().contains("ROLE_ADMIN")) {
+                adminUsers++;
+            }
+            if (user.getRoles().contains("ROLE_ARTIST")) {
+                artistUsers++;
+            }
+            if (user.isVerified()) {
+                verifiedUsers++;
+            }
+        }
+        
+        totalUsersLabel.setText(String.valueOf(totalUsers));
+        adminUsersLabel.setText(String.valueOf(adminUsers));
+        artistUsersLabel.setText(String.valueOf(artistUsers));
+        verifiedUsersLabel.setText(String.valueOf(verifiedUsers));
+    }
+    
+    @FXML
+    void handleSearch(ActionEvent event) {
+        filterUsers(searchField.getText());
+    }
+    
+    @FXML
+    void showAddUserDialog(ActionEvent event) {
+        isEditMode = false;
+        formTitleLabel.setText("Add New User");
+        clearForm();
+        popupOverlay.setVisible(true);
+    }
+    
+    private void openEditForm(User user) {
+        isEditMode = true;
+        currentUser = user;
+        formTitleLabel.setText("Edit User");
+        
+        // Populate form fields
+        nomField.setText(user.getNom());
+        prenomField.setText(user.getPrenom());
+        emailField.setText(user.getEmail());
+        passwordField.setText(""); // For security, don't display the password
+        numtlfField.setText(user.getNumtlf());
+        ageField.setText(String.valueOf(user.getAge()));
+        avatarUrlField.setText(user.getAvatarUrl());
+        
+        // Set role
+        if (user.getRoles().contains("ROLE_ADMIN")) {
+            rolesComboBox.setValue("ROLE_ADMIN");
+        } else if (user.getRoles().contains("ROLE_ARTIST")) {
+            rolesComboBox.setValue("ROLE_ARTIST");
+        } else {
+            rolesComboBox.setValue("ROLE_USER");
+        }
+        
+        isVerifiedCheckBox.setSelected(user.isVerified());
+        
+        popupOverlay.setVisible(true);
+    }
+    
+    @FXML
+    void handleBrowseAvatar(ActionEvent event) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Select Avatar Image");
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg", "*.gif")
+        );
+
+        selectedAvatarFile = fileChooser.showOpenDialog(avatarUrlField.getScene().getWindow());
+        if (selectedAvatarFile != null) {
+            avatarUrlField.setText(selectedAvatarFile.getName());
+        }
+    }
+    
+    @FXML
+    void closeForm(ActionEvent event) {
+        popupOverlay.setVisible(false);
+        clearForm();
+    }
+    
+    @FXML
+    void saveUser(ActionEvent event) {
+        if (!validateForm()) {
+            return;
+        }
+        
+        try {
+            String avatarUrl = processAvatarUpload();
+            
+            String selectedRole = rolesComboBox.getValue();
+            String rolesJson;
+            
+            if (selectedRole.equals("ROLE_ADMIN")) {
+                rolesJson = "[\"ROLE_USER\",\"ROLE_ADMIN\"]";
+            } else if (selectedRole.equals("ROLE_ARTIST")) {
+                rolesJson = "[\"ROLE_USER\",\"ROLE_ARTIST\"]";
+            } else {
+                rolesJson = "[\"ROLE_USER\"]";
+            }
+            
+            if (isEditMode) {
+                // Update existing user
+                currentUser.setNom(nomField.getText());
+                currentUser.setPrenom(prenomField.getText());
+                currentUser.setEmail(emailField.getText());
+                
+                // Only update password if provided
+                if (!passwordField.getText().isEmpty()) {
+                    currentUser.setPassword(passwordField.getText());
+                }
+                
+                currentUser.setNumtlf(numtlfField.getText());
+                currentUser.setAge(Integer.parseInt(ageField.getText()));
+                
+                // Only update avatar if new one was selected
+                if (avatarUrl != null) {
+                    currentUser.setAvatarUrl(avatarUrl);
+                }
+                
+                currentUser.setRoles(rolesJson);
+                currentUser.setVerified(isVerifiedCheckBox.isSelected());
+                
+                userService.update(currentUser);
+                showAlert("Success", "User updated successfully", Alert.AlertType.INFORMATION);
+            } else {
+                // Create new user
+                User newUser = new User(
+                        nomField.getText(),
+                        prenomField.getText(),
+                        emailField.getText(),
+                        passwordField.getText(),
+                        numtlfField.getText(),
+                        Integer.parseInt(ageField.getText()),
+                        avatarUrl != null ? avatarUrl : "default-avatar.png",
+                        rolesJson,
+                        isVerifiedCheckBox.isSelected()
+                );
+                
+                userService.insert(newUser);
+                showAlert("Success", "User created successfully", Alert.AlertType.INFORMATION);
+            }
+            
+            // Refresh data
+            loadUsers();
+            updateStatistics();
+            
+            // Close form
+            popupOverlay.setVisible(false);
+            clearForm();
+            
+        } catch (Exception e) {
+            showAlert("Error", "Error saving user: " + e.getMessage(), Alert.AlertType.ERROR);
+            e.printStackTrace();
+        }
+    }
+    
+    private String processAvatarUpload() {
+        if (selectedAvatarFile == null) {
+            return null;
+        }
+        
+        try {
+            Path uploadsPath = Paths.get("src/main/resources/uploads");
+            if (!Files.exists(uploadsPath)) {
+                Files.createDirectories(uploadsPath);
+            }
+            
+            String fileName = System.currentTimeMillis() + "_" + selectedAvatarFile.getName();
+            Path targetPath = uploadsPath.resolve(fileName);
+            Files.copy(selectedAvatarFile.toPath(), targetPath, StandardCopyOption.REPLACE_EXISTING);
+            
+            return "uploads/" + fileName;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+    
+    private boolean validateForm() {
+        formErrorLabel.setVisible(false);
+        
+        if (nomField.getText().isEmpty() || prenomField.getText().isEmpty() ||
+                emailField.getText().isEmpty() || 
+                (!isEditMode && passwordField.getText().isEmpty()) ||
+                numtlfField.getText().isEmpty() || ageField.getText().isEmpty()) {
+            showFormError("Please fill in all required fields");
+            return false;
+        }
+        
+        if (!emailField.getText().matches("^[A-Za-z0-9+_.-]+@(.+)$")) {
+            showFormError("Please enter a valid email address");
+            return false;
+        }
+        
+        try {
+            int age = Integer.parseInt(ageField.getText());
+            if (age < 0 || age > 120) {
+                showFormError("Please enter a valid age (0-120)");
+                return false;
+            }
+        } catch (NumberFormatException e) {
+            showFormError("Age must be a number");
+            return false;
+        }
+        
+        return true;
+    }
+    
+    private void showFormError(String message) {
+        formErrorLabel.setText(message);
+        formErrorLabel.setVisible(true);
+        formErrorLabel.setManaged(true);
+    }
+    
+    private void clearForm() {
+        nomField.clear();
+        prenomField.clear();
+        emailField.clear();
+        passwordField.clear();
+        numtlfField.clear();
+        ageField.clear();
+        avatarUrlField.clear();
+        rolesComboBox.setValue("ROLE_USER");
+        isVerifiedCheckBox.setSelected(false);
+        formErrorLabel.setVisible(false);
+        formErrorLabel.setManaged(false);
+        selectedAvatarFile = null;
+        currentUser = null;
+    }
+    
+    @FXML
+    void showDeleteConfirmation(User user) {
+        userToDelete = user;
+        deleteConfirmationText.setText("Are you sure you want to delete user: " + user.getPrenom() + " " + user.getNom() + "?");
+        deleteConfirmationOverlay.setVisible(true);
+    }
+    
+    @FXML
+    void cancelDelete(ActionEvent event) {
+        deleteConfirmationOverlay.setVisible(false);
+        userToDelete = null;
+    }
+    
+    @FXML
+    void confirmDelete(ActionEvent event) {
+        if (userToDelete != null) {
+            try {
+                // Pass the entire User object to the delete method instead of just the ID
+                userService.delete(userToDelete);
+                
+                // Refresh data
+                loadUsers();
+                updateStatistics();
+                
+                showAlert("Success", "User deleted successfully", Alert.AlertType.INFORMATION);
+            } catch (Exception e) {
+                showAlert("Error", "Error deleting user: " + e.getMessage(), Alert.AlertType.ERROR);
+                e.printStackTrace();
+            }
+            
+            deleteConfirmationOverlay.setVisible(false);
+            userToDelete = null;
+        }
+    }
+    
+    private void showAlert(String title, String message, Alert.AlertType alertType) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+} 

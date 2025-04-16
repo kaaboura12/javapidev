@@ -1,0 +1,7 @@
+<!-- Somewhere in the top navigation bar, add login and create account buttons -->
+<HBox fx:id="userAuthBox" alignment="CENTER" spacing="10" styleClass="auth-buttons">
+    <Button fx:id="loginBtn" text="Login" styleClass="login-button"/>
+    <Button fx:id="createAccountBtn" text="Create Account" styleClass="create-account-button"/>
+    <Label fx:id="usernameLabel" text="Username" styleClass="username-label" visible="false"/>
+    <Button fx:id="logoutBtn" text="Déconnexion" styleClass="logout-button" visible="false"/>
+</HBox> 
