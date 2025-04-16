@@ -65,7 +65,6 @@ public class RegistrationController {
     void initialize() {
         rolesComboBox.getItems().setAll(
                 "ROLE_USER",
-                "ROLE_ADMIN",
                 "ROLE_ARTIST"
         );
         rolesComboBox.setValue("ROLE_USER");

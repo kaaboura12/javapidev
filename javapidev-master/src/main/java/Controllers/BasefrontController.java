@@ -40,6 +40,9 @@ public class BasefrontController implements Initializable {
     private Button backOfficeBtn;
     
     @FXML
+    private Button artisteResidentBtn;
+    
+    @FXML
     private Label usernameLabel;
     
     @FXML
@@ -126,6 +129,9 @@ public class BasefrontController implements Initializable {
             if (contentArea != null && contentArea.getScene() != null && contentArea.getScene().getUserData() == null) {
                 contentArea.getScene().setUserData(this);
             }
+            
+            // Set window to fullscreen
+            setSceneFullScreen();
         });
         
         // Initialize components
@@ -268,6 +274,26 @@ public class BasefrontController implements Initializable {
                 scaleTransition.play();
             });
         }
+        
+        // Setup artiste resident button
+        if (artisteResidentBtn != null) {
+            artisteResidentBtn.setOnAction(event -> navigateToArtisteResidentForm());
+            
+            // Add hover animation
+            artisteResidentBtn.setOnMouseEntered(e -> {
+                ScaleTransition scaleTransition = new ScaleTransition(Duration.millis(200), artisteResidentBtn);
+                scaleTransition.setToX(1.05);
+                scaleTransition.setToY(1.05);
+                scaleTransition.play();
+            });
+            
+            artisteResidentBtn.setOnMouseExited(e -> {
+                ScaleTransition scaleTransition = new ScaleTransition(Duration.millis(200), artisteResidentBtn);
+                scaleTransition.setToX(1.0);
+                scaleTransition.setToY(1.0);
+                scaleTransition.play();
+            });
+        }
     }
     
     /**
@@ -370,6 +396,9 @@ public class BasefrontController implements Initializable {
                         // Play parallel transition
                         ParallelTransition parallelTransition = new ParallelTransition(fadeIn, scaleIn);
                         parallelTransition.play();
+                        
+                        // Ensure scene stays fullscreen
+                        setSceneFullScreen();
                     } catch (Exception ex) {
                         System.err.println("Error loading view: " + ex.getMessage());
                     }
@@ -558,6 +587,7 @@ public class BasefrontController implements Initializable {
             if (usernameLabel != null) usernameLabel.setVisible(false);
             if (logoutBtn != null) logoutBtn.setVisible(false);
             if (backOfficeBtn != null) backOfficeBtn.setVisible(false);
+            if (artisteResidentBtn != null) artisteResidentBtn.setVisible(false);
             
             return;
         }
@@ -578,8 +608,16 @@ public class BasefrontController implements Initializable {
         // Add role-specific UI adjustments here
         // Show back office button only for admin users
         boolean isAdmin = hasRole("ADMIN");
+        boolean isUser = hasRole("USER");
+        boolean isArtist = hasRole("ARTIST");
+        
         if (backOfficeBtn != null) {
             backOfficeBtn.setVisible(isAdmin);
+        }
+        
+        // Show artiste resident button only for regular users and artists
+        if (artisteResidentBtn != null) {
+            artisteResidentBtn.setVisible(isUser || isArtist);
         }
         
         // You can add more UI adjustments based on user roles here
@@ -632,6 +670,10 @@ public class BasefrontController implements Initializable {
             stage.setScene(new Scene(root));
             stage.show();
             
+            // Set fullscreen
+            stage.setMaximized(true);
+            stage.setFullScreen(true);
+            
             System.out.println("Navigated to registration page");
         } catch (Exception e) {
             System.err.println("Error navigating to registration page: " + e.getMessage());
@@ -650,6 +692,10 @@ public class BasefrontController implements Initializable {
             Stage stage = (Stage) contentArea.getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.show();
+            
+            // Set fullscreen
+            stage.setMaximized(true);
+            stage.setFullScreen(true);
             
             System.out.println("Navigated to login page");
         } catch (Exception e) {
@@ -691,6 +737,10 @@ public class BasefrontController implements Initializable {
             stage.setScene(new Scene(root));
             stage.show();
             
+            // Set fullscreen
+            stage.setMaximized(true);
+            stage.setFullScreen(true);
+            
             System.out.println("Navigated to " + page + " page");
         } catch (Exception e) {
             System.err.println("Error navigating to " + page + " page: " + e.getMessage());
@@ -718,6 +768,10 @@ public class BasefrontController implements Initializable {
                 Scene scene = new Scene(root);
                 stage.setScene(scene);
                 stage.show();
+                
+                // Set fullscreen
+                stage.setMaximized(true);
+                stage.setFullScreen(true);
                 
                 System.out.println("Redirected to login screen");
             } catch (Exception ex) {
@@ -753,6 +807,10 @@ public class BasefrontController implements Initializable {
                         Scene scene = new Scene(root);
                         stage.setScene(scene);
                         
+                        // Set fullscreen
+                        stage.setMaximized(true);
+                        stage.setFullScreen(true);
+                        
                         // Fade in transition
                         FadeTransition fadeIn = new FadeTransition(Duration.millis(300), root);
                         fadeIn.setFromValue(0.0);
@@ -772,6 +830,70 @@ public class BasefrontController implements Initializable {
             }
         } else {
             System.out.println("Access denied: User doesn't have admin privileges");
+        }
+    }
+    
+    /**
+     * Navigate to the artiste resident application form
+     */
+    private void navigateToArtisteResidentForm() {
+        if (currentUser != null && (hasRole("USER") || hasRole("ARTIST"))) {
+            try {
+                System.out.println("Navigating to artiste resident form");
+                
+                // Use FadeTransition for smooth transition
+                FadeTransition fadeOut = new FadeTransition(Duration.millis(300), contentArea);
+                fadeOut.setFromValue(1.0);
+                fadeOut.setToValue(0.3);
+                
+                fadeOut.setOnFinished(e -> {
+                    try {
+                        // Load the view with ViewLoader
+                        ArtisteResidentFormController controller = Utils.ViewLoader.loadView(contentArea, "/Views/user/artiste_resident_form.fxml");
+                        
+                        // If controller is loaded successfully, set the current user
+                        if (controller != null) {
+                            controller.setCurrentUser(currentUser);
+                            System.out.println("Controller loaded and user set");
+                        } else {
+                            System.err.println("Failed to get controller");
+                        }
+                        
+                        // Add fade in effect
+                        FadeTransition fadeIn = new FadeTransition(Duration.millis(300), contentArea);
+                        fadeIn.setFromValue(0.3);
+                        fadeIn.setToValue(1.0);
+                        fadeIn.play();
+                        
+                        System.out.println("Navigated to artiste resident application form");
+                    } catch (Exception ex) {
+                        System.err.println("Error navigating to artiste resident form: " + ex.getMessage());
+                        ex.printStackTrace();
+                    }
+                });
+                
+                fadeOut.play();
+            } catch (Exception e) {
+                System.err.println("Error preparing navigation to artiste resident form: " + e.getMessage());
+                e.printStackTrace();
+            }
+        } else {
+            System.out.println("Access denied: User not logged in or doesn't have required privileges");
+        }
+    }
+    
+    /**
+     * Set the application window to fullscreen
+     */
+    private void setSceneFullScreen() {
+        if (contentArea != null && contentArea.getScene() != null) {
+            Stage stage = (Stage) contentArea.getScene().getWindow();
+            if (stage != null) {
+                stage.setMaximized(true);
+                stage.setFullScreen(true);
+                // Optional: Disable fullscreen exit hint
+                stage.setFullScreenExitHint("");
+            }
         }
     }
 } 

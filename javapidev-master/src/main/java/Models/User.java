@@ -244,4 +244,12 @@ public class User {
     public void setVerified(boolean verified) {
         this.is_verified = verified;
     }
+    
+    /**
+     * Alternative method for setRoles for controller compatibility
+     * @param role The user role
+     */
+    public void setRole(String role) {
+        this.roles = role;
+    }
 }

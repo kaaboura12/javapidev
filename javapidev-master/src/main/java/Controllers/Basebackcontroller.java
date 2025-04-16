@@ -48,6 +48,9 @@ public class Basebackcontroller implements Initializable {
     @FXML
     private Button logoutBtn;
     
+    @FXML
+    private Button artisteResidentBtn;
+    
     // Keep track of the currently active control to highlight it
     private Control currentActiveControl;
     
@@ -108,6 +111,12 @@ public class Basebackcontroller implements Initializable {
     private void navigateToStatistics() {
         setActiveControl(statisticsBtn);
         loadPage("/Views/statistics/statistics.fxml");
+    }
+    
+    @FXML
+    private void navigateToArtisteResident() {
+        setActiveControl(artisteResidentBtn);
+        loadPage("/Views/users/ArtisteResidentManager.fxml");
     }
     
     @FXML

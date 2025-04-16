@@ -20,6 +20,7 @@
     -fx-padding: 5px 12px;
     -fx-background-radius: 20px;
     -fx-transition: all 0.3s ease;
+    -fx-margin-left: auto; 
 }
 
 .nav-button:hover {
@@ -59,6 +60,22 @@
     -fx-effect: dropshadow(gaussian, rgba(100,70,150,0.4), 5, 0, 0, 0);
 }
 
+/* Artiste Resident button styling */
+.artiste-button {
+    -fx-background-color: rgba(40, 140, 100, 0.5);
+    -fx-text-fill: white;
+    -fx-font-family: 'Segoe UI', Arial, sans-serif;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+    -fx-border-width: 1px;
+    -fx-border-color: rgba(60, 180, 120, 0.8);
+    -fx-padding: 5px 12px;
+    -fx-background-radius: 20px;
+    -fx-border-radius: 20px;
+    -fx-effect: dropshadow(gaussian, rgba(40,140,100,0.4), 5, 0, 0, 0);
+}
+
 .admin-button:hover {
     -fx-background-color: rgba(120, 80, 180, 0.7);
     -fx-effect: dropshadow(gaussian, rgba(120,80,180,0.6), 8, 0, 0, 0);
@@ -68,6 +85,18 @@
 
 .admin-button:pressed {
     -fx-background-color: rgba(140, 100, 200, 0.8);
+    -fx-effect: innershadow(gaussian, rgba(0,0,0,0.3), 2, 0, 0, 1);
+}
+
+.artiste-button:hover {
+    -fx-background-color: rgba(60, 180, 120, 0.7);
+    -fx-effect: dropshadow(gaussian, rgba(60,180,120,0.6), 8, 0, 0, 0);
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+}
+
+.artiste-button:pressed {
+    -fx-background-color: rgba(80, 200, 140, 0.8);
     -fx-effect: innershadow(gaussian, rgba(0,0,0,0.3), 2, 0, 0, 1);
 }
 

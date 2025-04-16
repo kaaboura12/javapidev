@@ -78,6 +78,15 @@
                         </ImageView>
                      </graphic>
                   </Button>
+                  <Button fx:id="artisteResidentBtn" mnemonicParsing="false" onAction="#navigateToArtisteResident" prefHeight="45.0" prefWidth="250.0" styleClass="menu-button" text="Artiste Resident">
+                     <graphic>
+                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../Images/users.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
                   <Button fx:id="donationsBtn" mnemonicParsing="false" onAction="#navigateToDonations" prefHeight="45.0" prefWidth="250.0" styleClass="menu-button" text="Donations">
                      <graphic>
                         <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">

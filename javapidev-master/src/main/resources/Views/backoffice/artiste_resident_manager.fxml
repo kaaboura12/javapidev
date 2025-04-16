@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.web.WebView?>
+
+<BorderPane stylesheets="@../../Styles/baseback.css, @../../Styles/artiste_resident_manager.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.ArtisteResidentManagerController">
+   <center>
+      <BorderPane prefHeight="680.0" prefWidth="980.0" styleClass="content-pane">
+         <top>
+            <HBox alignment="CENTER_LEFT" spacing="20.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Label styleClass="section-title" text="Gestion des Demandes d'Artistes Résidents">
+                     <font>
+                        <Font name="System Bold" size="22.0" />
+                     </font>
+                  </Label>
+                  <HBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
+                     <children>
+                        <Label text="Filtre: " />
+                        <ComboBox fx:id="statusFilter" prefWidth="150.0" />
+                        <Button fx:id="refreshButton" mnemonicParsing="false" styleClass="action-button" text="Rafraîchir">
+                           <HBox.margin>
+                              <Insets left="10.0" />
+                           </HBox.margin>
+                        </Button>
+                     </children>
+                  </HBox>
+               </children>
+               <BorderPane.margin>
+                  <Insets bottom="15.0" />
+               </BorderPane.margin>
+            </HBox>
+         </top>
+         
+         <center>
+            <HBox spacing="20.0" BorderPane.alignment="CENTER">
+               <children>
+                  <TableView fx:id="requestsTable" prefHeight="580.0" prefWidth="500.0" styleClass="custom-table">
+                     <columns>
+                        <TableColumn fx:id="idColumn" prefWidth="50.0" text="ID" />
+                        <TableColumn fx:id="userColumn" prefWidth="220.0" text="Utilisateur" />
+                        <TableColumn fx:id="statusColumn" prefWidth="100.0" text="Statut" />
+                        <TableColumn fx:id="dateColumn" prefWidth="130.0" text="Date" />
+                     </columns>
+                     <effect>
+                        <DropShadow height="10.0" radius="4.5" width="10.0" />
+                     </effect>
+                  </TableView>
+                  
+                  <VBox fx:id="detailsPane" prefWidth="350.0" spacing="15.0" styleClass="details-pane">
+                     <children>
+                        <Label styleClass="sub-title" text="Détails de la demande">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </Label>
+                        
+                        <HBox alignment="CENTER_LEFT" spacing="10.0">
+                           <children>
+                              <Label styleClass="detail-label" text="Utilisateur:">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="userInfoLabel" styleClass="user-info" text="Nom de l'utilisateur" />
+                           </children>
+                        </HBox>
+                        
+                        <HBox alignment="CENTER_LEFT" spacing="10.0">
+                           <children>
+                              <Label styleClass="detail-label" text="Statut:">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="statusLabel" styleClass="status-label" text="PENDING" />
+                           </children>
+                        </HBox>
+                        
+                        <Label styleClass="detail-label" text="Description du projet:">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        
+                        <TextArea fx:id="descriptionTextArea" editable="false" prefHeight="180.0" styleClass="description-text" wrapText="true" />
+                        
+                        <Label styleClass="detail-label" text="Actions:">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        
+                        <HBox alignment="CENTER" spacing="10.0">
+                           <children>
+                              <Button fx:id="approveButton" mnemonicParsing="false" prefWidth="100.0" styleClass="approve-button" text="Approuver" />
+                              <Button fx:id="rejectButton" mnemonicParsing="false" prefWidth="100.0" styleClass="reject-button" text="Rejeter" />
+                              <Button fx:id="deleteButton" mnemonicParsing="false" prefWidth="100.0" styleClass="delete-button" text="Supprimer" />
+                           </children>
+                        </HBox>
+                        
+                        <Label styleClass="detail-label" text="Portfolio:">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        
+                        <Button fx:id="viewPortfolioButton" mnemonicParsing="false" styleClass="secondary-button" text="Voir le portfolio" />
+                        
+                        <WebView fx:id="portfolioViewer" prefHeight="0.0" prefWidth="0.0" visible="false" />
+                     </children>
+                     <padding>
+                        <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                     </padding>
+                     <effect>
+                        <DropShadow height="10.0" radius="4.5" width="10.0" />
+                     </effect>
+                  </VBox>
+               </children>
+            </HBox>
+         </center>
+         <padding>
+            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+         </padding>
+      </BorderPane>
+   </center>
+</BorderPane> 
