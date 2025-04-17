@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="600.0" prefWidth="800.0" styleClass="dashboard-container" stylesheets="@../../Styles/reservationeditback.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.Backend.editreservationController">
+    <children>
+        <VBox layoutX="10.0" layoutY="10.0" prefHeight="580.0" prefWidth="780.0" styleClass="edit-form-container" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+            <children>
+                <HBox alignment="CENTER" prefHeight="70.0" prefWidth="200.0" styleClass="form-header">
+                    <children>
+                        <Label styleClass="form-title" text="Edit Reservation">
+                            <font>
+                                <Font name="System Bold" size="24.0" />
+                            </font>
+                        </Label>
+                    </children>
+                </HBox>
+                
+                <GridPane hgap="15.0" vgap="15.0">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="200.0" minWidth="150.0" prefWidth="180.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="300.0" prefWidth="350.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="200.0" prefWidth="250.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                    <children>
+                        <!-- Row 0: Reservation ID -->
+                        <Label styleClass="form-label" text="Reservation ID:" GridPane.rowIndex="0" />
+                        <Label fx:id="reservationIdLabel" styleClass="form-field-disabled" text="[Auto-generated]" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                        
+                        <!-- Row 1: User Selection -->
+                        <Label styleClass="form-label" text="User:" GridPane.rowIndex="1" />
+                        <ComboBox fx:id="userComboBox" prefHeight="35.0" prefWidth="350.0" promptText="Select User" styleClass="form-combo" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <Label fx:id="userValidationLabel" styleClass="validation-label" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                        
+                        <!-- Row 2: Event Selection -->
+                        <Label styleClass="form-label" text="Event:" GridPane.rowIndex="2" />
+                        <ComboBox fx:id="eventComboBox" prefHeight="35.0" prefWidth="350.0" promptText="Select Event" styleClass="form-combo" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <Label fx:id="eventValidationLabel" styleClass="validation-label" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                        
+                        <!-- Row 3: Reservation Date -->
+                        <Label styleClass="form-label" text="Reservation Date:" GridPane.rowIndex="3" />
+                        <DatePicker fx:id="reservationDatePicker" prefHeight="35.0" prefWidth="350.0" promptText="Select Date" styleClass="form-date-picker" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <Label fx:id="dateValidationLabel" styleClass="validation-label" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                        
+                        <!-- Row 4: Seats Reserved -->
+                        <Label styleClass="form-label" text="Seats Reserved:" GridPane.rowIndex="4" />
+                        <Spinner fx:id="seatsSpinner" prefHeight="35.0" prefWidth="350.0" styleClass="form-spinner" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                        <Label fx:id="seatsValidationLabel" styleClass="validation-label" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+                        
+                        <!-- Row 5: Total Amount -->
+                        <Label styleClass="form-label" text="Total Amount:" GridPane.rowIndex="5" />
+                        <TextField fx:id="totalAmountField" prefHeight="35.0" prefWidth="350.0" promptText="0.00" styleClass="form-field" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                        <Label fx:id="amountValidationLabel" styleClass="validation-label" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+                    </children>
+                    <VBox.margin>
+                        <Insets left="20.0" right="20.0" top="20.0" />
+                    </VBox.margin>
+                </GridPane>
+                
+                <!-- Status Selection -->
+                <HBox alignment="CENTER_LEFT" spacing="15.0">
+                    <children>
+                        <Label styleClass="form-label" text="Status:" />
+                        <ComboBox fx:id="statusComboBox" prefHeight="35.0" prefWidth="350.0" promptText="Select Status" styleClass="form-combo" />
+                        <Label fx:id="statusValidationLabel" styleClass="validation-label" />
+                    </children>
+                    <VBox.margin>
+                        <Insets left="20.0" right="20.0" top="15.0" />
+                    </VBox.margin>
+                </HBox>
+                
+                <!-- Information Box -->
+                <VBox styleClass="info-box">
+                    <children>
+                        <Label styleClass="info-title" text="Reservation Information" />
+                        <Label styleClass="info-text" text="• Changes to reservation details will be reflected immediately in the system." wrapText="true" />
+                        <Label styleClass="info-text" text="• Total amount is calculated automatically based on the event's ticket price and number of seats." wrapText="true" />
+                        <Label styleClass="info-text" text="• Changing the status to 'Cancelled' will free up the reserved seats for other users." wrapText="true" />
+                    </children>
+                    <VBox.margin>
+                        <Insets left="20.0" right="20.0" top="20.0" />
+                    </VBox.margin>
+                </VBox>
+                
+                <Separator>
+                    <VBox.margin>
+                        <Insets top="20.0" />
+                    </VBox.margin>
+                </Separator>
+                
+                <!-- Action Buttons -->
+                <HBox alignment="CENTER" spacing="20.0">
+                    <children>
+                        <Button fx:id="saveButton" mnemonicParsing="false" onAction="#handleSave" prefHeight="40.0" prefWidth="120.0" styleClass="save-button" text="Save" />
+                        <Button fx:id="cancelButton" mnemonicParsing="false" onAction="#handleCancel" prefHeight="40.0" prefWidth="120.0" styleClass="cancel-button" text="Cancel" />
+                    </children>
+                    <VBox.margin>
+                        <Insets bottom="20.0" top="20.0" />
+                    </VBox.margin>
+                </HBox>
+            </children>
+        </VBox>
+    </children>
+</AnchorPane>

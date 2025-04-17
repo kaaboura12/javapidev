@@ -9,23 +9,23 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.control.Pagination?>
 
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="Views.backreservation.Reservationbacklist"
+            fx:controller="Controllers.backevent.ReservationBackList"
             prefHeight="700.0" prefWidth="1000.0"
+            styleClass="main-container"
             stylesheets="@../../Styles/reservationback.css">
     <children>
         <VBox spacing="0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <!-- Header -->
-            <HBox styleClass="nav-bar" alignment="CENTER_LEFT" spacing="20.0">
+            <HBox styleClass="header-bar" alignment="CENTER_LEFT" spacing="20.0">
                 <padding>
-                    <Insets left="20.0" right="20.0"/>
+                    <Insets left="20.0" right="20.0" top="15.0" bottom="15.0"/>
                 </padding>
-                <Label text="RESERVATIONS DASHBOARD" styleClass="dashboard-header"/>
+                <Label text="RESERVATIONS DASHBOARD" styleClass="header-title"/>
                 
                 <!-- Hidden stats for controller (not visible but needed) -->
                 <Label fx:id="totalReservationsCount" managed="false" visible="false"/>
@@ -35,54 +35,64 @@
             </HBox>
 
             <!-- Stats Section -->
-            <HBox alignment="CENTER_LEFT" spacing="15.0" style="-fx-padding: 10 20 10 20; -fx-background-color: white;">
-                <Label text="Total Reservations:" style="-fx-text-fill: #666666; -fx-font-size: 13px;"/>
-                <Label fx:id="totalCount" text="0" style="-fx-text-fill: #333333;"/>
+            <HBox alignment="CENTER_LEFT" spacing="15.0" styleClass="stats-section">
+                <padding>
+                    <Insets left="20.0" right="20.0" top="10.0" bottom="10.0"/>
+                </padding>
+                <Label text="Total:" styleClass="stats-label"/>
+                <Label fx:id="totalCount" text="0" styleClass="stats-value"/>
                 
-                <Label text="Pending:" style="-fx-text-fill: #666666; -fx-font-size: 13px; -fx-padding: 0 0 0 15;"/>
-                <Label fx:id="pendingCount" text="0" style="-fx-text-fill: #007bff;"/>
+                <Label text="Pending:" styleClass="stats-label"/>
+                <Label fx:id="pendingCount" text="0" styleClass="stats-value, pending-value"/>
                 
-                <Label text="Completed:" style="-fx-text-fill: #666666; -fx-font-size: 13px; -fx-padding: 0 0 0 15;"/>
-                <Label fx:id="completedCount" text="0" style="-fx-text-fill: #28a745;"/>
+                <Label text="Completed:" styleClass="stats-label"/>
+                <Label fx:id="completedCount" text="0" styleClass="stats-value, completed-value"/>
                 
-                <Label text="Cancelled:" style="-fx-text-fill: #666666; -fx-font-size: 13px; -fx-padding: 0 0 0 15;"/>
-                <Label fx:id="cancelledCount" text="0" style="-fx-text-fill: #dc3545;"/>
+                <Label text="Cancelled:" styleClass="stats-label"/>
+                <Label fx:id="cancelledCount" text="0" styleClass="stats-value, cancelled-value"/>
             </HBox>
 
             <!-- Main Content -->
-            <VBox spacing="20.0" style="-fx-padding: 20;">
+            <VBox spacing="20.0" styleClass="content-container">
                 <!-- Search Section -->
-                <HBox alignment="CENTER_LEFT" spacing="10.0" styleClass="action-section">
-                    <TextField fx:id="searchField" prefHeight="35.0" prefWidth="300.0" promptText="Search reservations..." styleClass="search-field"/>
-                    <Button fx:id="searchButton" mnemonicParsing="false" onAction="#handleSearch" text="Search" styleClass="dashboard-button"/>
+                <HBox styleClass="title-search-row" alignment="CENTER_LEFT" spacing="10.0">
+                    <Label text="Reservations" styleClass="section-title"/>
                     <Region HBox.hgrow="ALWAYS"/>
-                    <Button fx:id="addReservationButton" mnemonicParsing="false" onAction="#handleAddReservation" text="+ Add Reservation" styleClass="dashboard-button, add-button"/>
+                    <HBox styleClass="search-container" alignment="CENTER">
+                        <TextField fx:id="searchField" prefHeight="35.0" prefWidth="300.0" promptText="Search reservations..." styleClass="search-field"/>
+                        <Button fx:id="searchButton" mnemonicParsing="false" onAction="#handleSearch" text="Search" styleClass="search-button"/>
+                    </HBox>
+                    <Button fx:id="addReservationButton" mnemonicParsing="false" onAction="#handleAddReservation" text="+ Add Reservation" styleClass="orange-button, add-button"/>
                 </HBox>
 
-                <!-- Table View -->
-                <TableView fx:id="reservationTable" VBox.vgrow="ALWAYS" styleClass="reservation-table" fixedCellSize="40.0">
-                    <columns>
-                        <TableColumn fx:id="idColumn" prefWidth="70.0" text="ID" styleClass="id-column"/>
-                        <TableColumn fx:id="userColumn" prefWidth="150.0" text="User"/>
-                        <TableColumn fx:id="eventColumn" prefWidth="180.0" text="Event"/>
-                        <TableColumn fx:id="dateColumn" prefWidth="120.0" text="Date"/>
-                        <TableColumn fx:id="seatsColumn" prefWidth="100.0" text="Seats"/>
-                        <TableColumn fx:id="amountColumn" prefWidth="120.0" text="Total Amount"/>
-                        <TableColumn fx:id="statusColumn" prefWidth="120.0" text="Status"/>
-                    </columns>
-                    <columnResizePolicy>
-                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
-                    </columnResizePolicy>
-                </TableView>
-                
-                <!-- Pagination -->
-                <Pagination fx:id="pagination" pageCount="10" styleClass="reservation-pagination"/>
+                <!-- Table Container -->
+                <VBox styleClass="table-container" VBox.vgrow="ALWAYS">
+                    <!-- Table View -->
+                    <TableView fx:id="reservationTable" VBox.vgrow="ALWAYS" styleClass="event-table" fixedCellSize="40.0">
+                        <columns>
+                            <TableColumn fx:id="idColumn" prefWidth="70.0" text="ID" styleClass="id-column"/>
+                            <TableColumn fx:id="userColumn" prefWidth="150.0" text="User"/>
+                            <TableColumn fx:id="eventColumn" prefWidth="180.0" text="Event"/>
+                            <TableColumn fx:id="dateColumn" prefWidth="120.0" text="Date"/>
+                            <TableColumn fx:id="seatsColumn" prefWidth="100.0" text="Seats"/>
+                            <TableColumn fx:id="amountColumn" prefWidth="120.0" text="Total Amount"/>
+                            <TableColumn fx:id="statusColumn" prefWidth="120.0" text="Status"/>
+                            <TableColumn fx:id="actionsColumn" prefWidth="140.0" text="Actions" styleClass="actions-column"/>
+                        </columns>
+                        <columnResizePolicy>
+                            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+                        </columnResizePolicy>
+                    </TableView>
+                    
+                    <!-- Pagination -->
+                    <Pagination fx:id="pagination" pageCount="10" styleClass="event-pagination"/>
 
-                <!-- Status Footer -->
-                <HBox alignment="CENTER_RIGHT" spacing="15.0" styleClass="status-section">
-                    <Label fx:id="totalReservationsLabel" text="Total Reservations: 0" styleClass="status-label"/>
-                    <Label fx:id="lastUpdatedLabel" text="Last Updated: Today at 12:00" styleClass="status-label"/>
-                </HBox>
+                    <!-- Status Footer -->
+                    <HBox alignment="CENTER_RIGHT" spacing="15.0" styleClass="status-section">
+                        <Label fx:id="totalReservationsLabel" text="Total Reservations: 0" styleClass="status-label"/>
+                        <Label fx:id="lastUpdatedLabel" text="Last Updated: Today at 12:00" styleClass="status-label"/>
+                    </HBox>
+                </VBox>
             </VBox>
         </VBox>
     </children>

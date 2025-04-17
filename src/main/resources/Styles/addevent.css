@@ -1,0 +1,294 @@
+/* Add Event Form Styling */
+
+/* DatePicker cells styling */
+.date-picker > .date-picker-popup > .calendar-grid {
+    -fx-background-color: #1e1e30;
+    -fx-border-color: #ff7e5f;
+}
+
+.date-picker > .date-picker-popup > .calendar-grid > .day-cell {
+    -fx-background-color: #1e1e30;
+    -fx-text-fill: white;
+    -fx-border-color: rgba(255, 126, 95, 0.2);
+}
+
+.date-picker > .date-picker-popup > .calendar-grid > .day-cell:hover {
+    -fx-background-color: rgba(255, 126, 95, 0.3);
+}
+
+.date-picker > .date-picker-popup > .calendar-grid > .day-cell.selected {
+    -fx-background-color: #ff7e5f;
+    -fx-text-fill: white;
+}
+
+.date-picker > .date-picker-popup > .calendar-grid > .day-name-cell {
+    -fx-background-color: #1e1e30;
+    -fx-text-fill: #ff7e5f;
+    -fx-font-weight: bold;
+}
+
+.date-picker > .date-picker-popup > .month-year-pane {
+    -fx-background-color: #1e1e30;
+}
+
+.date-picker > .date-picker-popup > .month-year-pane > .label {
+    -fx-text-fill: white;
+}
+
+.date-picker > .date-picker-popup > .month-year-pane > .spinner > .button {
+    -fx-background-color: rgba(255, 126, 95, 0.3);
+    -fx-text-fill: white;
+}
+
+.date-picker > .date-picker-popup > .month-year-pane > .spinner > .button:hover {
+    -fx-background-color: rgba(255, 126, 95, 0.5);
+}
+
+/* Text field focus style */
+.search-field:focused {
+    -fx-border-color: #ff7e5f;
+    -fx-background-color: rgba(255, 126, 95, 0.1);
+}
+
+/* Add custom button hover effects */
+.orange-button:hover {
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+    -fx-effect: dropshadow(gaussian, rgba(255, 126, 95, 0.7), 10, 0, 0, 0);
+}
+
+.card-delete-button:hover {
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+    -fx-effect: dropshadow(gaussian, rgba(231, 76, 60, 0.7), 10, 0, 0, 0);
+}
+
+/* Add transition effects */
+.orange-button, .card-delete-button {
+    -fx-transition: all 0.2s ease;
+}
+
+/* Form validation styling */
+.error-field {
+    -fx-border-color: #e74c3c;
+    -fx-border-width: 2px;
+}
+
+.valid-field {
+    -fx-border-color: #2ecc71;
+    -fx-border-width: 2px;
+}
+
+.validation-message {
+    -fx-text-fill: #e74c3c;
+    -fx-font-size: 11px;
+    -fx-padding: 2px 0 0 0;
+}
+
+.hint-message {
+    -fx-text-fill: #a0a0a0;
+    -fx-font-size: 11px;
+    -fx-padding: 2px 0 0 0;
+}
+
+/* Grid container for form with validation messages */
+.form-grid {
+    -fx-vgap: 5px;
+    -fx-hgap: 15px;
+}
+
+/* Adjusting the general layout of validation messages */
+.validation-container {
+    -fx-spacing: 2px;
+    -fx-padding: 0;
+}
+
+/* Custom Dialog Styling */
+.dialog-pane {
+    -fx-background-color: #1e1e30;
+}
+
+.dialog-pane .label {
+    -fx-text-fill: white;
+}
+
+.dialog-pane:header .header-panel {
+    -fx-background-color: linear-gradient(to right, #ff7e5f, #feb47b);
+}
+
+.dialog-pane:header .header-panel .label {
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+
+.dialog-pane .button-bar .button {
+    -fx-background-color: linear-gradient(to right, #ff7e5f, #feb47b);
+    -fx-text-fill: white;
+    -fx-background-radius: 20px;
+}
+
+.dialog-pane .button-bar .button:hover {
+    -fx-effect: dropshadow(gaussian, rgba(255,126,95,0.7), 10, 0, 0, 0);
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+}
+
+.dialog-pane .content.label {
+    -fx-padding: 15px;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+}
+
+/* Error dialog specific styling */
+.dialog-pane:error {
+    -fx-effect: dropshadow(gaussian, rgba(231,76,60,0.4), 10, 0, 0, 0);
+}
+
+/* Information dialog specific styling */
+.dialog-pane:information {
+    -fx-effect: dropshadow(gaussian, rgba(255,126,95,0.4), 10, 0, 0, 0);
+}
+
+/* Image selection styling */
+.selected-image-container {
+    -fx-background-color: rgba(30, 30, 48, 0.4);
+    -fx-border-color: rgba(255, 126, 95, 0.3);
+    -fx-border-width: 1px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-padding: 10px;
+}
+
+.selected-image-preview {
+    -fx-max-width: 100px;
+    -fx-max-height: 100px;
+    -fx-border-color: rgba(255, 126, 95, 0.5);
+    -fx-border-width: 1px;
+    -fx-effect: dropshadow(gaussian, rgba(255, 126, 95, 0.3), 5, 0, 0, 0);
+}
+
+.image-field-container {
+    -fx-spacing: 10px;
+    -fx-alignment: center-left;
+}
+
+.image-chooser-button {
+    -fx-background-color: linear-gradient(to right, #ff7e5f, #feb47b);
+    -fx-text-fill: white;
+    -fx-background-radius: 5px;
+    -fx-cursor: hand;
+    -fx-padding: 8px 12px;
+}
+
+.image-chooser-button:hover {
+    -fx-effect: dropshadow(gaussian, rgba(255, 126, 95, 0.6), 8, 0, 0, 0);
+    -fx-scale-x: 1.03;
+    -fx-scale-y: 1.03;
+}
+
+/* Enhanced ScrollPane Styling */
+.event-list-scroll {
+    -fx-background: transparent;
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.event-list-scroll > .viewport {
+    -fx-background-color: transparent;
+}
+
+.event-list-scroll .scroll-bar:vertical {
+    -fx-background-color: transparent;
+    -fx-background-radius: 5px;
+    -fx-pref-width: 10px;
+    -fx-padding: 0 2;
+}
+
+.event-list-scroll .scroll-bar:vertical .track {
+    -fx-background-color: rgba(255, 255, 255, 0.05);
+    -fx-border-color: transparent;
+    -fx-background-radius: 5px;
+}
+
+.event-list-scroll .scroll-bar:vertical .track-background {
+    -fx-background-color: transparent;
+    -fx-background-radius: 5px;
+}
+
+.event-list-scroll .scroll-bar:vertical .thumb {
+    -fx-background-color: linear-gradient(to bottom, rgba(255,126,95,0.6), rgba(254,180,123,0.6));
+    -fx-background-radius: 5px;
+    -fx-opacity: 0.7;
+}
+
+.event-list-scroll .scroll-bar:vertical .thumb:hover {
+    -fx-background-color: linear-gradient(to bottom, rgba(255,126,95,0.9), rgba(254,180,123,0.9));
+    -fx-opacity: 1.0;
+    -fx-effect: dropshadow(gaussian, rgba(255,126,95,0.5), 5, 0, 0, 0);
+}
+
+/* Content Container Styling */
+.content-container {
+    -fx-padding: 20px;
+    -fx-spacing: 15px;
+    -fx-fill-width: true;
+}
+
+/* Responsive GridPane styling */
+.event-cards-container {
+    -fx-background-color: rgba(30, 30, 48, 0.4);
+    -fx-background-radius: 10px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 10, 0, 0, 3);
+    -fx-border-color: rgba(255, 126, 95, 0.2);
+    -fx-border-width: 1px;
+    -fx-border-radius: 10px;
+    -fx-fill-width: true;
+}
+
+/* Button container styling */
+.button-container {
+    -fx-background-color: rgba(30, 30, 48, 0.6);
+    -fx-border-color: rgba(255, 126, 95, 0.2);
+    -fx-border-width: 1px 0 0 0;
+}
+
+/* Responsive Fields */
+.text-field, .text-area, .date-picker {
+    -fx-min-width: 200px;
+    -fx-pref-width: 300px;
+}
+
+/* Responsive Text Areas */
+.text-area {
+    -fx-min-height: 80px;
+}
+
+/* Media queries for different screen sizes */
+@media (max-width: 600px) {
+    .event-info-label {
+        -fx-font-size: 12px;
+    }
+    
+    .search-field {
+        -fx-font-size: 12px;
+    }
+    
+    .orange-button, .card-delete-button {
+        -fx-font-size: 12px;
+        -fx-padding: 8px 12px;
+    }
+}
+
+@media (min-width: 1200px) {
+    .event-info-label {
+        -fx-font-size: 16px;
+    }
+    
+    .search-field {
+        -fx-font-size: 14px;
+    }
+    
+    .text-area {
+        -fx-min-height: 100px;
+    }
+} 

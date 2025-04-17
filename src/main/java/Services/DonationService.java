@@ -78,6 +78,20 @@ public class DonationService implements ICrud<Donation> {
         pstmt.executeUpdate();
         pstmt.close();
     }
+    
+    /**
+     * Delete a donation by its ID
+     * 
+     * @param id The ID of the donation to delete
+     * @throws SQLException If a database error occurs
+     */
+    public void delete(int id) throws SQLException {
+        String sql = "DELETE FROM donation WHERE iddon = ?";
+        PreparedStatement pstmt = this.con.prepareStatement(sql);
+        pstmt.setInt(1, id);
+        pstmt.executeUpdate();
+        pstmt.close();
+    }
 
     @Override
     public List<Donation> findAll() throws SQLException {

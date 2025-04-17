@@ -6,11 +6,11 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.MenuButton;
-import javafx.scene.control.MenuItem;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.control.Control;
-
+import javafx.scene.Node;
+import javafx.stage.Stage;
+import javafx.scene.Scene;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -24,10 +24,19 @@ public class Basebackcontroller implements Initializable {
     private Label currentUserLabel;
     
     @FXML
+    private Label pageTitle;
+    
+    @FXML
+    private Label usernameLabel;
+    
+    @FXML
     private Button dashboardBtn;
     
     @FXML
-    private MenuButton eventsBtn;
+    private Button eventDashboardBtn;
+    
+    @FXML
+    private Button eventListBtn;
     
     @FXML
     private Button usersBtn;
@@ -47,74 +56,90 @@ public class Basebackcontroller implements Initializable {
     // Keep track of the currently active control to highlight it
     private Control currentActiveControl;
     
+    // Keep track of current username
+    private String username = "Admin";
+    
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         // Set dashboard as the default view
         currentActiveControl = dashboardBtn;
         setActiveControl(dashboardBtn);
-        loadDashboard();
+        updatePageTitle("Dashboard");
         
-        // Setup menu item actions
-        for (MenuItem item : eventsBtn.getItems()) {
-            if (item.getText().equals("Event Dashboard")) {
-                item.setOnAction(e -> navigateToEventDashboard());
-            } else if (item.getText().equals("Event List")) {
-                item.setOnAction(e -> navigateToEventList());
-            }
-        }
+        // Set default username in profile section
+        updateUserInfo(username);
+        
+        // Load the dashboard
+        loadDashboard();
     }
     
     @FXML
     private void navigateToDashboard() {
         setActiveControl(dashboardBtn);
+        updatePageTitle("Dashboard");
         loadPage("/Views/dashboard/dashboard.fxml");
     }
     
     @FXML
     private void navigateToEventDashboard() {
-        setActiveControl(eventsBtn);
+        setActiveControl(eventDashboardBtn);
+        updatePageTitle("Event Dashboard");
         loadPage("/Views/backevent/eventdashboard.fxml");
     }
     
     @FXML
     private void navigateToEventList() {
-        setActiveControl(eventsBtn);
+        setActiveControl(eventListBtn);
+        updatePageTitle("Event List");
         loadPage("/Views/backevent/eventbacklist.fxml");
     }
     
     @FXML
     private void navigateToUsers() {
         setActiveControl(usersBtn);
+        updatePageTitle("Users Management");
         loadPage("/Views/users/listuser.fxml");
     }
     
     @FXML
     private void navigateToDonations() {
         setActiveControl(donationsBtn);
+        updatePageTitle("Donations");
         loadPage("/Views/backdonation/donationbacklist.fxml");
     }
     
     @FXML
     private void navigateToReservations() {
         setActiveControl(reservationsBtn);
+        updatePageTitle("Reservations");
         loadPage("/Views/backreservation/reservationbacklist.fxml");
     }
     
     @FXML
     private void navigateToStatistics() {
         setActiveControl(statisticsBtn);
+        updatePageTitle("Statistics");
         loadPage("/Views/statistics/statistics.fxml");
     }
     
     @FXML
     private void logout() {
-        // Implementation for logout functionality
         try {
+            // Get the current stage from any node
+            Stage stage = (Stage) contentArea.getScene().getWindow();
+            
+            // Load the login view
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/login.fxml"));
             Parent root = loader.load();
-            contentArea.getScene().setRoot(root);
+            
+            // Create new scene and set it on the stage
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.centerOnScreen();
+            
         } catch (IOException e) {
             e.printStackTrace();
+            System.err.println("Error navigating to login screen: " + e.getMessage());
         }
     }
     
@@ -137,6 +162,12 @@ public class Basebackcontroller implements Initializable {
             
             contentArea.getChildren().clear();
             contentArea.getChildren().add(page);
+            
+            // Try to get controller to pass user info if needed
+            Object controller = loader.getController();
+            if (controller != null && controller instanceof BaseController) {
+                ((BaseController) controller).setCurrentUser(username);
+            }
             
         } catch (IOException e) {
             e.printStackTrace();
@@ -161,10 +192,37 @@ public class Basebackcontroller implements Initializable {
         currentActiveControl = control;
     }
     
-    // Method to set the current user's name in the top bar
-    public void setCurrentUser(String username) {
-        if (username != null && !username.isEmpty()) {
-            currentUserLabel.setText("Welcome, " + username);
+    // Method to update the page title
+    private void updatePageTitle(String title) {
+        if (pageTitle != null) {
+            pageTitle.setText(title);
         }
+    }
+    
+    // Method to update user info displayed in sidebar
+    private void updateUserInfo(String username) {
+        if (username != null && !username.isEmpty()) {
+            this.username = username;
+            
+            // Update top bar welcome message
+            if (currentUserLabel != null) {
+                currentUserLabel.setText("Welcome, " + username);
+            }
+            
+            // Update sidebar username
+            if (usernameLabel != null) {
+                usernameLabel.setText(username);
+            }
+        }
+    }
+    
+    // Method to set the current user's name 
+    public void setCurrentUser(String username) {
+        updateUserInfo(username);
+    }
+    
+    // Interface for child controllers
+    public interface BaseController {
+        void setCurrentUser(String username);
     }
 }

@@ -71,6 +71,10 @@ public class EventService implements ICrud<Event> {
 
     @Override
     public void delete(Event obj) throws SQLException {
+        // First delete related records from dependent tables before deleting the event
+        cascadeDelete(obj.getIdevent());
+        
+        // Then delete the event itself
         String sql = "DELETE FROM event WHERE idevent = ?";
         PreparedStatement pstmt = this.con.prepareStatement(sql);
         pstmt.setInt(1, obj.getIdevent());
@@ -85,11 +89,70 @@ public class EventService implements ICrud<Event> {
      * @throws SQLException If a database error occurs
      */
     public void delete(int id) throws SQLException {
+        // First delete related records from dependent tables before deleting the event
+        cascadeDelete(id);
+        
+        // Then delete the event itself
         String sql = "DELETE FROM event WHERE idevent = ?";
         PreparedStatement pstmt = this.con.prepareStatement(sql);
         pstmt.setInt(1, id);
         pstmt.executeUpdate();
         pstmt.close();
+    }
+    
+    /**
+     * Performs a cascade delete for an event, removing all dependent records first
+     * 
+     * @param eventId ID of the event to cascade delete
+     * @throws SQLException If a database error occurs
+     */
+    private void cascadeDelete(int eventId) throws SQLException {
+        try {
+            // Start a transaction to ensure all deletes are atomic
+            con.setAutoCommit(false);
+            
+            // Delete records from model3_d table that reference this event
+            String deleteModel3DSQL = "DELETE FROM model3_d WHERE event_id = ?";
+            PreparedStatement model3dStmt = this.con.prepareStatement(deleteModel3DSQL);
+            model3dStmt.setInt(1, eventId);
+            model3dStmt.executeUpdate();
+            model3dStmt.close();
+            
+            // Delete records from the reservation table related to this event
+            String deleteReservationsSQL = "DELETE FROM reservation WHERE idevent = ?";
+            PreparedStatement reservationStmt = this.con.prepareStatement(deleteReservationsSQL);
+            reservationStmt.setInt(1, eventId);
+            reservationStmt.executeUpdate();
+            reservationStmt.close();
+            
+            // Delete records from the donation table related to this event
+            String deleteDonationsSQL = "DELETE FROM donation WHERE idevent = ?";
+            PreparedStatement donationStmt = this.con.prepareStatement(deleteDonationsSQL);
+            donationStmt.setInt(1, eventId);
+            donationStmt.executeUpdate();
+            donationStmt.close();
+            
+            // If there are any other tables with foreign key relationships to event,
+            // add delete statements for them here
+            
+            // Commit the transaction
+            con.commit();
+        } catch (SQLException e) {
+            // If there's an error, roll back the transaction
+            try {
+                con.rollback();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+            throw e; // Re-throw the exception
+        } finally {
+            // Restore auto-commit mode
+            try {
+                con.setAutoCommit(true);
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
     }
 
     @Override

@@ -2,6 +2,7 @@ package Controllers.event;
 
 import Models.Event;
 import Utils.ViewLoader;
+import Views.event.Eventdetails;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -18,6 +19,8 @@ import javafx.geometry.Pos;
 import javafx.scene.text.TextAlignment;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.paint.Color;
+import javafx.scene.Cursor;
+import javafx.scene.input.MouseEvent;
 
 import java.io.File;
 import java.io.IOException;
@@ -91,6 +94,21 @@ public class EventCardController implements Initializable {
         if (eventTitle != null) {
             eventTitle.setWrapText(true);
             eventTitle.setTextAlignment(TextAlignment.LEFT);
+            
+            // Make title clickable with hand cursor
+            eventTitle.setCursor(Cursor.HAND);
+            
+            // Add click event to title to open event details
+            eventTitle.setOnMouseClicked(this::handleTitleClick);
+            
+            // Add hover effect for title
+            eventTitle.setOnMouseEntered(e -> {
+                eventTitle.setStyle("-fx-underline: true; -fx-text-fill: #3a5ca2;");
+            });
+            
+            eventTitle.setOnMouseExited(e -> {
+                eventTitle.setStyle("-fx-underline: false; -fx-text-fill: inherit;");
+            });
         }
         
         // Initialize location icon if HBox exists
@@ -98,6 +116,17 @@ public class EventCardController implements Initializable {
         
         // Initialize time icon if HBox exists
         initializeTimeIcon();
+    }
+    
+    /**
+     * Handle event title click to open event details page
+     */
+    private void handleTitleClick(MouseEvent event) {
+        if (this.event != null) {
+            // Open the event details page
+            Eventdetails detailsPage = new Eventdetails();
+            detailsPage.show(this.event.getIdevent());
+        }
     }
     
     /**
@@ -376,26 +405,84 @@ public class EventCardController implements Initializable {
     private void loadEventImage() {
         try {
             if (event.getImage() != null && !event.getImage().isEmpty()) {
+                System.out.println("Attempting to load image: " + event.getImage());
+                
+                // First try to load as an absolute file path
                 File imageFile = new File(event.getImage());
                 if (imageFile.exists()) {
+                    System.out.println("Loading image as file: " + imageFile.getAbsolutePath());
                     Image image = new Image(imageFile.toURI().toString());
                     eventImage.setImage(image);
+                    return;
                 } else {
-                    // Try to load from resources
-                    URL imageUrl = getClass().getResource(event.getImage());
-                    if (imageUrl != null) {
-                        Image image = new Image(imageUrl.toString());
-                        eventImage.setImage(image);
-                    } else {
-                        // Load default image
-                        loadDefaultImage();
-                    }
+                    System.out.println("File doesn't exist at path: " + imageFile.getAbsolutePath());
                 }
+                
+                // If that doesn't work, try as a resource path
+                String resourcePath = event.getImage();
+                
+                // If the path starts with "Uploads/" (without leading slash)
+                // Add the leading slash for resource loading
+                if (resourcePath.startsWith("Uploads/")) {
+                    resourcePath = "/" + resourcePath;
+                    System.out.println("Trying resource path: " + resourcePath);
+                }
+                
+                // Try loading from resources
+                URL imageUrl = getClass().getResource(resourcePath);
+                if (imageUrl != null) {
+                    System.out.println("Loading image from resources: " + imageUrl);
+                    Image image = new Image(imageUrl.toString());
+                    eventImage.setImage(image);
+                    return;
+                } else {
+                    System.out.println("Resource not found: " + resourcePath);
+                }
+                
+                // Try with direct path to src/main/resources folder
+                String normalized = event.getImage().replace('/', File.separatorChar);
+                File resourcesFile = new File("src" + File.separator + "main" + File.separator + "resources" + File.separator + normalized);
+                System.out.println("Trying resources file: " + resourcesFile.getAbsolutePath());
+                if (resourcesFile.exists()) {
+                    System.out.println("Loading from resources file: " + resourcesFile.getAbsolutePath());
+                    Image image = new Image(resourcesFile.toURI().toString());
+                    eventImage.setImage(image);
+                    return;
+                } else {
+                    System.out.println("Resources file doesn't exist: " + resourcesFile.getAbsolutePath());
+                }
+                
+                // Try using file protocol with absolute workspace path
+                try {
+                    // Get the current working directory (project root)
+                    String workingDir = System.getProperty("user.dir");
+                    String imagePath = event.getImage().replace('/', File.separatorChar);
+                    File workspaceFile = new File(workingDir + File.separator + "src" + File.separator + "main" + File.separator + "resources" + File.separator + imagePath);
+                    System.out.println("Trying workspace path: " + workspaceFile.getAbsolutePath());
+                    
+                    if (workspaceFile.exists()) {
+                        System.out.println("Loading from workspace file: " + workspaceFile.getAbsolutePath());
+                        Image image = new Image(workspaceFile.toURI().toString());
+                        eventImage.setImage(image);
+                        return;
+                    } else {
+                        System.out.println("Workspace file doesn't exist: " + workspaceFile.getAbsolutePath());
+                    }
+                } catch (Exception e) {
+                    System.err.println("Error with workspace path approach: " + e.getMessage());
+                }
+                
+                // If all attempts fail, load default image
+                System.out.println("All image loading attempts failed, using default image");
+                loadDefaultImage();
             } else {
+                System.out.println("Event has no image path, using default image");
                 // Load default image
                 loadDefaultImage();
             }
         } catch (Exception e) {
+            System.err.println("Error loading image: " + e.getMessage());
+            e.printStackTrace();
             // Load default image on error
             loadDefaultImage();
         }

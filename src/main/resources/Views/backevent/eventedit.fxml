@@ -7,114 +7,95 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Text?>
+<?import java.net.URL?>
 
-<AnchorPane prefHeight="700.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.backevent.EventEditController" stylesheets="@../../Styles/eventform.css">
-    <children>
-        <VBox layoutX="14.0" layoutY="15.0" prefHeight="700.0" prefWidth="600.0" spacing="20.0" styleClass="form-container" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
-            <padding>
-                <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
-            </padding>
-            <children>
-                <!-- Header Section -->
-                <VBox spacing="5.0">
-                    <Label text="Edit Event" styleClass="form-header">
-                        <font>
-                            <Font name="System Bold" size="28.0" />
-                        </font>
-                    </Label>
-                    <Label text="Update event details below" style="-fx-text-fill: #7f8c8d; -fx-font-size: 14px;" />
-                </VBox>
-                
-                <!-- Form Content -->
-                <ScrollPane fitToWidth="true" VBox.vgrow="ALWAYS">
-                    <GridPane hgap="15.0" vgap="15.0" styleClass="grid-pane">
-                        <padding>
-                            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-                        </padding>
-                        <columnConstraints>
-                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="120.0" />
-                            <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
-                        </columnConstraints>
-                        <rowConstraints>
-                            <RowConstraints minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                            <RowConstraints minHeight="20.0" prefHeight="20.0" vgrow="SOMETIMES" />
-                            <RowConstraints minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                            <RowConstraints minHeight="20.0" prefHeight="20.0" vgrow="SOMETIMES" />
-                            <RowConstraints minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                            <RowConstraints minHeight="20.0" prefHeight="20.0" vgrow="SOMETIMES" />
-                            <RowConstraints minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                            <RowConstraints minHeight="20.0" prefHeight="20.0" vgrow="SOMETIMES" />
-                            <RowConstraints minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                            <RowConstraints minHeight="20.0" prefHeight="20.0" vgrow="SOMETIMES" />
-                            <RowConstraints minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                            <RowConstraints minHeight="20.0" prefHeight="20.0" vgrow="SOMETIMES" />
-                            <RowConstraints minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                            <RowConstraints minHeight="20.0" prefHeight="20.0" vgrow="SOMETIMES" />
-                            <RowConstraints minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                            <RowConstraints minHeight="20.0" prefHeight="20.0" vgrow="SOMETIMES" />
-                            <RowConstraints minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                            <RowConstraints minHeight="20.0" prefHeight="20.0" vgrow="SOMETIMES" />
-                            <RowConstraints minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                            <RowConstraints minHeight="20.0" prefHeight="20.0" vgrow="SOMETIMES" />
-                        </rowConstraints>
-                        <children>
-                            <!-- Title -->
-                            <Label text="Title:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
-                            <TextField fx:id="titleField" promptText="Enter event title" GridPane.columnIndex="1" GridPane.rowIndex="0" />
-                            <VBox fx:id="titleValidation" styleClass="validation-error" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                            
-                            <!-- Description -->
-                            <Label text="Description:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
-                            <TextArea fx:id="descriptionField" prefRowCount="3" wrapText="true" promptText="Enter event description" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                            
-                            <!-- Location -->
-                            <Label text="Location:" GridPane.columnIndex="0" GridPane.rowIndex="4" />
-                            <TextField fx:id="locationField" promptText="Enter event location" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                            <VBox fx:id="locationValidation" styleClass="validation-error" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                            
-                            <!-- Number of Tickets -->
-                            <Label text="Number of Tickets:" GridPane.columnIndex="0" GridPane.rowIndex="6" />
-                            <Spinner fx:id="ticketsSpinner" min="1" max="1000" initialValue="1" editable="true" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-                            
-                            <!-- Image URL -->
-                            <Label text="Image URL:" GridPane.columnIndex="0" GridPane.rowIndex="8" />
-                            <TextField fx:id="imageField" promptText="Enter image URL" GridPane.columnIndex="1" GridPane.rowIndex="8" />
-                            
-                            <!-- Start Time -->
-                            <Label text="Start Time:" GridPane.columnIndex="0" GridPane.rowIndex="10" />
-                            <TextField fx:id="timeField" promptText="HH:mm" GridPane.columnIndex="1" GridPane.rowIndex="10" />
-                            <VBox fx:id="timeValidation" styleClass="validation-error" GridPane.columnIndex="1" GridPane.rowIndex="11" />
-                            
-                            <!-- Event Mission -->
-                            <Label text="Event Mission:" GridPane.columnIndex="0" GridPane.rowIndex="12" />
-                            <TextField fx:id="missionField" promptText="Enter event mission" GridPane.columnIndex="1" GridPane.rowIndex="12" />
-                            
-                            <!-- Donation Goal -->
-                            <Label text="Donation Goal:" GridPane.columnIndex="0" GridPane.rowIndex="14" />
-                            <TextField fx:id="donationField" promptText="0.00" GridPane.columnIndex="1" GridPane.rowIndex="14" />
-                            <VBox fx:id="donationValidation" styleClass="validation-error" GridPane.columnIndex="1" GridPane.rowIndex="15" />
-                            
-                            <!-- Seat Price -->
-                            <Label text="Seat Price:" GridPane.columnIndex="0" GridPane.rowIndex="16" />
-                            <TextField fx:id="priceField" promptText="0.00" GridPane.columnIndex="1" GridPane.rowIndex="16" />
-                            <VBox fx:id="priceValidation" styleClass="validation-error" GridPane.columnIndex="1" GridPane.rowIndex="17" />
-                            
-                            <!-- Event Date -->
-                            <Label text="Event Date:" GridPane.columnIndex="0" GridPane.rowIndex="18" />
-                            <DatePicker fx:id="datePicker" GridPane.columnIndex="1" GridPane.rowIndex="18" />
-                            <VBox fx:id="dateValidation" styleClass="validation-error" GridPane.columnIndex="1" GridPane.rowIndex="19" />
-                        </children>
-                    </GridPane>
-                </ScrollPane>
-                
-                <!-- Button Container -->
-                <HBox alignment="CENTER_RIGHT" spacing="15.0" styleClass="button-container">
-                    <children>
-                        <Button fx:id="cancelButton" mnemonicParsing="false" onAction="#handleCancel" text="Cancel" styleClass="dashboard-button" />
-                        <Button fx:id="saveButton" mnemonicParsing="false" onAction="#handleSave" text="Save Changes" styleClass="dashboard-button, save-button" />
-                    </children>
-                </HBox>
-            </children>
-        </VBox>
-    </children>
-</AnchorPane> 
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="Controllers.backevent.EventEditController"
+            prefHeight="700.0" prefWidth="800.0"
+            styleClass="main-container">
+    
+    <stylesheets>
+        <URL value="@../../Styles/eventdashboard.css" />
+        <URL value="@../../Styles/addevent.css" />
+    </stylesheets>
+    
+    <top>
+        <HBox styleClass="header-bar" alignment="CENTER">
+            <padding><Insets top="15" right="20" bottom="15" left="20"/></padding>
+            <Text text="Edit Event" styleClass="header-title"/>
+        </HBox>
+    </top>
+    
+    <center>
+        <ScrollPane fitToWidth="true" fitToHeight="true" styleClass="event-list-scroll">
+            <VBox spacing="20" alignment="CENTER" styleClass="content-container">
+                <GridPane vgap="15" hgap="15" styleClass="event-cards-container">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="NEVER" minWidth="150" />
+                        <ColumnConstraints hgrow="ALWAYS" minWidth="200" />
+                    </columnConstraints>
+                    
+                    <padding><Insets top="20" right="20" bottom="20" left="20"/></padding>
+                    
+                    <Label text="Title:" GridPane.rowIndex="0" GridPane.columnIndex="0" styleClass="event-info-label"/>
+                    <TextField fx:id="titleField" GridPane.rowIndex="0" GridPane.columnIndex="1" maxWidth="Infinity" styleClass="search-field"/>
+                    <Label fx:id="titleValidationLabel" GridPane.rowIndex="1" GridPane.columnIndex="1" styleClass="validation-message" />
+                    
+                    <Label text="Description:" GridPane.rowIndex="2" GridPane.columnIndex="0" styleClass="event-info-label"/>
+                    <TextArea fx:id="descriptionField" GridPane.rowIndex="2" GridPane.columnIndex="1" maxWidth="Infinity" prefRowCount="3" 
+                             styleClass="search-field" style="-fx-text-fill: white; -fx-control-inner-background: rgba(30, 30, 48, 0.6);"/>
+                    
+                    <Label text="Location:" GridPane.rowIndex="3" GridPane.columnIndex="0" styleClass="event-info-label"/>
+                    <TextField fx:id="locationField" GridPane.rowIndex="3" GridPane.columnIndex="1" maxWidth="Infinity" styleClass="search-field"/>
+                    <Label fx:id="locationValidationLabel" GridPane.rowIndex="4" GridPane.columnIndex="1" styleClass="validation-message" />
+                    
+                    <Label text="Number of Tickets:" GridPane.rowIndex="5" GridPane.columnIndex="0" styleClass="event-info-label"/>
+                    <Spinner fx:id="ticketsSpinner" GridPane.rowIndex="5" GridPane.columnIndex="1" maxWidth="Infinity" editable="true" 
+                            min="1" max="1000" initialValue="1"/>
+                    
+                    <Label text="Start Time:" GridPane.rowIndex="6" GridPane.columnIndex="0" styleClass="event-info-label"/>
+                    <TextField fx:id="timeField" GridPane.rowIndex="6" GridPane.columnIndex="1" maxWidth="Infinity" promptText="HH:mm" styleClass="search-field"/>
+                    <Label fx:id="timeValidationLabel" GridPane.rowIndex="7" GridPane.columnIndex="1" styleClass="validation-message" />
+                    
+                    <Label text="Event Mission:" GridPane.rowIndex="8" GridPane.columnIndex="0" styleClass="event-info-label"/>
+                    <TextField fx:id="missionField" GridPane.rowIndex="8" GridPane.columnIndex="1" maxWidth="Infinity" styleClass="search-field"/>
+                    
+                    <Label text="Donation Goal:" GridPane.rowIndex="9" GridPane.columnIndex="0" styleClass="event-info-label"/>
+                    <TextField fx:id="donationField" GridPane.rowIndex="9" GridPane.columnIndex="1" maxWidth="Infinity" promptText="0.00" styleClass="search-field"/>
+                    <Label fx:id="donationValidationLabel" GridPane.rowIndex="10" GridPane.columnIndex="1" styleClass="validation-message" />
+                    
+                    <Label text="Seat Price:" GridPane.rowIndex="11" GridPane.columnIndex="0" styleClass="event-info-label"/>
+                    <TextField fx:id="priceField" GridPane.rowIndex="11" GridPane.columnIndex="1" maxWidth="Infinity" promptText="0.00" styleClass="search-field"/>
+                    <Label fx:id="priceValidationLabel" GridPane.rowIndex="12" GridPane.columnIndex="1" styleClass="validation-message" />
+                    
+                    <Label text="Event Date:" GridPane.rowIndex="13" GridPane.columnIndex="0" styleClass="event-info-label"/>
+                    <DatePicker fx:id="datePicker" GridPane.rowIndex="13" GridPane.columnIndex="1" maxWidth="Infinity" 
+                               style="-fx-background-color: rgba(30, 30, 48, 0.6); -fx-text-fill: white;"/>
+                    <Label fx:id="dateValidationLabel" GridPane.rowIndex="14" GridPane.columnIndex="1" styleClass="validation-message" />
+                    
+                    <Label text="Event Image:" GridPane.rowIndex="15" GridPane.columnIndex="0" styleClass="event-info-label"/>
+                    <HBox spacing="10" GridPane.rowIndex="15" GridPane.columnIndex="1" alignment="CENTER_LEFT" styleClass="image-field-container">
+                        <TextField fx:id="imageField" HBox.hgrow="ALWAYS" maxWidth="Infinity" styleClass="search-field" editable="false" promptText="Select an image..."/>
+                        <Button text="Browse..." onAction="#handleImageUpload" styleClass="image-chooser-button"/>
+                    </HBox>
+                    
+                    <Label text="Current Image:" GridPane.rowIndex="16" GridPane.columnIndex="0" styleClass="event-info-label"/>
+                    <VBox fx:id="imageContainer" GridPane.rowIndex="16" GridPane.columnIndex="1" styleClass="selected-image-container" spacing="10">
+                        <Label fx:id="selectedImageLabel" text="No new image selected" styleClass="event-info-label"/>
+                    </VBox>
+                </GridPane>
+            </VBox>
+        </ScrollPane>
+    </center>
+    
+    <bottom>
+        <HBox spacing="20" alignment="CENTER" styleClass="button-container">
+            <padding><Insets top="15" right="20" bottom="15" left="20"/></padding>
+            <Button fx:id="saveButton" onAction="#handleSave" text="Save Changes" styleClass="orange-button, add-button"/>
+            <Button fx:id="cancelButton" onAction="#handleCancel" text="Cancel" styleClass="card-delete-button"/>
+        </HBox>
+    </bottom>
+
+</BorderPane> 

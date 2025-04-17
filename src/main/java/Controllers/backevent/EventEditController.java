@@ -10,7 +10,11 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-
+import javafx.scene.Node;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.layout.AnchorPane;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -18,6 +22,19 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ResourceBundle;
+import javafx.stage.FileChooser;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+import java.util.UUID;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.beans.value.ChangeListener;
+import javafx.scene.Scene;
+import java.util.Locale;
 
 public class EventEditController implements Initializable {
     @FXML private TextField titleField;
@@ -32,6 +49,8 @@ public class EventEditController implements Initializable {
     @FXML private DatePicker datePicker;
     @FXML private Button saveButton;
     @FXML private Button cancelButton;
+    @FXML private VBox imageContainer;
+    @FXML private Label selectedImageLabel;
 
     // Validation message containers
     @FXML private VBox titleValidation;
@@ -41,49 +60,85 @@ public class EventEditController implements Initializable {
     @FXML private VBox priceValidation;
     @FXML private VBox dateValidation;
 
+    // Validation message labels
+    @FXML private Label titleValidationLabel;
+    @FXML private Label locationValidationLabel;
+    @FXML private Label timeValidationLabel;
+    @FXML private Label donationValidationLabel;
+    @FXML private Label priceValidationLabel;
+    @FXML private Label dateValidationLabel;
+
     private Event event;
     private EventService eventService;
     private boolean isSaved = false;
+    private ImageView imagePreview;
+    private File selectedImageFile;
+    private final String IMAGE_UPLOAD_DIR = "src/main/resources/Uploads/Events/";
+    private String currentImagePath;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         eventService = new EventService();
         
-        // Initialize validation containers
-        initializeValidationContainers();
+        // Create the upload directory if it doesn't exist
+        createUploadDirectory();
         
-        // Add real-time validation listeners
-        setupValidationListeners();
+        // Initialize image preview
+        imagePreview = new ImageView();
+        imagePreview.setFitHeight(150);
+        imagePreview.setFitWidth(200);
+        imagePreview.setPreserveRatio(true);
+        imagePreview.getStyleClass().add("selected-image-preview");
+        
+        // Initialize validation labels
+        initializeValidationLabels();
+        
+        // Add responsive behavior
+        setupResponsiveBehavior();
+        
+        // Setup validation listeners - moved after field population
+    }
+    
+    private void initializeValidationLabels() {
+        // Hide all validation labels initially
+        titleValidationLabel.setVisible(false);
+        locationValidationLabel.setVisible(false);
+        timeValidationLabel.setVisible(false);
+        donationValidationLabel.setVisible(false);
+        priceValidationLabel.setVisible(false);
+        dateValidationLabel.setVisible(false);
+        
+        // Apply validation message style
+        titleValidationLabel.getStyleClass().add("validation-message");
+        locationValidationLabel.getStyleClass().add("validation-message");
+        timeValidationLabel.getStyleClass().add("validation-message");
+        donationValidationLabel.getStyleClass().add("validation-message");
+        priceValidationLabel.getStyleClass().add("validation-message");
+        dateValidationLabel.getStyleClass().add("validation-message");
     }
 
     private void initializeValidationContainers() {
-        // Create validation containers if they don't exist
-        if (titleValidation == null) titleValidation = new VBox(2);
-        if (locationValidation == null) locationValidation = new VBox(2);
-        if (timeValidation == null) timeValidation = new VBox(2);
-        if (donationValidation == null) donationValidation = new VBox(2);
-        if (priceValidation == null) priceValidation = new VBox(2);
-        if (dateValidation == null) dateValidation = new VBox(2);
+        // This method is no longer needed but kept for backwards compatibility
     }
 
     private void setupValidationListeners() {
         // Title validation
         titleField.textProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue == null || newValue.trim().isEmpty()) {
-                showValidationError(titleValidation, "Title is required");
+                showValidationError(titleValidationLabel, "Title is required");
             } else if (newValue.length() < 3) {
-                showValidationError(titleValidation, "Title must be at least 3 characters");
+                showValidationError(titleValidationLabel, "Title must be at least 3 characters");
             } else {
-                clearValidationError(titleValidation);
+                clearValidationError(titleValidationLabel);
             }
         });
 
         // Location validation
         locationField.textProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue == null || newValue.trim().isEmpty()) {
-                showValidationError(locationValidation, "Location is required");
+                showValidationError(locationValidationLabel, "Location is required");
             } else {
-                clearValidationError(locationValidation);
+                clearValidationError(locationValidationLabel);
             }
         });
 
@@ -92,51 +147,47 @@ public class EventEditController implements Initializable {
             if (newValue != null && !newValue.trim().isEmpty()) {
                 try {
                     LocalTime.parse(newValue, DateTimeFormatter.ofPattern("HH:mm"));
-                    clearValidationError(timeValidation);
+                    clearValidationError(timeValidationLabel);
                 } catch (DateTimeParseException e) {
-                    showValidationError(timeValidation, "Invalid time format (HH:mm)");
+                    showValidationError(timeValidationLabel, "Invalid time format (HH:mm)");
                 }
             } else {
-                clearValidationError(timeValidation);
+                clearValidationError(timeValidationLabel);
             }
         });
 
-        // Donation validation
+        // Donation validation - modified for better decimal handling
         donationField.textProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue == null || newValue.trim().isEmpty()) {
-                showValidationError(donationValidation, "Donation goal is required");
-            } else if (!newValue.matches("\\d*(\\.\\d{0,2})?")) {
-                showValidationError(donationValidation, "Invalid amount format");
+                showValidationError(donationValidationLabel, "Donation goal is required");
             } else {
                 try {
-                    double amount = Double.parseDouble(newValue);
+                    double amount = Double.parseDouble(newValue.replace(",", "."));
                     if (amount < 0) {
-                        showValidationError(donationValidation, "Amount cannot be negative");
+                        showValidationError(donationValidationLabel, "Amount cannot be negative");
                     } else {
-                        clearValidationError(donationValidation);
+                        clearValidationError(donationValidationLabel);
                     }
                 } catch (NumberFormatException e) {
-                    showValidationError(donationValidation, "Invalid amount");
+                    showValidationError(donationValidationLabel, "Invalid amount");
                 }
             }
         });
 
-        // Price validation
+        // Price validation - modified for better decimal handling
         priceField.textProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue == null || newValue.trim().isEmpty()) {
-                showValidationError(priceValidation, "Price is required");
-            } else if (!newValue.matches("\\d*(\\.\\d{0,2})?")) {
-                showValidationError(priceValidation, "Invalid price format");
+                showValidationError(priceValidationLabel, "Price is required");
             } else {
                 try {
-                    double price = Double.parseDouble(newValue);
+                    double price = Double.parseDouble(newValue.replace(",", "."));
                     if (price < 0) {
-                        showValidationError(priceValidation, "Price cannot be negative");
+                        showValidationError(priceValidationLabel, "Price cannot be negative");
                     } else {
-                        clearValidationError(priceValidation);
+                        clearValidationError(priceValidationLabel);
                     }
                 } catch (NumberFormatException e) {
-                    showValidationError(priceValidation, "Invalid price");
+                    showValidationError(priceValidationLabel, "Invalid price");
                 }
             }
         });
@@ -144,39 +195,42 @@ public class EventEditController implements Initializable {
         // Date validation
         datePicker.valueProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue == null) {
-                showValidationError(dateValidation, "Date is required");
+                showValidationError(dateValidationLabel, "Date is required");
             } else if (newValue.isBefore(LocalDate.now())) {
-                showValidationError(dateValidation, "Date cannot be in the past");
+                showValidationError(dateValidationLabel, "Date cannot be in the past");
             } else {
-                clearValidationError(dateValidation);
+                clearValidationError(dateValidationLabel);
             }
         });
     }
 
-    private void showValidationError(VBox container, String message) {
-        container.getChildren().clear();
-        Text errorText = new Text(message);
-        errorText.setFill(Color.RED);
-        errorText.setStyle("-fx-font-size: 12px;");
-        container.getChildren().add(errorText);
+    private void showValidationError(Label validationLabel, String message) {
+        validationLabel.setText(message);
+        validationLabel.setVisible(true);
     }
 
-    private void clearValidationError(VBox container) {
-        container.getChildren().clear();
+    private void clearValidationError(Label validationLabel) {
+        validationLabel.setText("");
+        validationLabel.setVisible(false);
     }
 
     private boolean isFormValid() {
         boolean isValid = true;
         
+        // Reset validation styles
+        resetValidationStyles();
+        
         // Check title
         if (titleField.getText().trim().isEmpty() || titleField.getText().length() < 3) {
-            showValidationError(titleValidation, "Title is required and must be at least 3 characters");
+            showValidationError(titleValidationLabel, "Title is required and must be at least 3 characters");
+            titleField.getStyleClass().add("error-field");
             isValid = false;
         }
         
         // Check location
         if (locationField.getText().trim().isEmpty()) {
-            showValidationError(locationValidation, "Location is required");
+            showValidationError(locationValidationLabel, "Location is required");
+            locationField.getStyleClass().add("error-field");
             isValid = false;
         }
         
@@ -185,50 +239,79 @@ public class EventEditController implements Initializable {
             try {
                 LocalTime.parse(timeField.getText(), DateTimeFormatter.ofPattern("HH:mm"));
             } catch (DateTimeParseException e) {
-                showValidationError(timeValidation, "Invalid time format (HH:mm)");
+                showValidationError(timeValidationLabel, "Invalid time format (HH:mm)");
+                timeField.getStyleClass().add("error-field");
                 isValid = false;
             }
         }
         
-        // Check donation
+        // Check donation - modified for better decimal handling
         try {
-            double donation = Double.parseDouble(donationField.getText());
+            double donation = parseDecimalField(donationField.getText());
             if (donation < 0) {
-                showValidationError(donationValidation, "Donation amount cannot be negative");
+                showValidationError(donationValidationLabel, "Donation amount cannot be negative");
+                donationField.getStyleClass().add("error-field");
                 isValid = false;
             }
-        } catch (NumberFormatException e) {
-            showValidationError(donationValidation, "Invalid donation amount");
+        } catch (Exception e) {
+            showValidationError(donationValidationLabel, "Invalid donation amount");
+            donationField.getStyleClass().add("error-field");
             isValid = false;
         }
         
-        // Check price
+        // Check price - modified for better decimal handling
         try {
-            double price = Double.parseDouble(priceField.getText());
+            double price = parseDecimalField(priceField.getText());
             if (price < 0) {
-                showValidationError(priceValidation, "Price cannot be negative");
+                showValidationError(priceValidationLabel, "Price cannot be negative");
+                priceField.getStyleClass().add("error-field");
                 isValid = false;
             }
-        } catch (NumberFormatException e) {
-            showValidationError(priceValidation, "Invalid price");
+        } catch (Exception e) {
+            showValidationError(priceValidationLabel, "Invalid price");
+            priceField.getStyleClass().add("error-field");
             isValid = false;
         }
         
         // Check date
         if (datePicker.getValue() == null) {
-            showValidationError(dateValidation, "Date is required");
+            showValidationError(dateValidationLabel, "Date is required");
+            datePicker.getStyleClass().add("error-field");
             isValid = false;
         } else if (datePicker.getValue().isBefore(LocalDate.now())) {
-            showValidationError(dateValidation, "Date cannot be in the past");
+            showValidationError(dateValidationLabel, "Date cannot be in the past");
+            datePicker.getStyleClass().add("error-field");
             isValid = false;
         }
         
         return isValid;
     }
+    
+    private void resetValidationStyles() {
+        // Remove error styles from all fields
+        titleField.getStyleClass().remove("error-field");
+        locationField.getStyleClass().remove("error-field");
+        timeField.getStyleClass().remove("error-field");
+        donationField.getStyleClass().remove("error-field");
+        priceField.getStyleClass().remove("error-field");
+        datePicker.getStyleClass().remove("error-field");
+        
+        // Clear all validation messages
+        clearValidationError(titleValidationLabel);
+        clearValidationError(locationValidationLabel);
+        clearValidationError(timeValidationLabel);
+        clearValidationError(donationValidationLabel);
+        clearValidationError(priceValidationLabel);
+        clearValidationError(dateValidationLabel);
+    }
 
     public void setEvent(Event event) {
         this.event = event;
         populateFields();
+        
+        // Setup validation listeners AFTER populating fields
+        // This prevents validation errors when the form is first loaded
+        setupValidationListeners();
     }
 
     private void populateFields() {
@@ -236,76 +319,362 @@ public class EventEditController implements Initializable {
         descriptionField.setText(event.getDescription());
         locationField.setText(event.getLieu());
         ticketsSpinner.getValueFactory().setValue(event.getNombreBillets());
-        imageField.setText(event.getImage());
+        
+        // Store current image path
+        currentImagePath = event.getImage();
+        
+        // Display current image or placeholder
+        if (currentImagePath != null && !currentImagePath.isEmpty()) {
+            try {
+                // Try to load the image from resources
+                String imagePath = "/resources/" + currentImagePath;
+                URL imageUrl = getClass().getResource(imagePath);
+                
+                // If resource not found, try as file path
+                if (imageUrl == null) {
+                    File imageFile = new File("src/main/" + currentImagePath);
+                    if (imageFile.exists()) {
+                        imageUrl = imageFile.toURI().toURL();
+                    }
+                }
+                
+                if (imageUrl != null) {
+                    Image image = new Image(imageUrl.toString());
+                    imagePreview.setImage(image);
+                    imageContainer.getChildren().add(0, imagePreview);
+                    selectedImageLabel.setText("Current image: " + currentImagePath.substring(currentImagePath.lastIndexOf('/') + 1));
+                } else {
+                    selectedImageLabel.setText("Current image path: " + currentImagePath);
+                }
+            } catch (Exception e) {
+                System.err.println("Could not load current image: " + e.getMessage());
+                selectedImageLabel.setText("Current image path: " + currentImagePath);
+            }
+        } else {
+            selectedImageLabel.setText("No image set");
+        }
+        
         timeField.setText(event.getTimestart() != null ? event.getTimestart().format(DateTimeFormatter.ofPattern("HH:mm")) : "");
         missionField.setText(event.getEvent_mission());
-        donationField.setText(String.format("%.2f", event.getDonation_objective()));
-        priceField.setText(String.format("%.2f", event.getSeatprice()));
+        
+        // Format donation and price with proper locale to avoid decimal format issues
+        donationField.setText(String.format(Locale.US, "%.2f", event.getDonation_objective()));
+        priceField.setText(String.format(Locale.US, "%.2f", event.getSeatprice()));
+        
         datePicker.setValue(event.getDateEvenement() != null ? event.getDateEvenement().toLocalDate() : null);
     }
 
     @FXML
     private void handleSave() {
-        if (!isFormValid()) {
-            showAlert(Alert.AlertType.ERROR, "Validation Error", "Please correct the errors before saving.");
-            return;
-        }
-
-        try {
-            // Parse time
-            LocalTime time = null;
-            if (!timeField.getText().trim().isEmpty()) {
-                time = LocalTime.parse(timeField.getText(), DateTimeFormatter.ofPattern("HH:mm"));
+        if (isFormValid()) {
+            try {
+                // Save any new image that was uploaded
+                String imagePath = saveImageToUploadDirectory();
+                
+                // Update event with form data
+                event.setTitre(titleField.getText().trim());
+                event.setDescription(descriptionField.getText().trim());
+                event.setLieu(locationField.getText().trim());
+                event.setNombreBillets(ticketsSpinner.getValue());
+                
+                if (!imagePath.isEmpty()) {
+                    event.setImage(imagePath);
+                }
+                
+                // Parse time from the field
+                LocalTime time = LocalTime.parse(timeField.getText().trim(), DateTimeFormatter.ofPattern("HH:mm"));
+                event.setTimestart(time);
+                
+                // Set event mission
+                event.setEvent_mission(missionField.getText().trim());
+                
+                // Parse donation goal and seat price
+                event.setDonation_objective(parseDecimalField(donationField.getText().trim()));
+                event.setSeatprice(parseDecimalField(priceField.getText().trim()));
+                
+                // Set event date
+                LocalDate date = datePicker.getValue();
+                event.setDateEvenement(LocalDateTime.of(date, time));
+                
+                // Save the updated event
+                eventService.update(event);
+                
+                isSaved = true;
+                
+                showAlert(Alert.AlertType.INFORMATION, "Success", "Event updated successfully");
+                
+                // Navigate back to event list
+                navigateToEventList();
+                
+            } catch (Exception e) {
+                showAlert(Alert.AlertType.ERROR, "Error", "Failed to save changes: " + e.getMessage());
+                e.printStackTrace();
             }
-
-            // Get date
-            LocalDate date = datePicker.getValue();
-            LocalDateTime dateTime = date.atTime(time != null ? time : LocalTime.MIDNIGHT);
-
-            // Update event object
-            event.setTitre(titleField.getText().trim());
-            event.setDescription(descriptionField.getText().trim());
-            event.setLieu(locationField.getText().trim());
-            event.setNombreBillets(ticketsSpinner.getValue());
-            event.setImage(imageField.getText().trim());
-            event.setTimestart(time);
-            event.setEvent_mission(missionField.getText().trim());
-            event.setDonation_objective(Double.parseDouble(donationField.getText()));
-            event.setSeatprice(Double.parseDouble(priceField.getText()));
-            event.setDateEvenement(dateTime);
-
-            // Save to database
-            eventService.update(event);
-            isSaved = true;
-
-            // Close the dialog
-            Stage stage = (Stage) saveButton.getScene().getWindow();
-            stage.close();
-
-        } catch (Exception e) {
-            showAlert(Alert.AlertType.ERROR, "Error", "Failed to save event", e.getMessage());
         }
     }
-
+    
     @FXML
     private void handleCancel() {
-        Stage stage = (Stage) cancelButton.getScene().getWindow();
-        stage.close();
+        navigateToEventList();
     }
-
-    private void showAlert(Alert.AlertType alertType, String title, String header, String content) {
-        Alert alert = new Alert(alertType);
-        alert.setTitle(title);
-        alert.setHeaderText(header);
-        alert.setContentText(content);
-        alert.showAndWait();
+    
+    /**
+     * Navigate back to the event list
+     */
+    private void navigateToEventList() {
+        try {
+            // Try to find the main content area (AnchorPane with ID "contentArea")
+            AnchorPane contentArea = findContentArea(cancelButton);
+            
+            if (contentArea != null) {
+                // Load event list view
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/backevent/eventbacklist.fxml"));
+                Parent root = loader.load();
+                
+                // Set anchors for the new view
+                AnchorPane.setTopAnchor(root, 0.0);
+                AnchorPane.setRightAnchor(root, 0.0);
+                AnchorPane.setBottomAnchor(root, 0.0);
+                AnchorPane.setLeftAnchor(root, 0.0);
+                
+                // Clear content area and add event list view
+                contentArea.getChildren().clear();
+                contentArea.getChildren().add(root);
+                
+                // Update the title if possible
+                updatePageTitle("Event List");
+            } else {
+                // Fallback: Close the current stage if in a separate window
+                Stage stage = (Stage) cancelButton.getScene().getWindow();
+                stage.close();
+            }
+        } catch (Exception e) {
+            System.err.println("Error navigating back: " + e.getMessage());
+            e.printStackTrace();
+            
+            // Fallback to original behavior if there's an error
+            Stage stage = (Stage) cancelButton.getScene().getWindow();
+            stage.close();
+        }
+    }
+    
+    /**
+     * Find the main content area in parent hierarchy
+     * @param node The starting node to search from
+     * @return The content area AnchorPane or null if not found
+     */
+    private AnchorPane findContentArea(Node node) {
+        if (node == null) return null;
+        
+        // Walk up the parent hierarchy
+        javafx.scene.Parent parent = node.getParent();
+        while (parent != null) {
+            // First, check if any children or the parent itself is the content area
+            if (parent instanceof AnchorPane && "contentArea".equals(parent.getId())) {
+                return (AnchorPane) parent;
+            }
+            
+            // Look for contentArea in all scenes
+            for (Node child : parent.getChildrenUnmodifiable()) {
+                if (child instanceof AnchorPane && "contentArea".equals(child.getId())) {
+                    return (AnchorPane) child;
+                }
+                
+                // Check if this child has children (recursive)
+                if (child instanceof javafx.scene.Parent) {
+                    AnchorPane result = searchChildren((javafx.scene.Parent) child);
+                    if (result != null) {
+                        return result;
+                    }
+                }
+            }
+            
+            // Try parent's parent
+            if (parent.getParent() != null) {
+                parent = parent.getParent();
+            } else {
+                // Reached the root, try one more approach
+                if (parent.getScene() != null && parent.getScene().getRoot() != null) {
+                    // Try searching the scene root
+                    AnchorPane result = searchChildren(parent.getScene().getRoot());
+                    if (result != null) {
+                        return result;
+                    }
+                    break;
+                } else {
+                    break;
+                }
+            }
+        }
+        return null;
+    }
+    
+    /**
+     * Search children of a parent node for the content area
+     * @param parent The parent to search within
+     * @return The content area AnchorPane or null if not found
+     */
+    private AnchorPane searchChildren(javafx.scene.Parent parent) {
+        for (Node child : parent.getChildrenUnmodifiable()) {
+            if (child instanceof AnchorPane && "contentArea".equals(child.getId())) {
+                return (AnchorPane) child;
+            }
+            
+            if (child instanceof javafx.scene.Parent) {
+                AnchorPane result = searchChildren((javafx.scene.Parent) child);
+                if (result != null) {
+                    return result;
+                }
+            }
+        }
+        return null;
+    }
+    
+    /**
+     * Try to update the page title in the parent controller
+     * @param title The title to set
+     */
+    private void updatePageTitle(String title) {
+        try {
+            Scene scene = cancelButton.getScene();
+            if (scene == null) return;
+            
+            javafx.scene.Parent root = scene.getRoot();
+            if (root == null) return;
+            
+            // Look for the page title label
+            Label pageTitleLabel = (Label) root.lookup("#pageTitle");
+            if (pageTitleLabel != null) {
+                pageTitleLabel.setText(title);
+            }
+        } catch (Exception e) {
+            // Silently ignore - title update is not critical
+            System.err.println("Could not update page title: " + e.getMessage());
+        }
     }
 
     private void showAlert(Alert.AlertType alertType, String title, String content) {
-        showAlert(alertType, title, null, content);
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(content);
+        
+        // Apply custom styling to the dialog
+        DialogPane dialogPane = alert.getDialogPane();
+        dialogPane.getStylesheets().add(getClass().getResource("/Styles/eventdashboard.css").toExternalForm());
+        dialogPane.getStylesheets().add(getClass().getResource("/Styles/addevent.css").toExternalForm());
+        dialogPane.getStyleClass().add("dialog-pane");
+        
+        alert.showAndWait();
+    }
+
+    private void createUploadDirectory() {
+        File uploadDir = new File(IMAGE_UPLOAD_DIR);
+        if (!uploadDir.exists()) {
+            boolean created = uploadDir.mkdirs();
+            if (!created) {
+                System.err.println("Failed to create upload directory: " + IMAGE_UPLOAD_DIR);
+            }
+        }
+    }
+    
+    @FXML
+    private void handleImageUpload(ActionEvent event) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Select Event Image");
+        
+        // Set image file extension filters
+        FileChooser.ExtensionFilter imageFilter = 
+            new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg", "*.gif");
+        fileChooser.getExtensionFilters().add(imageFilter);
+        
+        // Show open file dialog
+        Node source = (Node) event.getSource();
+        Stage stage = (Stage) source.getScene().getWindow();
+        selectedImageFile = fileChooser.showOpenDialog(stage);
+        
+        if (selectedImageFile != null) {
+            // Display the selected file name in the field
+            imageField.setText(selectedImageFile.getName());
+            selectedImageLabel.setText("Selected: " + selectedImageFile.getName());
+            
+            // Display image preview
+            try {
+                Image image = new Image(selectedImageFile.toURI().toString());
+                imagePreview.setImage(image);
+                
+                // Add the image preview to the container if it's not already there
+                if (!imageContainer.getChildren().contains(imagePreview)) {
+                    imageContainer.getChildren().add(0, imagePreview);
+                }
+                
+                // Adjust preview size based on container size
+                double containerWidth = imageContainer.getWidth();
+                if (containerWidth > 0) {
+                    double maxPreviewWidth = Math.min(containerWidth * 0.8, 300);
+                    imagePreview.setFitWidth(maxPreviewWidth);
+                }
+            } catch (Exception e) {
+                showAlert(Alert.AlertType.ERROR, "Error", "Could not load image preview: " + e.getMessage());
+            }
+        }
+    }
+    
+    private String saveImageToUploadDirectory() throws IOException {
+        if (selectedImageFile == null) {
+            // If no new image is selected, return the current path
+            return currentImagePath;
+        }
+        
+        // Create a unique filename using UUID
+        String originalFileName = selectedImageFile.getName();
+        String fileExtension = originalFileName.substring(originalFileName.lastIndexOf('.'));
+        String newFileName = UUID.randomUUID().toString() + fileExtension;
+        
+        // Build the path to save the file
+        Path targetPath = Paths.get(IMAGE_UPLOAD_DIR, newFileName);
+        
+        // Copy the file to our upload directory
+        Files.copy(selectedImageFile.toPath(), targetPath, StandardCopyOption.REPLACE_EXISTING);
+        
+        // Return the relative path to be stored in the database
+        return "Uploads/Events/" + newFileName;
+    }
+
+    private void setupResponsiveBehavior() {
+        // Make the image preview responsive to container size
+        ChangeListener<Number> stageSizeListener = (observable, oldValue, newValue) -> {
+            if (imagePreview.getParent() != null) {
+                double containerWidth = imageContainer.getWidth();
+                if (containerWidth > 0) {
+                    // Adjust preview size based on container width
+                    double maxPreviewWidth = Math.min(containerWidth * 0.8, 300);
+                    imagePreview.setFitWidth(maxPreviewWidth);
+                }
+            }
+        };
+        
+        // Add the listener once the scene is available
+        imageContainer.sceneProperty().addListener((obs, oldScene, newScene) -> {
+            if (newScene != null) {
+                Scene scene = imageContainer.getScene();
+                scene.widthProperty().addListener(stageSizeListener);
+                scene.heightProperty().addListener(stageSizeListener);
+            }
+        });
     }
 
     public boolean isSaved() {
         return isSaved;
+    }
+
+    // Helper method to safely parse decimal fields
+    private double parseDecimalField(String value) {
+        try {
+            // Replace comma with period to handle different locale formats
+            return Double.parseDouble(value.replace(",", "."));
+        } catch (NumberFormatException e) {
+            return 0.0;
+        }
     }
 } 

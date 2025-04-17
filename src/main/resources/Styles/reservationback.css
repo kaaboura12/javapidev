@@ -1,44 +1,165 @@
 /* Main Styles for Reservation Dashboard */
 
+/* Color Variables */
+* {
+    -fx-primary: #ff7e5f; /* Orange primary from navigation.css */
+    -fx-primary-light: #feb47b; /* Light orange from navigation.css */
+    -fx-primary-dark: #e06b4e; /* Darker orange */
+    -fx-dark-bg: #1e1e30; /* Dark background */
+    -fx-darker-bg: #171725; /* Darker background */
+    -fx-light-text: #ffffff; /* Light text */
+    -fx-medium-text: #e0e0e0; /* Medium text */
+    -fx-dark-text: #a0a0a0; /* Dark text */
+}
+
 /* Base Styles */
 .root {
-    -fx-font-family: 'Segoe UI', Arial, sans-serif;
-    -fx-background-color: #f5f5f5;
+    -fx-font-family: "Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    -fx-background-color: #1e1e30;
+}
+
+.main-container {
+    -fx-background-color: #1e1e30;
 }
 
 /* Header Styles */
 .nav-bar {
-    -fx-background-color: #2c3e50;
+    -fx-background-color: linear-gradient(to right, #ff7e5f, #feb47b);
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.4), 10, 0, 0, 3);
+    -fx-border-width: 0 0 1px 0;
+    -fx-border-color: rgba(255, 126, 95, 0.2);
     -fx-padding: 15px;
     -fx-spacing: 15px;
 }
 
-.dashboard-header {
-    -fx-text-fill: white;
-    -fx-font-size: 20px;
-    -fx-font-weight: bold;
+.header-bar {
+    -fx-background-color: linear-gradient(to right, #ff7e5f, #feb47b);
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.4), 10, 0, 0, 3);
+    -fx-border-width: 0 0 1px 0;
+    -fx-border-color: rgba(255, 126, 95, 0.2);
 }
 
-/* Button Styles */
-.dashboard-button {
-    -fx-background-color: #3498db;
+.header-title {
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 2, 0, 0, 1);
+}
+
+/* Stats section */
+.stats-section {
+    -fx-background-color: rgba(30, 30, 48, 0.6);
+    -fx-border-color: rgba(255, 126, 95, 0.2);
+    -fx-border-width: 0 0 1 0;
+}
+
+.stats-label {
+    -fx-text-fill: #e0e0e0;
+    -fx-font-size: 13px;
+    -fx-padding: 0 0 0 15;
+}
+
+.stats-value {
+    -fx-font-weight: bold;
+    -fx-font-size: 13px;
+}
+
+.pending-value {
+    -fx-text-fill: #3498db;
+}
+
+.completed-value {
+    -fx-text-fill: #2ecc71;
+}
+
+.cancelled-value {
+    -fx-text-fill: #e74c3c;
+}
+
+/* Content pane */
+.content-container {
+    -fx-background-color: transparent;
+    -fx-padding: 20px;
+    -fx-spacing: 20px;
+}
+
+/* Title and search row */
+.title-search-row {
+    -fx-padding: 0 0 15 0;
+    -fx-min-height: 60px;
+}
+
+/* Section headers */
+.section-title {
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+    -fx-effect: dropshadow(gaussian, rgba(255,126,95,0.4), 5, 0, 0, 0);
+}
+
+/* Search container */
+.search-container {
+    -fx-padding: 0 0 0 15;
+    -fx-min-width: 200px;
+}
+
+/* Search field */
+.search-field {
+    -fx-background-color: rgba(255, 255, 255, 0.1);
+    -fx-border-color: rgba(255, 126, 95, 0.3);
+    -fx-border-radius: 20px;
+    -fx-background-radius: 20px;
+    -fx-prompt-text-fill: #a0a0a0;
+    -fx-text-fill: white;
+    -fx-font-size: 13px;
+    -fx-padding: 8px 15px;
+}
+
+.search-field:focused {
+    -fx-border-color: #ff7e5f;
+    -fx-background-color: rgba(255, 255, 255, 0.15);
+    -fx-effect: dropshadow(gaussian, rgba(255,126,95,0.4), 5, 0, 0, 0);
+}
+
+/* Button styling */
+.orange-button {
+    -fx-background-color: linear-gradient(to right, #ff7e5f, #feb47b);
     -fx-text-fill: white;
     -fx-font-weight: bold;
+    -fx-background-radius: 20px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 3, 0, 0, 1);
     -fx-padding: 8px 15px;
-    -fx-background-radius: 3px;
     -fx-cursor: hand;
 }
 
-.dashboard-button:hover {
-    -fx-background-color: #2980b9;
+.orange-button:hover {
+    -fx-background-color: linear-gradient(to right, #feb47b, #ff7e5f);
+    -fx-effect: dropshadow(gaussian, rgba(255,126,95,0.5), 8, 0, 0, 0);
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+}
+
+.search-button {
+    -fx-background-color: rgba(30, 30, 48, 0.8);
+    -fx-border-color: #ff7e5f;
+    -fx-border-width: 1px;
+    -fx-border-radius: 20px;
+    -fx-background-radius: 20px;
+    -fx-text-fill: white;
+    -fx-padding: 8px 15px;
+    -fx-cursor: hand;
+}
+
+.search-button:hover {
+    -fx-background-color: rgba(255, 126, 95, 0.2);
 }
 
 .add-button {
-    -fx-background-color: #27ae60;
+    -fx-background-color: linear-gradient(to right, #ff7e5f, #feb47b);
 }
 
 .add-button:hover {
-    -fx-background-color: #219955;
+    -fx-background-color: linear-gradient(to right, #feb47b, #ff7e5f);
 }
 
 /* Table Styles */
@@ -136,13 +257,6 @@
 }
 
 /* Search Field Styles */
-.search-field {
-    -fx-background-color: white;
-    -fx-border-color: #ddd;
-    -fx-border-radius: 3px;
-    -fx-padding: 5px 10px;
-}
-
 .action-section {
     -fx-padding: 0 0 10px 0;
 }
@@ -177,4 +291,53 @@
 
 .view-button {
     -fx-graphic: url('icons/view.png');
+}
+
+/* Scrollbar styling */
+.scroll-bar:vertical,
+.scroll-bar:horizontal {
+    -fx-background-color: transparent;
+    -fx-pref-width: 10px;
+}
+
+.scroll-bar:vertical .track {
+    -fx-background-color: rgba(255, 255, 255, 0.05);
+    -fx-background-radius: 5px;
+}
+
+.scroll-bar:vertical .thumb {
+    -fx-background-color: linear-gradient(to bottom, rgba(255,126,95,0.6), rgba(254,180,123,0.6));
+    -fx-background-radius: 5px;
+}
+
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-background-color: transparent;
+    -fx-opacity: 0;
+}
+
+.scroll-bar .increment-arrow,
+.scroll-bar .decrement-arrow {
+    -fx-background-color: transparent;
+    -fx-shape: "";
+}
+
+/* Dialog styling */
+.dialog-pane {
+    -fx-background-color: #1e1e30;
+}
+
+.dialog-pane .header-panel {
+    -fx-background-color: linear-gradient(to right, #ff7e5f, #feb47b);
+}
+
+.dialog-pane .header-panel .label {
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+
+.dialog-pane .button {
+    -fx-background-color: linear-gradient(to right, #ff7e5f, #feb47b);
+    -fx-text-fill: white;
+    -fx-background-radius: 20px;
 }

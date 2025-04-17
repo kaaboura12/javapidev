@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="700.0" prefWidth="1000.0" styleClass="main-container" stylesheets="@../../Styles/donationviewback.css" xmlns="http://javafx.com/javafx/17.0.14" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.backevent.donationviewcontroller">
+    <children>
+        <VBox spacing="0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <!-- Header with gradient -->
+            <HBox alignment="CENTER_LEFT" spacing="20.0" styleClass="header-bar">
+                <padding>
+                    <Insets bottom="18.0" left="25.0" right="25.0" top="18.0" />
+                </padding>
+                <Label styleClass="header-title" text="DONATION DETAILS" />
+                <Region HBox.hgrow="ALWAYS" />
+                <Label styleClass="header-subtitle" text="ADMIN DASHBOARD" />
+            </HBox>
+
+            <!-- Content area with dark theme -->
+            <ScrollPane fitToHeight="true" fitToWidth="true" styleClass="content-pane" VBox.vgrow="ALWAYS">
+                <VBox spacing="0" styleClass="content-container">
+                    <padding>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                    </padding>
+                    
+                    <!-- Action Buttons -->
+                    <HBox alignment="CENTER_LEFT" spacing="10.0" styleClass="action-buttons-row">
+                        <Button fx:id="backButton" mnemonicParsing="false" styleClass="action-button, back-button" text="◀ Back to Donations" />
+                        <Region HBox.hgrow="ALWAYS" />
+                        <Button fx:id="deleteButton" mnemonicParsing="false" styleClass="action-button, delete-button" text="Delete Donation" />
+                    </HBox>
+                    
+                    <Separator styleClass="section-separator">
+                        <VBox.margin>
+                            <Insets bottom="20.0" top="20.0" />
+                        </VBox.margin>
+                    </Separator>
+                    
+                    <!-- Donation Details Card -->
+                    <VBox styleClass="details-card">
+                        <padding>
+                            <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
+                        </padding>
+                        
+                        <!-- Card Header -->
+                        <HBox alignment="CENTER_LEFT" styleClass="card-header">
+                            <Label styleClass="card-title" text="Donation Information" />
+                            <Region HBox.hgrow="ALWAYS" />
+                            <Label fx:id="donationIdLabel" styleClass="id-label" text="ID: 1234" />
+                        </HBox>
+                        
+                        <Separator styleClass="card-separator">
+                            <VBox.margin>
+                                <Insets bottom="20.0" top="5.0" />
+                            </VBox.margin>
+                        </Separator>
+                        
+                        <!-- Donor Information Section -->
+                        <Label styleClass="section-label" text="Donor Information">
+                            <VBox.margin>
+                                <Insets bottom="10.0" />
+                            </VBox.margin>
+                        </Label>
+                        
+                        <HBox spacing="50.0" styleClass="info-section">
+                            <VBox spacing="15.0" HBox.hgrow="ALWAYS">
+                                <HBox styleClass="info-row">
+                                    <Label styleClass="info-label" text="Donor Name:" />
+                                    <Label fx:id="donorNameLabel" styleClass="info-value" text="John Doe" />
+                                </HBox>
+                                <HBox styleClass="info-row">
+                                    <Label styleClass="info-label" text="Email:" />
+                                    <Label fx:id="emailLabel" styleClass="info-value" text="john.doe@example.com" />
+                                </HBox>
+                            </VBox>
+                            <VBox spacing="15.0" HBox.hgrow="ALWAYS">
+                                <HBox styleClass="info-row">
+                                    <Label styleClass="info-label" text="Phone Number:" />
+                                    <Label fx:id="phoneNumberLabel" styleClass="info-value" text="+1 234 567 8901" />
+                                </HBox>
+                            </VBox>
+                        </HBox>
+                        
+                        <Separator styleClass="section-separator">
+                            <VBox.margin>
+                                <Insets bottom="20.0" top="20.0" />
+                            </VBox.margin>
+                        </Separator>
+                        
+                        <!-- Donation Details Section -->
+                        <Label styleClass="section-label" text="Donation Details">
+                            <VBox.margin>
+                                <Insets bottom="10.0" />
+                            </VBox.margin>
+                        </Label>
+                        
+                        <HBox spacing="50.0" styleClass="info-section">
+                            <VBox spacing="15.0" HBox.hgrow="ALWAYS">
+                                <HBox styleClass="info-row">
+                                    <Label styleClass="info-label" text="Amount:" />
+                                    <Label fx:id="amountLabel" styleClass="info-value, amount-value" text="/$250.00" />
+                                </HBox>
+                                <HBox styleClass="info-row">
+                                    <Label styleClass="info-label" text="Date:" />
+                                    <Label fx:id="dateLabel" styleClass="info-value" text="01 Jan 2023" />
+                                </HBox>
+                            </VBox>
+                            <VBox spacing="15.0" HBox.hgrow="ALWAYS">
+                                <HBox styleClass="info-row">
+                                    <Label styleClass="info-label" text="Payment Method:" />
+                                    <Label fx:id="paymentMethodLabel" styleClass="info-value" text="Credit Card" />
+                                </HBox>
+                                <HBox styleClass="info-row">
+                                    <Label styleClass="info-label" text="Status:" />
+                                    <Label fx:id="statusLabel" styleClass="info-value, status-completed" text="Completed" />
+                                </HBox>
+                            </VBox>
+                        </HBox>
+                        
+                        <Separator styleClass="section-separator">
+                            <VBox.margin>
+                                <Insets bottom="20.0" top="20.0" />
+                            </VBox.margin>
+                        </Separator>
+                        
+                        <!-- Event Information Section -->
+                        <Label styleClass="section-label" text="Event Information">
+                            <VBox.margin>
+                                <Insets bottom="10.0" />
+                            </VBox.margin>
+                        </Label>
+                        
+                        <HBox spacing="50.0" styleClass="info-section">
+                            <VBox spacing="15.0" HBox.hgrow="ALWAYS">
+                                <HBox styleClass="info-row">
+                                    <Label styleClass="info-label" text="Event Name:" />
+                                    <Label fx:id="eventNameLabel" styleClass="info-value" text="Annual Charity Gala" />
+                                </HBox>
+                                <HBox styleClass="info-row">
+                                    <Label styleClass="info-label" text="Event Date:" />
+                                    <Label fx:id="eventDateLabel" styleClass="info-value" text="15 Dec 2023" />
+                                </HBox>
+                            </VBox>
+                            <VBox spacing="15.0" HBox.hgrow="ALWAYS">
+                                <HBox styleClass="info-row">
+                                    <Label styleClass="info-label" text="Location:" />
+                                    <Label fx:id="eventLocationLabel" styleClass="info-value" text="Grand Hall, Downtown" />
+                                </HBox>
+                            </VBox>
+                        </HBox>
+                    </VBox>
+                </VBox>
+            </ScrollPane>
+        </VBox>
+    </children>
+</AnchorPane>

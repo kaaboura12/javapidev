@@ -49,7 +49,7 @@
             </VBox>
             
             <!-- Title -->
-            <Label fx:id="eventTitle" text="Conference Title Here" styleClass="event-title-modern" wrapText="true" HBox.hgrow="ALWAYS">
+            <Label fx:id="eventTitle" text="Conference Title Here" styleClass="event-title-modern, clickable-title" wrapText="true" HBox.hgrow="ALWAYS">
                 <effect>
                     <DropShadow color="rgba(0,0,0,0.25)" radius="2.0" />
                 </effect>

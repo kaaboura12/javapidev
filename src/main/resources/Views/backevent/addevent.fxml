@@ -7,57 +7,128 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.text.Text?>
+<?import java.net.URL?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
+<BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="Controllers.backevent.EventAddController"
             prefHeight="700.0" prefWidth="800.0"
-            style="-fx-background-color: #f5f5f5;">
+            styleClass="main-container">
     
-    <VBox spacing="20" alignment="CENTER" AnchorPane.topAnchor="20" AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20">
-        <Text text="Add New Event" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-fill: #2c3e50;"/>
-        
-        <ScrollPane fitToWidth="true" style="-fx-background-color: transparent;">
-            <GridPane vgap="15" hgap="15" alignment="CENTER">
-                <padding><Insets top="20" right="20" bottom="20" left="20"/></padding>
-                
-                <Label text="Event Name:" GridPane.rowIndex="0" GridPane.columnIndex="0" style="-fx-font-size: 14px;"/>
-                <TextField fx:id="eventNameField" GridPane.rowIndex="0" GridPane.columnIndex="1" prefWidth="300"/>
-                
-                <Label text="Event Date:" GridPane.rowIndex="1" GridPane.columnIndex="0" style="-fx-font-size: 14px;"/>
-                <DatePicker fx:id="eventDatePicker" GridPane.rowIndex="1" GridPane.columnIndex="1" prefWidth="300"/>
-                
-                <Label text="Event Time:" GridPane.rowIndex="2" GridPane.columnIndex="0" style="-fx-font-size: 14px;"/>
-                <TextField fx:id="eventTimeField" GridPane.rowIndex="2" GridPane.columnIndex="1" prefWidth="300" promptText="HH:mm"/>
-                
-                <Label text="Location:" GridPane.rowIndex="3" GridPane.columnIndex="0" style="-fx-font-size: 14px;"/>
-                <TextField fx:id="locationField" GridPane.rowIndex="3" GridPane.columnIndex="1" prefWidth="300"/>
-                
-                <Label text="Description:" GridPane.rowIndex="4" GridPane.columnIndex="0" style="-fx-font-size: 14px;"/>
-                <TextArea fx:id="descriptionArea" GridPane.rowIndex="4" GridPane.columnIndex="1" prefWidth="300" prefRowCount="3"/>
-                
-                <Label text="Capacity:" GridPane.rowIndex="5" GridPane.columnIndex="0" style="-fx-font-size: 14px;"/>
-                <TextField fx:id="capacityField" GridPane.rowIndex="5" GridPane.columnIndex="1" prefWidth="300"/>
-                
-                <Label text="Ticket Price:" GridPane.rowIndex="6" GridPane.columnIndex="0" style="-fx-font-size: 14px;"/>
-                <TextField fx:id="priceField" GridPane.rowIndex="6" GridPane.columnIndex="1" prefWidth="300" promptText="0.00"/>
-                
-                <Label text="Event Mission:" GridPane.rowIndex="7" GridPane.columnIndex="0" style="-fx-font-size: 14px;"/>
-                <TextField fx:id="missionField" GridPane.rowIndex="7" GridPane.columnIndex="1" prefWidth="300"/>
-                
-                <Label text="Donation Objective:" GridPane.rowIndex="8" GridPane.columnIndex="0" style="-fx-font-size: 14px;"/>
-                <TextField fx:id="donationObjectiveField" GridPane.rowIndex="8" GridPane.columnIndex="1" prefWidth="300" promptText="0.00"/>
-                
-                <Label text="Image URL:" GridPane.rowIndex="9" GridPane.columnIndex="0" style="-fx-font-size: 14px;"/>
-                <TextField fx:id="imageField" GridPane.rowIndex="9" GridPane.columnIndex="1" prefWidth="300"/>
-            </GridPane>
-        </ScrollPane>
-        
-        <HBox spacing="20" alignment="CENTER">
-            <Button text="Add Event" onAction="#handleAddEvent" 
-                    style="-fx-background-color: #2ecc71; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10 20;"/>
-            <Button text="Cancel" onAction="#handleCancel" 
-                    style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10 20;"/>
+    <stylesheets>
+        <URL value="@../../Styles/eventdashboard.css" />
+        <URL value="@../../Styles/addevent.css" />
+    </stylesheets>
+    
+    <top>
+        <HBox styleClass="header-bar" alignment="CENTER">
+            <padding><Insets top="15" right="20" bottom="15" left="20"/></padding>
+            <Text text="Add New Event" styleClass="header-title"/>
         </HBox>
-    </VBox>
-</AnchorPane>
+    </top>
+    
+    <center>
+        <ScrollPane fitToWidth="true" fitToHeight="true" styleClass="event-list-scroll">
+            <VBox spacing="20" alignment="CENTER" styleClass="content-container">
+                <GridPane vgap="5" hgap="15" styleClass="event-cards-container form-grid">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="NEVER" minWidth="150" />
+                        <ColumnConstraints hgrow="ALWAYS" minWidth="200" />
+                    </columnConstraints>
+                    
+                    <padding><Insets top="20" right="20" bottom="20" left="20"/></padding>
+                    
+                    <!-- Event Name -->
+                    <Label text="Event Name:" GridPane.rowIndex="0" GridPane.columnIndex="0" styleClass="event-info-label"/>
+                    <VBox spacing="2" GridPane.rowIndex="0" GridPane.columnIndex="1" styleClass="validation-container">
+                        <TextField fx:id="eventNameField" maxWidth="Infinity" styleClass="search-field"/>
+                        <Label fx:id="eventNameValidation" styleClass="validation-message" />
+                    </VBox>
+                    
+                    <!-- Event Date -->
+                    <Label text="Event Date:" GridPane.rowIndex="1" GridPane.columnIndex="0" styleClass="event-info-label"/>
+                    <VBox spacing="2" GridPane.rowIndex="1" GridPane.columnIndex="1" styleClass="validation-container">
+                        <DatePicker fx:id="eventDatePicker" maxWidth="Infinity" style="-fx-background-color: rgba(30, 30, 48, 0.6); -fx-text-fill: white;"/>
+                        <Label fx:id="eventDateValidation" styleClass="validation-message" />
+                    </VBox>
+                    
+                    <!-- Event Time -->
+                    <Label text="Event Time:" GridPane.rowIndex="2" GridPane.columnIndex="0" styleClass="event-info-label"/>
+                    <VBox spacing="2" GridPane.rowIndex="2" GridPane.columnIndex="1" styleClass="validation-container">
+                        <TextField fx:id="eventTimeField" maxWidth="Infinity" promptText="HH:mm" styleClass="search-field"/>
+                        <Label fx:id="eventTimeValidation" styleClass="validation-message" />
+                    </VBox>
+                    
+                    <!-- Location -->
+                    <Label text="Location:" GridPane.rowIndex="3" GridPane.columnIndex="0" styleClass="event-info-label"/>
+                    <VBox spacing="2" GridPane.rowIndex="3" GridPane.columnIndex="1" styleClass="validation-container">
+                        <TextField fx:id="locationField" maxWidth="Infinity" styleClass="search-field"/>
+                        <Label fx:id="locationValidation" styleClass="validation-message" />
+                    </VBox>
+                    
+                    <!-- Description -->
+                    <Label text="Description:" GridPane.rowIndex="4" GridPane.columnIndex="0" styleClass="event-info-label"/>
+                    <VBox spacing="2" GridPane.rowIndex="4" GridPane.columnIndex="1" styleClass="validation-container">
+                        <TextArea fx:id="descriptionArea" maxWidth="Infinity" prefRowCount="3" 
+                                  styleClass="search-field" style="-fx-text-fill: white; -fx-control-inner-background: rgba(30, 30, 48, 0.6);"/>
+                        <Label fx:id="descriptionValidation" styleClass="validation-message" />
+                    </VBox>
+                    
+                    <!-- Capacity -->
+                    <Label text="Capacity:" GridPane.rowIndex="5" GridPane.columnIndex="0" styleClass="event-info-label"/>
+                    <VBox spacing="2" GridPane.rowIndex="5" GridPane.columnIndex="1" styleClass="validation-container">
+                        <TextField fx:id="capacityField" maxWidth="Infinity" styleClass="search-field"/>
+                        <Label fx:id="capacityValidation" styleClass="validation-message" />
+                    </VBox>
+                    
+                    <!-- Ticket Price -->
+                    <Label text="Ticket Price:" GridPane.rowIndex="6" GridPane.columnIndex="0" styleClass="event-info-label"/>
+                    <VBox spacing="2" GridPane.rowIndex="6" GridPane.columnIndex="1" styleClass="validation-container">
+                        <TextField fx:id="priceField" maxWidth="Infinity" promptText="0.00" styleClass="search-field"/>
+                        <Label fx:id="priceValidation" styleClass="validation-message" />
+                    </VBox>
+                    
+                    <!-- Event Mission -->
+                    <Label text="Event Mission:" GridPane.rowIndex="7" GridPane.columnIndex="0" styleClass="event-info-label"/>
+                    <VBox spacing="2" GridPane.rowIndex="7" GridPane.columnIndex="1" styleClass="validation-container">
+                        <TextField fx:id="missionField" maxWidth="Infinity" styleClass="search-field"/>
+                        <Label fx:id="missionValidation" styleClass="validation-message" />
+                    </VBox>
+                    
+                    <!-- Donation Objective -->
+                    <Label text="Donation Objective:" GridPane.rowIndex="8" GridPane.columnIndex="0" styleClass="event-info-label"/>
+                    <VBox spacing="2" GridPane.rowIndex="8" GridPane.columnIndex="1" styleClass="validation-container">
+                        <TextField fx:id="donationObjectiveField" maxWidth="Infinity" promptText="0.00" styleClass="search-field"/>
+                        <Label fx:id="donationValidation" styleClass="validation-message" />
+                    </VBox>
+                    
+                    <!-- Event Image -->
+                    <Label text="Event Image:" GridPane.rowIndex="9" GridPane.columnIndex="0" styleClass="event-info-label"/>
+                    <VBox spacing="2" GridPane.rowIndex="9" GridPane.columnIndex="1" styleClass="validation-container">
+                        <HBox spacing="10" alignment="CENTER_LEFT" styleClass="image-field-container">
+                            <TextField fx:id="imageField" HBox.hgrow="ALWAYS" maxWidth="Infinity" styleClass="search-field" editable="false" promptText="Select an image..."/>
+                            <Button text="Browse..." onAction="#handleImageUpload" styleClass="image-chooser-button"/>
+                        </HBox>
+                        <Label fx:id="imageValidation" styleClass="validation-message" />
+                    </VBox>
+                    
+                    <!-- Selected Image -->
+                    <Label text="Selected Image:" GridPane.rowIndex="10" GridPane.columnIndex="0" styleClass="event-info-label"/>
+                    <VBox fx:id="imageContainer" GridPane.rowIndex="10" GridPane.columnIndex="1" styleClass="selected-image-container" spacing="10">
+                        <Label fx:id="selectedImageLabel" text="No image selected" styleClass="event-info-label"/>
+                        <Label text="Image will be saved to the Events directory" styleClass="event-info-label" 
+                               style="-fx-font-size: 12px; -fx-text-fill: #a0a0a0;"/>
+                    </VBox>
+                </GridPane>
+            </VBox>
+        </ScrollPane>
+    </center>
+    
+    <bottom>
+        <HBox spacing="20" alignment="CENTER" styleClass="button-container">
+            <padding><Insets top="15" right="20" bottom="15" left="20"/></padding>
+            <Button text="Add Event" onAction="#handleAddEvent" styleClass="orange-button, add-button"/>
+            <Button text="Cancel" onAction="#handleCancel" styleClass="card-delete-button"/>
+        </HBox>
+    </bottom>
+</BorderPane>

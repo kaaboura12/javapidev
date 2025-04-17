@@ -8,11 +8,18 @@ import Services.EventService;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.HBox;
+import javafx.stage.Stage;
 import javafx.util.Callback;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.format.DateTimeFormatter;
@@ -48,6 +55,9 @@ public class ReservationBackList implements Initializable {
     
     @FXML
     private TableColumn<Reservation, String> dateColumn;
+    
+    @FXML
+    private TableColumn<Reservation, Void> actionsColumn;
     
     @FXML
     private Pagination pagination;
@@ -133,6 +143,69 @@ public class ReservationBackList implements Initializable {
                 () -> "Confirmed"
             );
         });
+        
+        // Setup Actions column with Details button
+        setupActionsColumn();
+    }
+    
+    private void setupActionsColumn() {
+        actionsColumn.setCellFactory(column -> {
+            return new TableCell<Reservation, Void>() {
+                private final Button detailsButton = new Button("Details");
+                
+                {
+                    detailsButton.getStyleClass().add("details-button");
+                    detailsButton.setOnAction(event -> {
+                        Reservation reservation = getTableView().getItems().get(getIndex());
+                        openReservationDetails(reservation);
+                    });
+                }
+                
+                @Override
+                protected void updateItem(Void item, boolean empty) {
+                    super.updateItem(item, empty);
+                    if (empty) {
+                        setGraphic(null);
+                    } else {
+                        HBox container = new HBox(5);
+                        container.getChildren().add(detailsButton);
+                        setGraphic(container);
+                    }
+                }
+            };
+        });
+    }
+    
+    private void openReservationDetails(Reservation reservation) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/backreservation/editreservation.fxml"));
+            Parent root = loader.load();
+            
+            // Get the controller and set the reservation
+            Controller.Backend.editreservationController controller = loader.getController();
+            controller.setReservation(reservation);
+            
+            // Set the refresh callback to reload data when returning from edit
+            controller.setRefreshCallback(new Controller.Backend.editreservationController.RefreshCallback() {
+                @Override
+                public void onRefresh() {
+                    // Reload reservation data and update UI
+                    loadReservationData();
+                    updateStatistics();
+                    setupPagination();
+                }
+            });
+            
+            // Create a new stage for the details view
+            Stage detailsStage = new Stage();
+            detailsStage.setTitle("Reservation Details");
+            detailsStage.setScene(new Scene(root));
+            detailsStage.show();
+            
+        } catch (IOException e) {
+            showAlert("Error opening reservation details: " + e.getMessage());
+            e.printStackTrace();
+        }
     }
     
     private void setupPagination() {

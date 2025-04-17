@@ -1,0 +1,251 @@
+/* Donation Details View Styling */
+
+/* Color Variables */
+* {
+    -fx-primary: #ff7e5f; /* Orange primary */
+    -fx-primary-light: #feb47b; /* Light orange */
+    -fx-primary-dark: #e06b4e; /* Darker orange */
+    -fx-dark-bg: #1e1e30; /* Dark background */
+    -fx-darker-bg: #171725; /* Darker background */
+    -fx-light-text: #ffffff; /* Light text */
+    -fx-medium-text: #e0e0e0; /* Medium text */
+    -fx-dark-text: #a0a0a0; /* Dark text */
+}
+
+/* Root and background */
+.root {
+    -fx-background-color: #1e1e30;
+    -fx-font-family: "Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.main-container {
+    -fx-background-color: #1e1e30;
+}
+
+/* Header bar */
+.header-bar {
+    -fx-background-color: linear-gradient(to right, #ff7e5f, #feb47b);
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.4), 10, 0, 0, 3);
+    -fx-border-width: 0 0 1px 0;
+    -fx-border-color: rgba(255, 126, 95, 0.2);
+}
+
+.header-title {
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 2, 0, 0, 1);
+}
+
+.header-subtitle {
+    -fx-font-size: 16px;
+    -fx-font-weight: normal;
+    -fx-text-fill: white;
+    -fx-opacity: 0.9;
+}
+
+/* Content pane */
+.content-pane {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.content-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+/* Content container */
+.content-container {
+    -fx-background-color: transparent;
+    -fx-padding: 20px;
+    -fx-spacing: 20px;
+}
+
+/* Action Buttons Row */
+.action-buttons-row {
+    -fx-padding: 5px 0px;
+}
+
+/* Action Button Styles */
+.action-button {
+    -fx-background-radius: 20px;
+    -fx-padding: 8px 15px;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 3, 0, 0, 1);
+    -fx-transition: all 0.2s ease;
+}
+
+.back-button {
+    -fx-background-color: rgba(30, 30, 48, 0.8);
+    -fx-border-color: #ff7e5f;
+    -fx-border-width: 1px;
+    -fx-border-radius: 20px;
+    -fx-text-fill: white;
+}
+
+.back-button:hover {
+    -fx-background-color: rgba(255, 126, 95, 0.2);
+    -fx-scale-x: 1.03;
+    -fx-scale-y: 1.03;
+}
+
+.delete-button {
+    -fx-background-color: rgba(220, 53, 69, 0.8);
+    -fx-text-fill: white;
+}
+
+.delete-button:hover {
+    -fx-background-color: rgba(220, 53, 69, 0.9);
+    -fx-effect: dropshadow(gaussian, rgba(220, 53, 69, 0.5), 8, 0, 0, 0);
+    -fx-scale-x: 1.03;
+    -fx-scale-y: 1.03;
+}
+
+/* Section Separator */
+.section-separator {
+    -fx-background-color: rgba(255, 126, 95, 0.2);
+    -fx-opacity: 0.7;
+}
+
+/* Donation Details Card */
+.details-card {
+    -fx-background-color: rgba(30, 30, 48, 0.4);
+    -fx-background-radius: 10px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 10, 0, 0, 3);
+    -fx-border-color: rgba(255, 126, 95, 0.2);
+    -fx-border-width: 1px;
+    -fx-border-radius: 10px;
+}
+
+/* Card Header */
+.card-header {
+    -fx-padding: 0 0 5 0;
+}
+
+.card-title {
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+    -fx-effect: dropshadow(gaussian, rgba(255,126,95,0.4), 5, 0, 0, 0);
+}
+
+.id-label {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -fx-primary;
+    -fx-padding: 5 10;
+    -fx-background-color: rgba(255,126,95,0.1);
+    -fx-background-radius: 5px;
+    -fx-border-color: rgba(255,126,95,0.3);
+    -fx-border-radius: 5px;
+}
+
+.card-separator {
+    -fx-background-color: rgba(255, 126, 95, 0.2);
+    -fx-opacity: 0.7;
+}
+
+/* Section Label */
+.section-label {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -fx-primary-light;
+}
+
+/* Information Sections */
+.info-section {
+    -fx-padding: 5 0 0 0;
+}
+
+.info-row {
+    -fx-spacing: 10px;
+    -fx-alignment: center-left;
+}
+
+.info-label {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -fx-medium-text;
+    -fx-min-width: 120px;
+}
+
+.info-value {
+    -fx-font-size: 14px;
+    -fx-text-fill: -fx-light-text;
+}
+
+/* Special value styles */
+.amount-value {
+    -fx-font-weight: bold;
+    -fx-text-fill: -fx-primary-light;
+}
+
+.status-completed {
+    -fx-text-fill: #2ecc71;
+    -fx-font-weight: bold;
+}
+
+.status-pending {
+    -fx-text-fill: #f39c12;
+    -fx-font-weight: bold;
+}
+
+.status-cancelled {
+    -fx-text-fill: #e74c3c;
+    -fx-font-weight: bold;
+}
+
+/* Scrollbar Styling */
+.scroll-bar:vertical,
+.scroll-bar:horizontal {
+    -fx-background-color: rgba(30, 30, 48, 0.6);
+}
+
+.scroll-bar:vertical .track,
+.scroll-bar:horizontal .track {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: rgba(255, 126, 95, 0.6);
+    -fx-background-radius: 5px;
+}
+
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar .increment-arrow,
+.scroll-bar .decrement-arrow {
+    -fx-background-color: rgba(255, 126, 95, 0.6);
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 800px) {
+    .header-title {
+        -fx-font-size: 18px;
+    }
+    
+    .header-subtitle {
+        -fx-font-size: 14px;
+    }
+    
+    .card-title {
+        -fx-font-size: 18px;
+    }
+    
+    .section-label {
+        -fx-font-size: 14px;
+    }
+    
+    .info-label, .info-value {
+        -fx-font-size: 12px;
+    }
+    
+    .action-button {
+        -fx-font-size: 12px;
+        -fx-padding: 6px 12px;
+    }
+}
