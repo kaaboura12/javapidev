@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<VBox spacing="10" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.backuser.ArtisteResidentManagerController">
+   <padding>
+      <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+   </padding>
+   <children>
+      <Label text="Artist Resident Applications" styleClass="title-label">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
+      
+      <HBox spacing="10" alignment="CENTER_LEFT">
+         <ComboBox fx:id="statusFilterComboBox" promptText="Filter by Status" />
+         <TextField fx:id="searchField" promptText="Search by name" HBox.hgrow="ALWAYS" />
+      </HBox>
+      
+      <SplitPane dividerPositions="0.6" VBox.vgrow="ALWAYS">
+         <items>
+            <!-- Requests Table -->
+            <TableView fx:id="requestsTableView">
+               <columns>
+                  <TableColumn fx:id="idColumn" text="ID" prefWidth="50" />
+                  <TableColumn fx:id="userColumn" text="Artist" prefWidth="150" />
+                  <TableColumn fx:id="statusColumn" text="Status" prefWidth="100" />
+                  <TableColumn fx:id="dateColumn" text="Date" prefWidth="150" />
+               </columns>
+               <placeholder>
+                  <Label text="No artist resident applications found" />
+               </placeholder>
+            </TableView>
+            
+            <!-- Details Panel -->
+            <VBox fx:id="detailsPane" spacing="10">
+               <padding>
+                  <Insets top="10.0" right="10.0" bottom="10.0" left="10.0" />
+               </padding>
+               <children>
+                  <Label text="Application Details" styleClass="section-header">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  
+                  <GridPane vgap="5" hgap="10">
+                     <columnConstraints>
+                        <ColumnConstraints hgrow="NEVER" minWidth="80" />
+                        <ColumnConstraints hgrow="ALWAYS" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints vgrow="NEVER" />
+                        <RowConstraints vgrow="NEVER" />
+                        <RowConstraints vgrow="NEVER" />
+                        <RowConstraints vgrow="NEVER" />
+                     </rowConstraints>
+                     <children>
+                        <Label text="Name:" GridPane.rowIndex="0" GridPane.columnIndex="0" />
+                        <Label fx:id="userNameLabel" text="" GridPane.rowIndex="0" GridPane.columnIndex="1" />
+                        
+                        <Label text="Email:" GridPane.rowIndex="1" GridPane.columnIndex="0" />
+                        <Label fx:id="userEmailLabel" text="" GridPane.rowIndex="1" GridPane.columnIndex="1" />
+                        
+                        <Label text="Phone:" GridPane.rowIndex="2" GridPane.columnIndex="0" />
+                        <Label fx:id="userPhone" text="" GridPane.rowIndex="2" GridPane.columnIndex="1" />
+                        
+                        <Label text="Status:" GridPane.rowIndex="3" GridPane.columnIndex="0" />
+                        <Label fx:id="statusLabel" text="" GridPane.rowIndex="3" GridPane.columnIndex="1" />
+                     </children>
+                  </GridPane>
+                  
+                  <Label text="Project Description:" styleClass="section-header">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  
+                  <TextArea fx:id="projectDescriptionText" editable="false" wrapText="true" prefHeight="100" VBox.vgrow="ALWAYS" />
+                  
+                  <HBox spacing="10" alignment="CENTER">
+                     <Button fx:id="approveButton" text="Accept" styleClass="success-button" disable="true" />
+                     <Button fx:id="rejectButton" text="Reject" styleClass="warning-button" disable="true" />
+                     <Button fx:id="deleteButton" text="Delete" styleClass="danger-button" disable="true" />
+                     <Button fx:id="viewPortfolioButton" text="View Portfolio" styleClass="info-button" disable="true" />
+                  </HBox>
+               </children>
+            </VBox>
+         </items>
+      </SplitPane>
+   </children>
+   <VBox alignment="CENTER_RIGHT">
+      <Button fx:id="refreshButton" text="Refresh" onAction="#refreshData" styleClass="info-button" />
+   </VBox>
+</VBox> 

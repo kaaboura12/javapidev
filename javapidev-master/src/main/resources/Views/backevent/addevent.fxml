@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="Controllers.backevent.EventAddController"
+            prefHeight="700.0" prefWidth="800.0"
+            style="-fx-background-color: #f5f5f5;">
+    
+    <VBox spacing="20" alignment="CENTER" AnchorPane.topAnchor="20" AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20">
+        <Text text="Add New Event" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-fill: #2c3e50;"/>
+        
+        <ScrollPane fitToWidth="true" style="-fx-background-color: transparent;">
+            <GridPane vgap="15" hgap="15" alignment="CENTER">
+                <padding><Insets top="20" right="20" bottom="20" left="20"/></padding>
+                
+                <Label text="Event Name:" GridPane.rowIndex="0" GridPane.columnIndex="0" style="-fx-font-size: 14px;"/>
+                <TextField fx:id="eventNameField" GridPane.rowIndex="0" GridPane.columnIndex="1" prefWidth="300"/>
+                
+                <Label text="Event Date:" GridPane.rowIndex="1" GridPane.columnIndex="0" style="-fx-font-size: 14px;"/>
+                <DatePicker fx:id="eventDatePicker" GridPane.rowIndex="1" GridPane.columnIndex="1" prefWidth="300"/>
+                
+                <Label text="Event Time:" GridPane.rowIndex="2" GridPane.columnIndex="0" style="-fx-font-size: 14px;"/>
+                <TextField fx:id="eventTimeField" GridPane.rowIndex="2" GridPane.columnIndex="1" prefWidth="300" promptText="HH:mm"/>
+                
+                <Label text="Location:" GridPane.rowIndex="3" GridPane.columnIndex="0" style="-fx-font-size: 14px;"/>
+                <TextField fx:id="locationField" GridPane.rowIndex="3" GridPane.columnIndex="1" prefWidth="300"/>
+                
+                <Label text="Description:" GridPane.rowIndex="4" GridPane.columnIndex="0" style="-fx-font-size: 14px;"/>
+                <TextArea fx:id="descriptionArea" GridPane.rowIndex="4" GridPane.columnIndex="1" prefWidth="300" prefRowCount="3"/>
+                
+                <Label text="Capacity:" GridPane.rowIndex="5" GridPane.columnIndex="0" style="-fx-font-size: 14px;"/>
+                <TextField fx:id="capacityField" GridPane.rowIndex="5" GridPane.columnIndex="1" prefWidth="300"/>
+                
+                <Label text="Ticket Price:" GridPane.rowIndex="6" GridPane.columnIndex="0" style="-fx-font-size: 14px;"/>
+                <TextField fx:id="priceField" GridPane.rowIndex="6" GridPane.columnIndex="1" prefWidth="300" promptText="0.00"/>
+                
+                <Label text="Event Mission:" GridPane.rowIndex="7" GridPane.columnIndex="0" style="-fx-font-size: 14px;"/>
+                <TextField fx:id="missionField" GridPane.rowIndex="7" GridPane.columnIndex="1" prefWidth="300"/>
+                
+                <Label text="Donation Objective:" GridPane.rowIndex="8" GridPane.columnIndex="0" style="-fx-font-size: 14px;"/>
+                <TextField fx:id="donationObjectiveField" GridPane.rowIndex="8" GridPane.columnIndex="1" prefWidth="300" promptText="0.00"/>
+                
+                <Label text="Image URL:" GridPane.rowIndex="9" GridPane.columnIndex="0" style="-fx-font-size: 14px;"/>
+                <TextField fx:id="imageField" GridPane.rowIndex="9" GridPane.columnIndex="1" prefWidth="300"/>
+            </GridPane>
+        </ScrollPane>
+        
+        <HBox spacing="20" alignment="CENTER">
+            <Button text="Add Event" onAction="#handleAddEvent" 
+                    style="-fx-background-color: #2ecc71; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10 20;"/>
+            <Button text="Cancel" onAction="#handleCancel" 
+                    style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10 20;"/>
+        </HBox>
+    </VBox>
+</AnchorPane>

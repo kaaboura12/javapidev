@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane stylesheets="@../../Styles/navigation.css, @../../Styles/artiste_resident.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.ArtisteResidentFormController">
+   <center>
+      <StackPane alignment="CENTER" prefHeight="600.0" prefWidth="900.0">
+         <children>
+            <ScrollPane fitToHeight="true" fitToWidth="true" maxWidth="650.0" styleClass="transparent-background">
+               <content>
+                  <VBox fx:id="formContainer" alignment="CENTER" maxWidth="650.0" prefWidth="650.0" spacing="15.0" styleClass="form-container">
+                     <padding>
+                        <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+                     </padding>
+                     <children>
+                        <Rectangle arcHeight="20.0" arcWidth="20.0" fill="#2a2a3d" height="80.0" stroke="TRANSPARENT" strokeType="INSIDE" width="590.0">
+                           <effect>
+                              <DropShadow height="10.0" radius="4.5" width="10.0">
+                                 <color>
+                                    <Color opacity="0.25" />
+                                 </color>
+                              </DropShadow>
+                           </effect>
+                        </Rectangle>
+                        
+                        <Label fx:id="titleLabel" alignment="CENTER" styleClass="title-label" text="Candidature pour devenir Artiste Résident" textAlignment="CENTER" translateY="-60.0" wrapText="true">
+                           <font>
+                              <Font name="System Bold" size="22.0" />
+                           </font>
+                           <effect>
+                              <DropShadow height="5.0" radius="2.0" spread="0.1" width="5.0">
+                                 <color>
+                                    <Color opacity="0.2" />
+                                 </color>
+                              </DropShadow>
+                           </effect>
+                        </Label>
+                        
+                        <Label fx:id="userInfoLabel" alignment="CENTER" styleClass="info-label" text="Candidat: Prénom Nom" translateY="-45.0">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                           <padding>
+                              <Insets bottom="5.0" left="15.0" right="15.0" top="5.0" />
+                           </padding>
+                           <effect>
+                              <DropShadow height="5.0" radius="2.0" width="5.0">
+                                 <color>
+                                    <Color opacity="0.1" />
+                                 </color>
+                              </DropShadow>
+                           </effect>
+                        </Label>
+                        
+                        <HBox alignment="CENTER_LEFT" spacing="15.0" styleClass="form-section">
+                           <children>
+                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ff7e5f" height="30.0" width="5.0" />
+                              <Label styleClass="form-label" text="Description du projet">
+                                 <font>
+                                    <Font name="System Bold" size="16.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                           <VBox.margin>
+                              <Insets top="5.0" />
+                           </VBox.margin>
+                        </HBox>
+                        
+                        <Label styleClass="form-description" text="Veuillez décrire votre projet artistique et expliquer pourquoi vous souhaitez devenir un artiste résident." wrapText="true">
+                           <font>
+                              <Font size="13.0" />
+                           </font>
+                           <padding>
+                              <Insets bottom="8.0" left="15.0" />
+                           </padding>
+                        </Label>
+                        
+                        <TextArea fx:id="descriptionTextArea" prefHeight="150.0" promptText="Décrivez votre projet artistique..." styleClass="custom-textarea" wrapText="true">
+                           <effect>
+                              <DropShadow height="5.0" radius="2.0" width="5.0">
+                                 <color>
+                                    <Color opacity="0.1" />
+                                 </color>
+                              </DropShadow>
+                           </effect>
+                        </TextArea>
+                        
+                        <HBox alignment="CENTER_LEFT" spacing="15.0" styleClass="form-section">
+                           <children>
+                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ff7e5f" height="30.0" width="5.0" />
+                              <Label styleClass="form-label" text="Portfolio">
+                                 <font>
+                                    <Font name="System Bold" size="16.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                           <VBox.margin>
+                              <Insets top="10.0" />
+                           </VBox.margin>
+                        </HBox>
+                        
+                        <Label styleClass="form-description" text="Veuillez télécharger votre portfolio. Formats acceptés: PDF, JPG, PNG (max. 10MB)" wrapText="true">
+                           <font>
+                              <Font size="13.0" />
+                           </font>
+                           <padding>
+                              <Insets bottom="8.0" left="15.0" />
+                           </padding>
+                        </Label>
+                        
+                        <HBox alignment="CENTER_LEFT" spacing="15.0" styleClass="file-upload-container">
+                           <children>
+                              <Button fx:id="chooseFileButton" mnemonicParsing="false" styleClass="secondary-button" text="Choisir un fichier">
+                                 <graphic>
+                                    <Label styleClass="file-icon" text="📎" />
+                                 </graphic>
+                                 <effect>
+                                    <DropShadow height="5.0" radius="2.0" width="5.0">
+                                       <color>
+                                          <Color opacity="0.1" />
+                                       </color>
+                                    </DropShadow>
+                                 </effect>
+                              </Button>
+                              <Label fx:id="fileNameLabel" styleClass="file-name" text="Aucun fichier sélectionné" />
+                           </children>
+                           <padding>
+                              <Insets bottom="8.0" left="15.0" top="8.0" />
+                           </padding>
+                        </HBox>
+                        
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e0e0e020" height="1.0" stroke="TRANSPARENT" strokeType="INSIDE" width="590.0">
+                           <VBox.margin>
+                              <Insets bottom="15.0" top="15.0" />
+                           </VBox.margin>
+                        </Rectangle>
+                        
+                        <HBox alignment="CENTER" spacing="25.0">
+                           <children>
+                              <Button fx:id="cancelButton" mnemonicParsing="false" prefWidth="150.0" styleClass="cancel-button" text="Annuler">
+                                 <effect>
+                                    <DropShadow height="5.0" radius="2.0" width="5.0">
+                                       <color>
+                                          <Color opacity="0.1" />
+                                       </color>
+                                    </DropShadow>
+                                 </effect>
+                                 <padding>
+                                    <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
+                                 </padding>
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                              </Button>
+                              <Button fx:id="submitButton" mnemonicParsing="false" prefWidth="150.0" styleClass="primary-button" text="Soumettre">
+                                 <effect>
+                                    <DropShadow height="5.0" radius="2.0" width="5.0">
+                                       <color>
+                                          <Color opacity="0.2" />
+                                       </color>
+                                    </DropShadow>
+                                 </effect>
+                                 <padding>
+                                    <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
+                                 </padding>
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                              </Button>
+                           </children>
+                           <VBox.margin>
+                              <Insets top="5.0" />
+                           </VBox.margin>
+                        </HBox>
+                     </children>
+                  </VBox>
+               </content>
+               <effect>
+                  <DropShadow height="30.0" radius="14.5" width="30.0">
+                     <color>
+                        <Color opacity="0.3" />
+                     </color>
+                  </DropShadow>
+               </effect>
+            </ScrollPane>
+         </children>
+      </StackPane>
+   </center>
+   <style>
+      -fx-background-color: linear-gradient(to bottom right, #27273c, #333347, #3d2f3f);
+   </style>
+</BorderPane> 

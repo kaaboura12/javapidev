@@ -1,0 +1,147 @@
+/* Styles pour le formulaire d'artiste résident */
+
+.form-container {
+    -fx-background-color: rgba(40, 40, 55, 0.9);
+    -fx-background-radius: 15px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 10, 0, 0, 5);
+}
+
+.transparent-background {
+    -fx-background-color: transparent;
+    -fx-background: transparent;
+    -fx-border-color: transparent;
+}
+
+.title-label {
+    -fx-text-fill: #ff7e5f;
+    -fx-font-weight: bold;
+    -fx-font-size: 24px;
+}
+
+.info-label {
+    -fx-text-fill: white;
+    -fx-background-color: rgba(255, 126, 95, 0.2);
+    -fx-background-radius: 20px;
+}
+
+.form-section {
+    -fx-background-color: rgba(45, 45, 60, 0.6);
+    -fx-background-radius: 8px;
+    -fx-padding: 8px;
+}
+
+.form-label {
+    -fx-text-fill: white;
+}
+
+.form-description {
+    -fx-text-fill: #cccccc;
+    -fx-font-style: italic;
+}
+
+.custom-textarea {
+    -fx-background-color: rgba(50, 50, 70, 0.8);
+    -fx-text-fill: white;
+    -fx-background-radius: 8px;
+    -fx-border-color: rgba(255, 126, 95, 0.3);
+    -fx-border-radius: 8px;
+    -fx-border-width: 1px;
+    -fx-prompt-text-fill: #999999;
+    -fx-padding: 8px;
+}
+
+.custom-textarea:focused {
+    -fx-border-color: #ff7e5f;
+    -fx-border-width: 2px;
+    -fx-effect: dropshadow(gaussian, rgba(255,126,95,0.3), 8, 0, 0, 0);
+}
+
+.file-upload-container {
+    -fx-background-color: rgba(50, 50, 70, 0.4);
+    -fx-background-radius: 8px;
+}
+
+.file-icon {
+    -fx-font-size: 16px;
+    -fx-text-fill: white;
+}
+
+.file-name {
+    -fx-text-fill: #cccccc;
+    -fx-font-style: italic;
+}
+
+.primary-button {
+    -fx-background-color: linear-gradient(to right, #ff7e5f, #feb47b);
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 30px;
+    -fx-cursor: hand;
+}
+
+.primary-button:hover {
+    -fx-background-color: linear-gradient(to right, #feb47b, #ff7e5f);
+    -fx-effect: dropshadow(gaussian, rgba(255,126,95,0.5), 8, 0, 0, 0);
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+}
+
+.primary-button:pressed {
+    -fx-background-color: linear-gradient(to right, #e56e4f, #eb9f65);
+    -fx-effect: innershadow(gaussian, rgba(0,0,0,0.3), 5, 0, 0, 1);
+}
+
+.secondary-button {
+    -fx-background-color: rgba(60, 60, 80, 0.8);
+    -fx-text-fill: white;
+    -fx-background-radius: 30px;
+    -fx-border-color: rgba(255, 126, 95, 0.3);
+    -fx-border-radius: 30px;
+    -fx-border-width: 1px;
+    -fx-cursor: hand;
+}
+
+.secondary-button:hover {
+    -fx-background-color: rgba(80, 80, 100, 0.8);
+    -fx-border-color: #ff7e5f;
+    -fx-scale-x: 1.03;
+    -fx-scale-y: 1.03;
+}
+
+.secondary-button:pressed {
+    -fx-background-color: rgba(100, 100, 120, 0.8);
+    -fx-effect: innershadow(gaussian, rgba(0,0,0,0.3), 3, 0, 0, 1);
+}
+
+.cancel-button {
+    -fx-background-color: rgba(60, 60, 80, 0.6);
+    -fx-text-fill: white;
+    -fx-background-radius: 30px;
+    -fx-border-color: rgba(200, 200, 200, 0.3);
+    -fx-border-radius: 30px;
+    -fx-border-width: 1px;
+    -fx-cursor: hand;
+}
+
+.cancel-button:hover {
+    -fx-background-color: rgba(80, 80, 100, 0.7);
+    -fx-border-color: rgba(255, 255, 255, 0.5);
+    -fx-scale-x: 1.03;
+    -fx-scale-y: 1.03;
+}
+
+.cancel-button:pressed {
+    -fx-background-color: rgba(100, 100, 120, 0.8);
+    -fx-effect: innershadow(gaussian, rgba(0,0,0,0.3), 3, 0, 0, 1);
+}
+
+/* Animation pour les transitions */
+@keyframes fadeIn {
+    from { -fx-opacity: 0; }
+    to { -fx-opacity: 1; }
+}
+
+.fade-in {
+    -fx-opacity: 0;
+    -fx-animation: fadeIn 0.5s ease-in forwards;
+} 
