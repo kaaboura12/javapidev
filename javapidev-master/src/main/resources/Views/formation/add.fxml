@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="Controllers.backformation.FormationAddController">
+    <VBox spacing="10" padding="10">
+        <TextField fx:id="titreField" promptText="Titre"/>
+        <TextArea fx:id="descriptionArea" promptText="Description"/>
+        <DatePicker fx:id="dateDebutPicker" promptText="Date début"/>
+        <DatePicker fx:id="dateFinPicker" promptText="Date fin"/>
+        <TextField fx:id="nbrpartField" promptText="Nombre de participants"/>
+        <TextField fx:id="prixField" promptText="Prix"/>
+        <ComboBox fx:id="categorieCombo" promptText="Catégorie"/>
+        <TextField fx:id="videoField" promptText="URL Vidéo"/>
+        <HBox spacing="10">
+            <Button text="Ajouter" onAction="#handleAddFormation"/>
+            <Button text="Annuler" onAction="#handleCancel"/>
+        </HBox>
+    </VBox>
+</AnchorPane>

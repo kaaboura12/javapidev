@@ -1,0 +1,142 @@
+/* Styles for the 3D Model Viewer */
+
+.root {
+    -fx-font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+/* Model container styling */
+#modelContainer {
+    -fx-background-color: #2D3748;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 10, 0, 0, 0);
+}
+
+/* Button styling */
+.button {
+    -fx-background-color: #4A5568;
+    -fx-text-fill: white;
+    -fx-cursor: hand;
+    -fx-padding: 8px 16px;
+    -fx-background-radius: 4px;
+    -fx-transition: all 0.2s ease;
+}
+
+.button:hover {
+    -fx-background-color: #718096;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 5, 0, 0, 0);
+    -fx-scale-x: 1.02;
+    -fx-scale-y: 1.02;
+}
+
+.button:pressed {
+    -fx-background-color: #2C5282;
+    -fx-scale-x: 0.98;
+    -fx-scale-y: 0.98;
+}
+
+/* Back button styling */
+.back-button {
+    -fx-background-color: #4A5568;
+    -fx-text-fill: white;
+    -fx-padding: 6px 12px;
+    -fx-background-radius: 4px;
+    -fx-font-weight: bold;
+}
+
+.back-button:hover {
+    -fx-background-color: #718096;
+}
+
+/* Toggle button styling */
+.toggle-button {
+    -fx-background-color: #4A5568;
+    -fx-text-fill: white;
+    -fx-cursor: hand;
+    -fx-padding: 8px 16px;
+    -fx-background-radius: 4px;
+}
+
+.toggle-button:hover {
+    -fx-background-color: #718096;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 5, 0, 0, 0);
+}
+
+.toggle-button:selected {
+    -fx-background-color: #3182CE;
+    -fx-text-fill: white;
+}
+
+/* Slider styling */
+.slider .track {
+    -fx-background-color: #4A5568;
+    -fx-pref-height: 6px;
+}
+
+.slider .thumb {
+    -fx-background-color: #3182CE;
+    -fx-pref-height: 16px;
+    -fx-pref-width: 16px;
+}
+
+.slider .thumb:hover {
+    -fx-background-color: #4299E1;
+    -fx-effect: dropshadow(three-pass-box, rgba(49, 130, 206, 0.4), 10, 0, 0, 0);
+}
+
+/* Labels */
+.label {
+    -fx-text-fill: #E2E8F0;
+    -fx-font-size: 14px;
+}
+
+/* Help text */
+.help-text {
+    -fx-text-fill: #CBD5E0;
+    -fx-font-size: 12px;
+    -fx-font-style: italic;
+}
+
+/* Controls panel */
+.controls-panel {
+    -fx-background-color: #1A202C;
+    -fx-padding: 15px;
+    -fx-spacing: 10px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 5, 0, 0, 0);
+}
+
+/* Status indicator */
+.status-indicator {
+    -fx-background-color: #4A5568;
+    -fx-background-radius: 3px;
+    -fx-padding: 4px 8px;
+    -fx-text-fill: white;
+    -fx-font-size: 12px;
+}
+
+/* Loading indicator */
+.progress-indicator {
+    -fx-progress-color: #3182CE;
+}
+
+/* Tooltip */
+.tooltip {
+    -fx-background-color: #1A202C;
+    -fx-text-fill: white;
+    -fx-font-size: 12px;
+    -fx-padding: 5px 10px;
+    -fx-background-radius: 4px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 5, 0, 0, 0);
+}
+
+/* Error message */
+.error-message {
+    -fx-background-color: rgba(229, 62, 62, 0.8);
+    -fx-text-fill: white;
+    -fx-padding: 10px;
+    -fx-background-radius: 4px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 5, 0, 0, 0);
+}
+
+/* Animation for transitions */
+.animated {
+    -fx-transition: all 0.3s ease;
+} 
