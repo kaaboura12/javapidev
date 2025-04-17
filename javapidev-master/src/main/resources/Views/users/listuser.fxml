@@ -92,7 +92,7 @@
                 AnchorPane.topAnchor="0.0" AnchorPane.rightAnchor="0.0" 
                 AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0">
         
-        <VBox fx:id="userFormContainer" styleClass="user-form-container" maxWidth="600" maxHeight="650"
+        <VBox fx:id="userFormContainer" styleClass="user-form-container" maxWidth="600" maxHeight="700"
               AnchorPane.topAnchor="50.0" AnchorPane.leftAnchor="200.0">
             
             <HBox styleClass="form-header" alignment="CENTER_LEFT">
@@ -106,31 +106,37 @@
                     <VBox spacing="5" HBox.hgrow="ALWAYS">
                         <Label text="Last Name" styleClass="form-label"/>
                         <TextField fx:id="nomField" styleClass="form-field"/>
+                        <Label fx:id="nomErrorLabel" styleClass="error-label" textFill="#ff5252"/>
                     </VBox>
                     <VBox spacing="5" HBox.hgrow="ALWAYS">
                         <Label text="First Name" styleClass="form-label"/>
                         <TextField fx:id="prenomField" styleClass="form-field"/>
+                        <Label fx:id="prenomErrorLabel" styleClass="error-label" textFill="#ff5252"/>
                     </VBox>
                 </HBox>
                 
                 <VBox spacing="5">
                     <Label text="Email Address" styleClass="form-label"/>
                     <TextField fx:id="emailField" styleClass="form-field"/>
+                    <Label fx:id="emailErrorLabel" styleClass="error-label" textFill="#ff5252"/>
                 </VBox>
                 
                 <VBox spacing="5">
                     <Label text="Password" styleClass="form-label"/>
                     <TextField fx:id="passwordField" styleClass="form-field"/>
+                    <Label fx:id="passwordErrorLabel" styleClass="error-label" textFill="#ff5252"/>
                 </VBox>
                 
                 <HBox spacing="15">
                     <VBox spacing="5" HBox.hgrow="ALWAYS">
                         <Label text="Phone Number" styleClass="form-label"/>
                         <TextField fx:id="numtlfField" styleClass="form-field"/>
+                        <Label fx:id="numtlfErrorLabel" styleClass="error-label" textFill="#ff5252"/>
                     </VBox>
                     <VBox spacing="5" HBox.hgrow="ALWAYS">
                         <Label text="Age" styleClass="form-label"/>
                         <TextField fx:id="ageField" styleClass="form-field"/>
+                        <Label fx:id="ageErrorLabel" styleClass="error-label" textFill="#ff5252"/>
                     </VBox>
                 </HBox>
                 
@@ -155,7 +161,7 @@
                     </VBox>
                 </HBox>
                 
-                <Label fx:id="formErrorLabel" styleClass="error-label" textFill="#ff5252" managed="false" visible="false"/>
+                <Label fx:id="formErrorLabel" styleClass="error-label" textFill="#ff5252"/>
                 
                 <HBox spacing="15" alignment="CENTER_RIGHT" styleClass="form-actions">
                     <Button fx:id="cancelButton" text="Cancel" styleClass="cancel-button" onAction="#closeForm"/>

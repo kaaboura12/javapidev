@@ -11,6 +11,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.scene.paint.Color;
 
 import java.io.File;
 import java.io.IOException;
@@ -57,6 +58,24 @@ public class RegistrationController {
 
     @FXML
     private Label errorLabel;
+    
+    @FXML
+    private Label nomErrorLabel;
+    
+    @FXML
+    private Label prenomErrorLabel;
+    
+    @FXML
+    private Label emailErrorLabel;
+    
+    @FXML
+    private Label passwordErrorLabel;
+    
+    @FXML
+    private Label numtlfErrorLabel;
+    
+    @FXML
+    private Label ageErrorLabel;
 
     private final UserService userService = new UserService();
     private File selectedAvatarFile;
@@ -68,6 +87,125 @@ public class RegistrationController {
                 "ROLE_ARTIST"
         );
         rolesComboBox.setValue("ROLE_USER");
+        
+        setupValidationListeners();
+    }
+    
+    private void setupValidationListeners() {
+        // Validation du nom
+        nomField.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue.trim().isEmpty()) {
+                nomErrorLabel.setText("Le nom est requis");
+                nomErrorLabel.setTextFill(Color.RED);
+                nomField.setStyle("-fx-border-color: red;");
+            } else if (newValue.length() < 2) {
+                nomErrorLabel.setText("Le nom doit contenir au moins 2 caractères");
+                nomErrorLabel.setTextFill(Color.RED);
+                nomField.setStyle("-fx-border-color: red;");
+            } else {
+                nomErrorLabel.setText("✓");
+                nomErrorLabel.setTextFill(Color.GREEN);
+                nomField.setStyle("-fx-border-color: green;");
+            }
+        });
+        
+        // Validation du prénom
+        prenomField.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue.trim().isEmpty()) {
+                prenomErrorLabel.setText("Le prénom est requis");
+                prenomErrorLabel.setTextFill(Color.RED);
+                prenomField.setStyle("-fx-border-color: red;");
+            } else if (newValue.length() < 2) {
+                prenomErrorLabel.setText("Le prénom doit contenir au moins 2 caractères");
+                prenomErrorLabel.setTextFill(Color.RED);
+                prenomField.setStyle("-fx-border-color: red;");
+            } else {
+                prenomErrorLabel.setText("✓");
+                prenomErrorLabel.setTextFill(Color.GREEN);
+                prenomField.setStyle("-fx-border-color: green;");
+            }
+        });
+        
+        // Validation de l'email
+        emailField.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue.trim().isEmpty()) {
+                emailErrorLabel.setText("L'email est requis");
+                emailErrorLabel.setTextFill(Color.RED);
+                emailField.setStyle("-fx-border-color: red;");
+            } else if (!newValue.matches("^[A-Za-z0-9+_.-]+@(.+)$")) {
+                emailErrorLabel.setText("Format d'email invalide");
+                emailErrorLabel.setTextFill(Color.RED);
+                emailField.setStyle("-fx-border-color: red;");
+            } else {
+                emailErrorLabel.setText("✓");
+                emailErrorLabel.setTextFill(Color.GREEN);
+                emailField.setStyle("-fx-border-color: green;");
+            }
+        });
+        
+        // Validation du mot de passe
+        passwordField.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue.trim().isEmpty()) {
+                passwordErrorLabel.setText("Le mot de passe est requis");
+                passwordErrorLabel.setTextFill(Color.RED);
+                passwordField.setStyle("-fx-border-color: red;");
+            } else if (newValue.length() < 6) {
+                passwordErrorLabel.setText("Le mot de passe doit contenir au moins 6 caractères");
+                passwordErrorLabel.setTextFill(Color.RED);
+                passwordField.setStyle("-fx-border-color: red;");
+            } else if (!newValue.matches(".*[A-Z].*") || !newValue.matches(".*[a-z].*") || !newValue.matches(".*\\d.*")) {
+                passwordErrorLabel.setText("Le mot de passe doit contenir au moins une majuscule, une minuscule et un chiffre");
+                passwordErrorLabel.setTextFill(Color.RED);
+                passwordField.setStyle("-fx-border-color: red;");
+            } else {
+                passwordErrorLabel.setText("✓");
+                passwordErrorLabel.setTextFill(Color.GREEN);
+                passwordField.setStyle("-fx-border-color: green;");
+            }
+        });
+        
+        // Validation du numéro de téléphone
+        numtlfField.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue.trim().isEmpty()) {
+                numtlfErrorLabel.setText("Le numéro de téléphone est requis");
+                numtlfErrorLabel.setTextFill(Color.RED);
+                numtlfField.setStyle("-fx-border-color: red;");
+            } else if (!newValue.matches("\\d+") || newValue.length() != 8) {
+                numtlfErrorLabel.setText("Le numéro doit contenir 8 chiffres");
+                numtlfErrorLabel.setTextFill(Color.RED);
+                numtlfField.setStyle("-fx-border-color: red;");
+            } else {
+                numtlfErrorLabel.setText("✓");
+                numtlfErrorLabel.setTextFill(Color.GREEN);
+                numtlfField.setStyle("-fx-border-color: green;");
+            }
+        });
+        
+        // Validation de l'âge
+        ageField.textProperty().addListener((observable, oldValue, newValue) -> {
+            try {
+                if (newValue.trim().isEmpty()) {
+                    ageErrorLabel.setText("L'âge est requis");
+                    ageErrorLabel.setTextFill(Color.RED);
+                    ageField.setStyle("-fx-border-color: red;");
+                } else {
+                    int age = Integer.parseInt(newValue);
+                    if (age < 13 || age > 120) {
+                        ageErrorLabel.setText("L'âge doit être entre 13 et 120 ans");
+                        ageErrorLabel.setTextFill(Color.RED);
+                        ageField.setStyle("-fx-border-color: red;");
+                    } else {
+                        ageErrorLabel.setText("✓");
+                        ageErrorLabel.setTextFill(Color.GREEN);
+                        ageField.setStyle("-fx-border-color: green;");
+                    }
+                }
+            } catch (NumberFormatException e) {
+                ageErrorLabel.setText("L'âge doit être un nombre");
+                ageErrorLabel.setTextFill(Color.RED);
+                ageField.setStyle("-fx-border-color: red;");
+            }
+        });
     }
 
     @FXML
@@ -104,9 +242,6 @@ public class RegistrationController {
 
                 String selectedRole = rolesComboBox.getValue();
                 String rolesJson = "[\"" + selectedRole + "\"]";
-                if (selectedRole.equals("ROLE_ADMIN")) {
-                    rolesJson = "[\"ROLE_USER\",\"ROLE_ADMIN\"]";
-                }
 
                 User user = new User(
                         nomField.getText(),
@@ -123,9 +258,9 @@ public class RegistrationController {
                 userService.insert(user);
 
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Registration Successful");
+                alert.setTitle("Inscription réussie");
                 alert.setHeaderText(null);
-                alert.setContentText("Your account has been created successfully!");
+                alert.setContentText("Votre compte a été créé avec succès!");
                 alert.showAndWait().ifPresent(response -> {
                     if (response == ButtonType.OK) {
                         redirectToHomeWithUser(user);
@@ -133,7 +268,65 @@ public class RegistrationController {
                 });
             }
         } catch (Exception e) {
-            errorLabel.setText("Error during registration: " + e.getMessage());
+            errorLabel.setText("Erreur lors de l'inscription: " + e.getMessage());
+        }
+    }
+
+    private boolean validateInput() {
+        boolean isValid = true;
+        
+        // Validation du nom
+        if (nomField.getText().trim().isEmpty() || nomField.getText().length() < 2) {
+            isValid = false;
+        }
+        
+        // Validation du prénom
+        if (prenomField.getText().trim().isEmpty() || prenomField.getText().length() < 2) {
+            isValid = false;
+        }
+        
+        // Validation de l'email
+        if (emailField.getText().trim().isEmpty() || !emailField.getText().matches("^[A-Za-z0-9+_.-]+@(.+)$")) {
+            isValid = false;
+        }
+        
+        // Validation du mot de passe
+        String password = passwordField.getText();
+        if (password.trim().isEmpty() || password.length() < 6 || 
+            !password.matches(".*[A-Z].*") || !password.matches(".*[a-z].*") || !password.matches(".*\\d.*")) {
+            isValid = false;
+        }
+        
+        // Validation du numéro de téléphone
+        if (numtlfField.getText().trim().isEmpty() || !numtlfField.getText().matches("\\d{8}")) {
+            isValid = false;
+        }
+        
+        // Validation de l'âge
+        try {
+            int age = Integer.parseInt(ageField.getText().trim());
+            if (age < 13 || age > 120) {
+                isValid = false;
+            }
+        } catch (NumberFormatException e) {
+            isValid = false;
+        }
+        
+        if (!isValid) {
+            errorLabel.setText("Veuillez remplir le formulaire");
+        }
+        
+        return isValid;
+    }
+
+    @FXML
+    void handleLogin(ActionEvent event) {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/Views/user/login.fxml"));
+            Stage stage = (Stage) loginButton.getScene().getWindow();
+            stage.setScene(new Scene(root));
+        } catch (IOException e) {
+            errorLabel.setText("Erreur lors de la redirection vers la page de connexion");
         }
     }
 
@@ -149,46 +342,7 @@ public class RegistrationController {
             stage.setScene(new Scene(root));
             stage.show();
         } catch (IOException e) {
-            errorLabel.setText("Error redirecting to home page: " + e.getMessage());
+            errorLabel.setText("Erreur lors de la redirection vers la page d'accueil: " + e.getMessage());
         }
-    }
-
-    @FXML
-    void handleLogin(ActionEvent event) {
-        try {
-            Parent root = FXMLLoader.load(getClass().getResource("/Views/user/login.fxml"));
-            Stage stage = (Stage) loginButton.getScene().getWindow();
-            stage.setScene(new Scene(root));
-        } catch (IOException e) {
-            errorLabel.setText("Error redirecting to login page");
-        }
-    }
-
-    private boolean validateInput() {
-        if (nomField.getText().isEmpty() || prenomField.getText().isEmpty() ||
-                emailField.getText().isEmpty() || passwordField.getText().isEmpty() ||
-                numtlfField.getText().isEmpty() || ageField.getText().isEmpty() ||
-                rolesComboBox.getValue() == null) {
-            errorLabel.setText("Please fill in all required fields");
-            return false;
-        }
-
-        try {
-            int age = Integer.parseInt(ageField.getText());
-            if (age < 0 || age > 120) {
-                errorLabel.setText("Please enter a valid age");
-                return false;
-            }
-        } catch (NumberFormatException e) {
-            errorLabel.setText("Age must be a number");
-            return false;
-        }
-
-        if (!emailField.getText().matches("^[A-Za-z0-9+_.-]+@(.+)$")) {
-            errorLabel.setText("Please enter a valid email address");
-            return false;
-        }
-
-        return true;
     }
 }

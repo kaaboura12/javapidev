@@ -9,6 +9,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import javafx.scene.paint.Color;
 
 import java.io.IOException;
 
@@ -34,42 +35,114 @@ public class LoginController {
 
     @FXML
     private Label errorLabel;
+    
+    @FXML
+    private Label emailErrorLabel;
+    
+    @FXML
+    private Label passwordErrorLabel;
 
     private final UserService userService = new UserService();
+    
+    @FXML
+    void initialize() {
+        setupValidationListeners();
+    }
+    
+    private void setupValidationListeners() {
+        // Validation de l'email
+        emailField.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue.trim().isEmpty()) {
+                emailErrorLabel.setText("L'email est requis");
+                emailErrorLabel.setTextFill(Color.RED);
+                emailField.setStyle("-fx-border-color: red;");
+            } else if (!newValue.matches("^[A-Za-z0-9+_.-]+@(.+)$")) {
+                emailErrorLabel.setText("Format d'email invalide");
+                emailErrorLabel.setTextFill(Color.RED);
+                emailField.setStyle("-fx-border-color: red;");
+            } else {
+                emailErrorLabel.setText("✓");
+                emailErrorLabel.setTextFill(Color.GREEN);
+                emailField.setStyle("-fx-border-color: green;");
+            }
+        });
+        
+        // Validation du mot de passe
+        passwordField.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue.trim().isEmpty()) {
+                passwordErrorLabel.setText("Le mot de passe est requis");
+                passwordErrorLabel.setTextFill(Color.RED);
+                passwordField.setStyle("-fx-border-color: red;");
+            } else if (newValue.length() < 6) {
+                passwordErrorLabel.setText("Le mot de passe doit contenir au moins 6 caractères");
+                passwordErrorLabel.setTextFill(Color.RED);
+                passwordField.setStyle("-fx-border-color: red;");
+            } else {
+                passwordErrorLabel.setText("✓");
+                passwordErrorLabel.setTextFill(Color.GREEN);
+                passwordField.setStyle("-fx-border-color: green;");
+            }
+        });
+    }
 
     @FXML
     void handleLogin(ActionEvent event) {
-        String email = emailField.getText();
-        String password = passwordField.getText();
-
-        if (email.isEmpty() || password.isEmpty()) {
-            errorLabel.setText("Please fill in all fields");
+        if (!validateInput()) {
             return;
         }
 
         try {
-            User user = userService.authenticate(email, password);
+            User user = userService.authenticate(emailField.getText(), passwordField.getText());
             if (user != null) {
-                // Store remember me preference if needed
-                boolean rememberMe = false;
-                if (rememberMeCheckBox != null) {
-                    rememberMe = rememberMeCheckBox.isSelected();
-                }
+                boolean rememberMe = rememberMeCheckBox != null && rememberMeCheckBox.isSelected();
                 
                 if (rememberMe) {
                     // TODO: Implement remember me functionality
                     System.out.println("Remember me selected");
                 }
 
-                // Redirect to home page with user
                 redirectToHomeWithUser(user);
             } else {
-                errorLabel.setText("Invalid email or password");
+                errorLabel.setText("Email ou mot de passe incorrect");
+                emailField.setStyle("-fx-border-color: red;");
+                passwordField.setStyle("-fx-border-color: red;");
             }
         } catch (Exception e) {
-            errorLabel.setText("Error during login: " + e.getMessage());
+            errorLabel.setText("Erreur lors de la connexion: " + e.getMessage());
             e.printStackTrace();
         }
+    }
+    
+    private boolean validateInput() {
+        boolean isValid = true;
+        
+        // Validation de l'email
+        if (emailField.getText().trim().isEmpty()) {
+            emailErrorLabel.setText("L'email est requis");
+            emailErrorLabel.setTextFill(Color.RED);
+            emailField.setStyle("-fx-border-color: red;");
+            isValid = false;
+        } else if (!emailField.getText().matches("^[A-Za-z0-9+_.-]+@(.+)$")) {
+            emailErrorLabel.setText("Format d'email invalide");
+            emailErrorLabel.setTextFill(Color.RED);
+            emailField.setStyle("-fx-border-color: red;");
+            isValid = false;
+        }
+        
+        // Validation du mot de passe
+        if (passwordField.getText().trim().isEmpty()) {
+            passwordErrorLabel.setText("Le mot de passe est requis");
+            passwordErrorLabel.setTextFill(Color.RED);
+            passwordField.setStyle("-fx-border-color: red;");
+            isValid = false;
+        } else if (passwordField.getText().length() < 6) {
+            passwordErrorLabel.setText("Le mot de passe doit contenir au moins 6 caractères");
+            passwordErrorLabel.setTextFill(Color.RED);
+            passwordField.setStyle("-fx-border-color: red;");
+            isValid = false;
+        }
+        
+        return isValid;
     }
 
     @FXML
@@ -79,7 +152,7 @@ public class LoginController {
             Stage stage = (Stage) registerButton.getScene().getWindow();
             stage.setScene(new javafx.scene.Scene(root));
         } catch (IOException e) {
-            errorLabel.setText("Error redirecting to registration page");
+            errorLabel.setText("Erreur lors de la redirection vers la page d'inscription");
         }
     }
 
@@ -90,7 +163,7 @@ public class LoginController {
             Stage stage = (Stage) forgotPasswordButton.getScene().getWindow();
             stage.setScene(new javafx.scene.Scene(root));
         } catch (IOException e) {
-            errorLabel.setText("Error redirecting to forgot password page");
+            errorLabel.setText("Erreur lors de la redirection vers la page de récupération de mot de passe");
         }
     }
 
@@ -99,21 +172,18 @@ public class LoginController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/basefront.fxml"));
             Parent root = loader.load();
 
-            // Get the controller and set the user
             BasefrontController controller = loader.getController();
             controller.setCurrentUser(user);
             
-            // Redirect to home view
             controller.navigateTo("/Views/home.fxml");
 
-            // Set the scene
             Stage stage = (Stage) loginButton.getScene().getWindow();
             stage.setScene(new javafx.scene.Scene(root));
             stage.show();
             
-            System.out.println("Successfully logged in and redirected to home page");
+            System.out.println("Connexion réussie et redirection vers la page d'accueil");
         } catch (IOException e) {
-            errorLabel.setText("Error redirecting to home page: " + e.getMessage());
+            errorLabel.setText("Erreur lors de la redirection vers la page d'accueil: " + e.getMessage());
             e.printStackTrace();
         }
     }

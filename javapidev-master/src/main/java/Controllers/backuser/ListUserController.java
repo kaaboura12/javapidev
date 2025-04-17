@@ -19,6 +19,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.util.Callback;
+import javafx.scene.paint.Color;
 
 import java.io.File;
 import java.net.URL;
@@ -132,6 +133,24 @@ public class ListUserController implements Initializable {
     @FXML
     private Label deleteConfirmationText;
 
+    @FXML
+    private Label nomErrorLabel;
+    
+    @FXML
+    private Label prenomErrorLabel;
+    
+    @FXML
+    private Label emailErrorLabel;
+    
+    @FXML
+    private Label passwordErrorLabel;
+    
+    @FXML
+    private Label numtlfErrorLabel;
+    
+    @FXML
+    private Label ageErrorLabel;
+
     private UserService userService;
     private ObservableList<User> usersList;
     private FilteredList<User> filteredUsers;
@@ -159,6 +178,9 @@ public class ListUserController implements Initializable {
         
         // Update statistics
         updateStatistics();
+        
+        // Setup form validation
+        setupValidationListeners();
     }
     
     private void setupTableColumns() {
@@ -457,40 +479,204 @@ public class ListUserController implements Initializable {
         }
     }
     
+    private void setupValidationListeners() {
+        // Validation du nom
+        nomField.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue.trim().isEmpty()) {
+                nomErrorLabel.setText("Le nom est requis");
+                nomErrorLabel.setTextFill(Color.RED);
+                nomField.setStyle("-fx-border-color: red;");
+            } else if (newValue.length() < 2) {
+                nomErrorLabel.setText("Le nom doit contenir au moins 2 caractères");
+                nomErrorLabel.setTextFill(Color.RED);
+                nomField.setStyle("-fx-border-color: red;");
+            } else {
+                nomErrorLabel.setText("✓");
+                nomErrorLabel.setTextFill(Color.GREEN);
+                nomField.setStyle("-fx-border-color: green;");
+            }
+        });
+
+        // Validation du prénom
+        prenomField.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue.trim().isEmpty()) {
+                prenomErrorLabel.setText("Le prénom est requis");
+                prenomErrorLabel.setTextFill(Color.RED);
+                prenomField.setStyle("-fx-border-color: red;");
+            } else if (newValue.length() < 2) {
+                prenomErrorLabel.setText("Le prénom doit contenir au moins 2 caractères");
+                prenomErrorLabel.setTextFill(Color.RED);
+                prenomField.setStyle("-fx-border-color: red;");
+            } else {
+                prenomErrorLabel.setText("✓");
+                prenomErrorLabel.setTextFill(Color.GREEN);
+                prenomField.setStyle("-fx-border-color: green;");
+            }
+        });
+
+        // Validation de l'email
+        emailField.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue.trim().isEmpty()) {
+                emailErrorLabel.setText("L'email est requis");
+                emailErrorLabel.setTextFill(Color.RED);
+                emailField.setStyle("-fx-border-color: red;");
+            } else if (!newValue.matches("^[A-Za-z0-9+_.-]+@(.+)$")) {
+                emailErrorLabel.setText("Format d'email invalide");
+                emailErrorLabel.setTextFill(Color.RED);
+                emailField.setStyle("-fx-border-color: red;");
+            } else {
+                emailErrorLabel.setText("✓");
+                emailErrorLabel.setTextFill(Color.GREEN);
+                emailField.setStyle("-fx-border-color: green;");
+            }
+        });
+
+        // Validation du mot de passe
+        passwordField.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!isEditMode && newValue.trim().isEmpty()) {
+                passwordErrorLabel.setText("Le mot de passe est requis");
+                passwordErrorLabel.setTextFill(Color.RED);
+                passwordField.setStyle("-fx-border-color: red;");
+            } else if (!newValue.trim().isEmpty()) {
+                if (newValue.length() < 6) {
+                    passwordErrorLabel.setText("Le mot de passe doit contenir au moins 6 caractères");
+                    passwordErrorLabel.setTextFill(Color.RED);
+                    passwordField.setStyle("-fx-border-color: red;");
+                } else if (!newValue.matches(".*[A-Z].*") || !newValue.matches(".*[a-z].*") || !newValue.matches(".*\\d.*")) {
+                    passwordErrorLabel.setText("Le mot de passe doit contenir au moins une majuscule, une minuscule et un chiffre");
+                    passwordErrorLabel.setTextFill(Color.RED);
+                    passwordField.setStyle("-fx-border-color: red;");
+                } else {
+                    passwordErrorLabel.setText("✓");
+                    passwordErrorLabel.setTextFill(Color.GREEN);
+                    passwordField.setStyle("-fx-border-color: green;");
+                }
+            } else {
+                passwordErrorLabel.setText("");
+                passwordField.setStyle("");
+            }
+        });
+
+        // Validation du numéro de téléphone
+        numtlfField.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue.trim().isEmpty()) {
+                numtlfErrorLabel.setText("Le numéro de téléphone est requis");
+                numtlfErrorLabel.setTextFill(Color.RED);
+                numtlfField.setStyle("-fx-border-color: red;");
+            } else if (!newValue.matches("\\d+") || newValue.length() != 8) {
+                numtlfErrorLabel.setText("Le numéro doit contenir 8 chiffres");
+                numtlfErrorLabel.setTextFill(Color.RED);
+                numtlfField.setStyle("-fx-border-color: red;");
+            } else {
+                numtlfErrorLabel.setText("✓");
+                numtlfErrorLabel.setTextFill(Color.GREEN);
+                numtlfField.setStyle("-fx-border-color: green;");
+            }
+        });
+
+        // Validation de l'âge
+        ageField.textProperty().addListener((observable, oldValue, newValue) -> {
+            try {
+                if (newValue.trim().isEmpty()) {
+                    ageErrorLabel.setText("L'âge est requis");
+                    ageErrorLabel.setTextFill(Color.RED);
+                    ageField.setStyle("-fx-border-color: red;");
+                } else {
+                    int age = Integer.parseInt(newValue);
+                    if (age < 13 || age > 120) {
+                        ageErrorLabel.setText("L'âge doit être entre 13 et 120 ans");
+                        ageErrorLabel.setTextFill(Color.RED);
+                        ageField.setStyle("-fx-border-color: red;");
+                    } else {
+                        ageErrorLabel.setText("✓");
+                        ageErrorLabel.setTextFill(Color.GREEN);
+                        ageField.setStyle("-fx-border-color: green;");
+                    }
+                }
+            } catch (NumberFormatException e) {
+                ageErrorLabel.setText("L'âge doit être un nombre");
+                ageErrorLabel.setTextFill(Color.RED);
+                ageField.setStyle("-fx-border-color: red;");
+            }
+        });
+    }
+
     private boolean validateForm() {
-        formErrorLabel.setVisible(false);
+        boolean isValid = true;
         
-        if (nomField.getText().isEmpty() || prenomField.getText().isEmpty() ||
-                emailField.getText().isEmpty() || 
-                (!isEditMode && passwordField.getText().isEmpty()) ||
-                numtlfField.getText().isEmpty() || ageField.getText().isEmpty()) {
-            showFormError("Please fill in all required fields");
-            return false;
+        // Validation du nom
+        if (nomField.getText().trim().isEmpty() || nomField.getText().length() < 2) {
+            nomErrorLabel.setText("Le nom doit contenir au moins 2 caractères");
+            nomErrorLabel.setTextFill(Color.RED);
+            nomField.setStyle("-fx-border-color: red;");
+            isValid = false;
         }
         
-        if (!emailField.getText().matches("^[A-Za-z0-9+_.-]+@(.+)$")) {
-            showFormError("Please enter a valid email address");
-            return false;
+        // Validation du prénom
+        if (prenomField.getText().trim().isEmpty() || prenomField.getText().length() < 2) {
+            prenomErrorLabel.setText("Le prénom doit contenir au moins 2 caractères");
+            prenomErrorLabel.setTextFill(Color.RED);
+            prenomField.setStyle("-fx-border-color: red;");
+            isValid = false;
         }
         
+        // Validation de l'email
+        if (emailField.getText().trim().isEmpty() || !emailField.getText().matches("^[A-Za-z0-9+_.-]+@(.+)$")) {
+            emailErrorLabel.setText("Format d'email invalide");
+            emailErrorLabel.setTextFill(Color.RED);
+            emailField.setStyle("-fx-border-color: red;");
+            isValid = false;
+        }
+        
+        // Validation du mot de passe (seulement pour les nouveaux utilisateurs)
+        if (!isEditMode || !passwordField.getText().trim().isEmpty()) {
+            String password = passwordField.getText();
+            if (password.trim().isEmpty()) {
+                passwordErrorLabel.setText("Le mot de passe est requis");
+                passwordErrorLabel.setTextFill(Color.RED);
+                passwordField.setStyle("-fx-border-color: red;");
+                isValid = false;
+            } else if (password.length() < 6 || !password.matches(".*[A-Z].*") || 
+                      !password.matches(".*[a-z].*") || !password.matches(".*\\d.*")) {
+                passwordErrorLabel.setText("Le mot de passe doit contenir au moins 6 caractères, une majuscule, une minuscule et un chiffre");
+                passwordErrorLabel.setTextFill(Color.RED);
+                passwordField.setStyle("-fx-border-color: red;");
+                isValid = false;
+            }
+        }
+        
+        // Validation du numéro de téléphone
+        if (numtlfField.getText().trim().isEmpty() || !numtlfField.getText().matches("\\d{8}")) {
+            numtlfErrorLabel.setText("Le numéro doit contenir 8 chiffres");
+            numtlfErrorLabel.setTextFill(Color.RED);
+            numtlfField.setStyle("-fx-border-color: red;");
+            isValid = false;
+        }
+        
+        // Validation de l'âge
         try {
-            int age = Integer.parseInt(ageField.getText());
-            if (age < 0 || age > 120) {
-                showFormError("Please enter a valid age (0-120)");
-                return false;
+            int age = Integer.parseInt(ageField.getText().trim());
+            if (age < 13 || age > 120) {
+                ageErrorLabel.setText("L'âge doit être entre 13 et 120 ans");
+                ageErrorLabel.setTextFill(Color.RED);
+                ageField.setStyle("-fx-border-color: red;");
+                isValid = false;
             }
         } catch (NumberFormatException e) {
-            showFormError("Age must be a number");
-            return false;
+            ageErrorLabel.setText("L'âge doit être un nombre");
+            ageErrorLabel.setTextFill(Color.RED);
+            ageField.setStyle("-fx-border-color: red;");
+            isValid = false;
         }
         
-        return true;
-    }
-    
-    private void showFormError(String message) {
-        formErrorLabel.setText(message);
-        formErrorLabel.setVisible(true);
-        formErrorLabel.setManaged(true);
+        if (!isValid) {
+            formErrorLabel.setText("Veuillez corriger les erreurs dans le formulaire");
+            formErrorLabel.setVisible(true);
+        } else {
+            formErrorLabel.setVisible(false);
+        }
+        
+        return isValid;
     }
     
     private void clearForm() {
