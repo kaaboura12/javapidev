@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="Controllers.event.TestController"
+            prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #1e1e30;">
+
+    <VBox alignment="CENTER" spacing="20.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" 
+          AnchorPane.topAnchor="50.0" AnchorPane.bottomAnchor="50.0">
+        
+        <Label text="Webhook Testing Page" textFill="WHITE">
+            <font>
+                <Font name="System Bold" size="24.0"/>
+            </font>
+        </Label>
+        
+        <Separator/>
+        
+        <GridPane hgap="15.0" vgap="15.0">
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="100.0" prefWidth="150.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="200.0" prefWidth="400.0" />
+            </columnConstraints>
+            
+            <Label text="Username:" textFill="WHITE" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+            <TextField fx:id="usernameField" promptText="Enter username" GridPane.rowIndex="0" GridPane.columnIndex="1"
+                      style="-fx-background-color: rgba(255, 255, 255, 0.1); -fx-text-fill: white; -fx-prompt-text-fill: #8f8f8f;"/>
+            
+            <Label text="Email:" textFill="WHITE" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+            <TextField fx:id="emailField" promptText="Enter email" GridPane.rowIndex="1" GridPane.columnIndex="1"
+                      style="-fx-background-color: rgba(255, 255, 255, 0.1); -fx-text-fill: white; -fx-prompt-text-fill: #8f8f8f;"/>
+            
+            <Label text="Event Name:" textFill="WHITE" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+            <TextField fx:id="eventNameField" promptText="Enter event name" GridPane.rowIndex="2" GridPane.columnIndex="1"
+                      style="-fx-background-color: rgba(255, 255, 255, 0.1); -fx-text-fill: white; -fx-prompt-text-fill: #8f8f8f;"/>
+            
+            <Label text="Price:" textFill="WHITE" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+            <TextField fx:id="priceField" promptText="Enter price" GridPane.rowIndex="3" GridPane.columnIndex="1"
+                      style="-fx-background-color: rgba(255, 255, 255, 0.1); -fx-text-fill: white; -fx-prompt-text-fill: #8f8f8f;"/>
+            
+            <Label text="Event Date:" textFill="WHITE" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+            <HBox spacing="10.0" GridPane.rowIndex="4" GridPane.columnIndex="1">
+                <DatePicker fx:id="eventDatePicker" promptText="Select date" style="-fx-background-color: rgba(255, 255, 255, 0.1);"/>
+                <TextField fx:id="eventTimeField" promptText="HH:MM:SS" prefWidth="100"
+                          style="-fx-background-color: rgba(255, 255, 255, 0.1); -fx-text-fill: white; -fx-prompt-text-fill: #8f8f8f;"/>
+            </HBox>
+            
+            <padding>
+                <Insets top="10.0" right="10.0" bottom="10.0" left="10.0"/>
+            </padding>
+        </GridPane>
+        
+        <Separator/>
+        
+        <Button fx:id="sendButton" text="SEND TO WEBHOOK" onAction="#handleSendToWebhook" 
+                style="-fx-background-color: linear-gradient(to right, #ff7e5f, #feb47b); -fx-text-fill: white; -fx-background-radius: 20px;">
+            <font>
+                <Font name="System Bold" size="14.0"/>
+            </font>
+            <padding>
+                <Insets top="12.0" right="30.0" bottom="12.0" left="30.0"/>
+            </padding>
+        </Button>
+        
+        <Label fx:id="statusLabel" textFill="WHITE">
+            <font>
+                <Font size="14.0"/>
+            </font>
+        </Label>
+    </VBox>
+</AnchorPane>

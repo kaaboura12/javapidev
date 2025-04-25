@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+
+<StackPane xmlns="http://javafx.com/javafx"
+          xmlns:fx="http://javafx.com/fxml"
+          fx:controller="Controllers.HomeController"
+          stylesheets="@../Styles/navigation.css, @../Styles/home.css">
+    
+    <ScrollPane fitToWidth="true" hbarPolicy="NEVER" style="-fx-background-color: transparent; -fx-background: transparent; -fx-border-color: transparent;">
+        <VBox spacing="40" style="-fx-background-color: transparent;">
+            
+            <!-- Hero Section -->
+            <StackPane styleClass="hero-section">
+                <VBox alignment="CENTER" spacing="20" style="-fx-padding: 30 30;">
+                    <Label text="Welcome to ArtXCope" styleClass="hero-title"/>
+                    <Label text="Discover and connect with the vibrant art community" 
+                           styleClass="hero-subtitle" wrapText="true" maxWidth="800"/>
+                    <HBox alignment="CENTER" spacing="20" style="-fx-padding: 30 0 0 0;">
+                        <Button fx:id="goToEventsBtn" text="Explore Events" 
+                                styleClass="primary-button, animate-on-hover"/>
+                        <Button text="Join Community" 
+                                styleClass="secondary-button, animate-on-hover"/>
+                    </HBox>
+                </VBox>
+            </StackPane>
+            
+            <!-- Features Section -->
+            <VBox alignment="CENTER" spacing="30" style="-fx-padding: 20 40 40 40; -fx-background-color: rgba(255, 255, 255, 0.05); -fx-border-color: rgba(255, 255, 255, 0.1); -fx-border-width: 1px 0 1px 0;">
+                <Label text="What We Offer" styleClass="section-title"/>
+                <Label text="ArtXCope provides a comprehensive platform for artists and art enthusiasts" 
+                      styleClass="section-subtitle" maxWidth="800" alignment="CENTER"/>
+                
+                <HBox spacing="30" alignment="CENTER">
+                    <VBox styleClass="feature-card, animate-on-hover">
+                        <Rectangle width="60" height="60" arcWidth="15" arcHeight="15"
+                                  style="-fx-fill: #ff7e5f;" styleClass="feature-icon"/>
+                        <Label text="Art Events" styleClass="feature-title"/>
+                        <Label text="Discover exhibitions, workshops, and gatherings to showcase your talent" 
+                              styleClass="feature-description" textAlignment="CENTER"/>
+                    </VBox>
+                    
+                    <VBox styleClass="feature-card, animate-on-hover">
+                        <Rectangle width="60" height="60" arcWidth="15" arcHeight="15" 
+                                  style="-fx-fill: #feb47b;" styleClass="feature-icon"/>
+                        <Label text="Art Gallery" styleClass="feature-title"/>
+                        <Label text="Showcase your artwork in our digital gallery and get discovered" 
+                              styleClass="feature-description" textAlignment="CENTER"/>
+                    </VBox>
+                    
+                    <VBox styleClass="feature-card, animate-on-hover">
+                        <Rectangle width="60" height="60" arcWidth="15" arcHeight="15" 
+                                  style="-fx-fill: #ff7e5f;" styleClass="feature-icon"/>
+                        <Label text="Art Training" styleClass="feature-title"/>
+                        <Label text="Enhance your skills with professional training courses and workshops" 
+                              styleClass="feature-description" textAlignment="CENTER"/>
+                    </VBox>
+                </HBox>
+            </VBox>
+            
+            <!-- Stats Section -->
+            <StackPane style="-fx-background-color: rgba(30, 30, 48, 0.7);">
+                <VBox alignment="CENTER" spacing="30" style="-fx-padding: 40;">
+                    <Label text="Our Community Impact" styleClass="section-title"/>
+                    
+                    <HBox alignment="CENTER" spacing="40">
+                        <VBox alignment="CENTER" HBox.hgrow="ALWAYS" style="-fx-min-width: 180;">
+                            <Label text="25+" styleClass="stat-value" style="-fx-text-fill: #ff7e5f;"/>
+                            <Label text="Art Events" styleClass="stat-label"/>
+                        </VBox>
+                        
+                        <VBox alignment="CENTER" HBox.hgrow="ALWAYS" style="-fx-min-width: 180;">
+                            <Label text="500+" styleClass="stat-value" style="-fx-text-fill: #feb47b;"/>
+                            <Label text="Active Artists" styleClass="stat-label"/>
+                        </VBox>
+                        
+                        <VBox alignment="CENTER" HBox.hgrow="ALWAYS" style="-fx-min-width: 180;">
+                            <Label text="1,200+" styleClass="stat-value" style="-fx-text-fill: #ff7e5f;"/>
+                            <Label text="Artworks Showcased" styleClass="stat-label"/>
+                        </VBox>
+                    </HBox>
+                </VBox>
+            </StackPane>
+            
+            <!-- Testimonials Section -->
+            <VBox alignment="CENTER" spacing="30" style="-fx-padding: 40; -fx-background-color: rgba(255, 255, 255, 0.05); -fx-border-color: rgba(255, 255, 255, 0.1); -fx-border-width: 1px 0 1px 0;">
+                <Label text="What Artists Say" styleClass="section-title"/>
+                
+                <HBox alignment="CENTER" spacing="30">
+                    <VBox styleClass="testimonial-card, animate-on-hover">
+                        <Label text="❝" styleClass="testimonial-quote" style="-fx-text-fill: #ff7e5f;"/>
+                        <Label text="ArtXCope has transformed my career as an artist. The events and exposure helped me connect with art lovers across the country." 
+                              styleClass="testimonial-text"/>
+                        <HBox alignment="CENTER_LEFT" spacing="10" style="-fx-padding: 15 0 0 0;">
+                            <Rectangle width="40" height="40" arcWidth="40" arcHeight="40" style="-fx-fill: #feb47b;"/>
+                            <VBox>
+                                <Label text="Sarah Johnson" styleClass="testimonial-author"/>
+                                <Label text="Visual Artist" styleClass="testimonial-role"/>
+                            </VBox>
+                        </HBox>
+                    </VBox>
+                    
+                    <VBox styleClass="testimonial-card, animate-on-hover">
+                        <Label text="❝" styleClass="testimonial-quote" style="-fx-text-fill: #feb47b;"/>
+                        <Label text="The training programs at ArtXCope helped me refine my technique and develop my unique style. I've gained confidence and recognition." 
+                              styleClass="testimonial-text"/>
+                        <HBox alignment="CENTER_LEFT" spacing="10" style="-fx-padding: 15 0 0 0;">
+                            <Rectangle width="40" height="40" arcWidth="40" arcHeight="40" style="-fx-fill: #ff7e5f;"/>
+                            <VBox>
+                                <Label text="David Chen" styleClass="testimonial-author"/>
+                                <Label text="Sculptor" styleClass="testimonial-role"/>
+                            </VBox>
+                        </HBox>
+                    </VBox>
+                </HBox>
+            </VBox>
+            
+            <!-- Call to Action Section -->
+            <StackPane styleClass="cta-section">
+                <VBox alignment="CENTER" spacing="20" style="-fx-padding: 50 30;">
+                    <Label text="Ready to Join Our Art Community?" styleClass="cta-title" 
+                          wrapText="true" maxWidth="800" textAlignment="CENTER"/>
+                    <Label text="Start exploring events, connecting with fellow artists, and showcasing your work today" 
+                          styleClass="cta-subtitle" maxWidth="700" textAlignment="CENTER"/>
+                    <Button text="Get Started Now" 
+                           styleClass="cta-button, animate-on-hover"/>
+                </VBox>
+            </StackPane>
+            
+            <!-- Footer -->
+            <VBox alignment="CENTER" spacing="15" styleClass="footer">
+                <Label text="ArtXCope" styleClass="footer-title"/>
+                <Label text="Connecting artists, enthusiasts, and opportunities" styleClass="footer-subtitle"/>
+                <HBox alignment="CENTER" spacing="30" style="-fx-padding: 10 0 20 0;">
+                    <Label text="About Us" styleClass="footer-link"/>
+                    <Label text="Events" styleClass="footer-link"/>
+                    <Label text="Gallery" styleClass="footer-link"/>
+                    <Label text="Forum" styleClass="footer-link"/>
+                    <Label text="Contact" styleClass="footer-link"/>
+                </HBox>
+                <Label text="© 2023 ArtXCope. All rights reserved." styleClass="footer-copyright"/>
+            </VBox>
+        </VBox>
+    </ScrollPane>
+</StackPane> 

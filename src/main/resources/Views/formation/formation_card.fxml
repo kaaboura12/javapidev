@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="Controllers.formation.FormationCardController"
+      styleClass="formation-card-modern"
+      style="-fx-background-color: #f5f5f7; -fx-background-radius: 8px; -fx-border-radius: 8px; -fx-border-color: #dddddd; -fx-border-width: 1px;">
+    
+    <!-- Add a drop shadow effect to the entire card -->
+    <effect>
+        <DropShadow color="rgba(0,0,0,0.2)" radius="10" spread="0.05" />
+    </effect>
+    
+    <!-- Card Header -->
+    <HBox alignment="CENTER_LEFT" spacing="10">
+        <padding><Insets top="15" right="15" bottom="5" left="15"/></padding>
+        
+        <!-- Duration Display -->
+        <VBox alignment="CENTER" minWidth="45" style="-fx-background-color: #3498db; -fx-background-radius: 5px;">
+            <padding><Insets top="5" right="5" bottom="5" left="5"/></padding>
+            <Label fx:id="durationLabel" text="30 Days" style="-fx-font-weight: bold; -fx-text-fill: white;"/>
+        </VBox>
+        
+        <!-- Title -->
+        <Label fx:id="titleLabel" text="Formation Title" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;" 
+               wrapText="true" HBox.hgrow="ALWAYS"/>
+    </HBox>
+    
+    <!-- Thumbnail Image -->
+    <ImageView fx:id="formationImage" 
+               fitWidth="320" 
+               fitHeight="180" 
+               preserveRatio="true"
+               style="-fx-background-color: #f0f0f0; -fx-background-radius: 4px;">
+        <VBox.margin>
+            <Insets bottom="10" left="15" right="15"/>
+        </VBox.margin>
+    </ImageView>
+    
+    <!-- Category -->
+    <HBox alignment="CENTER_LEFT">
+        <padding><Insets top="0" right="15" bottom="5" left="15"/></padding>
+        <Label fx:id="categoryLabel" text="Category" style="-fx-font-size: 12px; -fx-text-fill: #3498db; -fx-font-weight: bold;"/>
+    </HBox>
+    
+    <!-- Description -->
+    <HBox>
+        <padding><Insets top="0" right="15" bottom="10" left="15"/></padding>
+        <Text fx:id="descriptionText" text="Formation description goes here." 
+              wrappingWidth="280" style="-fx-font-size: 13px; -fx-fill: #444444;"/>
+    </HBox>
+    
+    <!-- Date Range -->
+    <HBox alignment="CENTER_LEFT" spacing="5" style="-fx-background-color: #f0f0f0; -fx-background-radius: 0 0 4px 4px;">
+        <padding><Insets top="8" right="15" bottom="8" left="15"/></padding>
+        <Label text="Dates:" style="-fx-font-size: 12px; -fx-font-weight: bold; -fx-text-fill: #555555;"/>
+        <Label fx:id="dateRangeLabel" text="Jan 10, 2023 - Feb 10, 2023" style="-fx-font-size: 12px; -fx-text-fill: #555555;"/>
+    </HBox>
+    
+    <!-- Bottom Row (Price & Participants & Button) -->
+    <HBox alignment="CENTER_LEFT" spacing="10" style="-fx-background-color: #f9f9f9; -fx-background-radius: 0 0 8px 8px;">
+        <padding><Insets top="12" right="15" bottom="12" left="15"/></padding>
+        
+        <VBox spacing="2" HBox.hgrow="ALWAYS">
+            <Label fx:id="priceLabel" text="199.99" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #2ecc71;"/>
+            <Label fx:id="participantsLabel" text="25 spots available" style="-fx-font-size: 11px; -fx-text-fill: #666666;"/>
+        </VBox>
+        
+        <Button fx:id="viewDetailsButton" text="DETAILS" 
+                style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 4px; -fx-cursor: hand;"
+                onAction="#handleViewDetails">
+            <effect>
+                <DropShadow color="rgba(0,0,0,0.2)" radius="5" spread="0.1" />
+            </effect>
+        </Button>
+    </HBox>
+</VBox>

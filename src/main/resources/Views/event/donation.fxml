@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.shape.Line?>
+
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="Controllers.event.DonationController"
+            prefHeight="600.0" prefWidth="800.0"
+            style="-fx-background-color: transparent;">
+    <ScrollPane fitToWidth="true" AnchorPane.topAnchor="0" AnchorPane.leftAnchor="0" 
+                AnchorPane.rightAnchor="0" AnchorPane.bottomAnchor="0"
+                styleClass="event-scroll-pane" stylesheets="@../../Styles/events.css">
+        <content>
+            <VBox spacing="30" styleClass="reservation-container" style="-fx-background-color: transparent;">
+                <!-- Header Section -->
+                <HBox styleClass="reservation-header" style="-fx-border-color: transparent transparent rgba(255,126,95,0.3) transparent;">
+                    <Label text="Support This Event" styleClass="reservation-title" style="-fx-text-fill: white; -fx-font-family: 'Segoe UI Semibold'; -fx-effect: dropshadow(gaussian, rgba(255,126,95,0.5), 5, 0, 0, 0);"/>
+                </HBox>
+                
+                <!-- Back Button -->
+                <HBox alignment="CENTER_LEFT">
+                    <Button fx:id="backButton" styleClass="back-button" onAction="#handleBackToEvents" text="Back to Events">
+                        <graphic>
+                            <Region styleClass="back-icon" />
+                        </graphic>
+                    </Button>
+                </HBox>
+                
+                <!-- Main Content -->
+                <HBox spacing="30">
+                    <!-- Left Column - Event Info -->
+                    <VBox spacing="20" styleClass="reservation-event-info" HBox.hgrow="ALWAYS">
+                        <Label text="Event Details" styleClass="section-title" style="-fx-text-fill: white; -fx-effect: dropshadow(gaussian, rgba(255,126,95,0.3), 3, 0, 0, 0);"/>
+                        
+                        <!-- Event Card -->
+                        <VBox styleClass="event-info-card" style="-fx-background-color: rgba(255, 255, 255, 0.05); -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 10, 0, 0, 0); -fx-border-color: rgba(255, 255, 255, 0.1); -fx-background-radius: 12px; -fx-border-radius: 12px;">
+                            <!-- Event Title -->
+                            <Label fx:id="eventNameLabel" text="[Event Title]" 
+                                   styleClass="event-title" style="-fx-text-fill: white;"/>
+                            
+                            <!-- Event Date & Time -->
+                            <HBox styleClass="event-info-row" alignment="CENTER_LEFT">
+                                <Label styleClass="event-info-icon" text="📅" style="-fx-text-fill: #ff7e5f;"/>
+                                <HBox alignment="CENTER_LEFT" spacing="5">
+                                    <Label fx:id="eventDayLabel" text="15" styleClass="event-day-modern" />
+                                    <Label text=" " />
+                                    <Label fx:id="eventMonthLabel" text="JUN" styleClass="event-month-modern" />
+                                </HBox>
+                            </HBox>
+                            
+                            <!-- Event Time -->
+                            <HBox styleClass="event-info-row" alignment="CENTER_LEFT">
+                                <Label styleClass="event-info-icon" text="🕒" style="-fx-text-fill: #ff7e5f;"/>
+                                <Label fx:id="eventTimeLabel" text="7:00 PM - 10:00 PM" 
+                                       styleClass="event-info-text" style="-fx-text-fill: #c0c0c0;"/>
+                            </HBox>
+                            
+                            <!-- Event Location -->
+                            <HBox styleClass="event-info-row" alignment="CENTER_LEFT">
+                                <Label styleClass="event-info-icon" text="📍" style="-fx-text-fill: #ff7e5f;"/>
+                                <Label fx:id="eventLocationLabel" text="Grand Hall" 
+                                       styleClass="event-info-text" style="-fx-text-fill: #c0c0c0;"/>
+                            </HBox>
+                        </VBox>
+                        
+                        <!-- Impact Info -->
+                        <VBox styleClass="event-description-card" style="-fx-background-color: rgba(255, 255, 255, 0.05); -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 10, 0, 0, 0); -fx-border-color: rgba(255, 255, 255, 0.1); -fx-background-radius: 12px; -fx-border-radius: 12px;">
+                            <Label text="How Your Donation Helps" styleClass="section-subtitle" style="-fx-text-fill: white;"/>
+                            <VBox spacing="8" style="-fx-padding: 5 0 0 0;">
+                                <HBox spacing="10" alignment="CENTER_LEFT">
+                                    <Label text="•" style="-fx-text-fill: #ff7e5f; -fx-font-size: 16px;"/>
+                                    <Label text="Provides resources for event activities" wrapText="true" style="-fx-text-fill: #c0c0c0; -fx-font-size: 13px;" />
+                                </HBox>
+                                <HBox spacing="10" alignment="CENTER_LEFT">
+                                    <Label text="•" style="-fx-text-fill: #ff7e5f; -fx-font-size: 16px;"/>
+                                    <Label text="Supports community outreach programs" wrapText="true" style="-fx-text-fill: #c0c0c0; -fx-font-size: 13px;" />
+                                </HBox>
+                                <HBox spacing="10" alignment="CENTER_LEFT">
+                                    <Label text="•" style="-fx-text-fill: #ff7e5f; -fx-font-size: 16px;"/>
+                                    <Label text="Ensures accessibility for all participants" wrapText="true" style="-fx-text-fill: #c0c0c0; -fx-font-size: 13px;" />
+                                </HBox>
+                                <HBox spacing="10" alignment="CENTER_LEFT">
+                                    <Label text="•" style="-fx-text-fill: #ff7e5f; -fx-font-size: 16px;"/>
+                                    <Label text="Helps fund future community events" wrapText="true" style="-fx-text-fill: #c0c0c0; -fx-font-size: 13px;" />
+                                </HBox>
+                            </VBox>
+                        </VBox>
+                        
+                        <!-- Testimonials -->
+                        <VBox styleClass="event-description-card" style="-fx-background-color: rgba(255, 255, 255, 0.05); -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 10, 0, 0, 0); -fx-border-color: rgba(255, 255, 255, 0.1); -fx-background-radius: 12px; -fx-border-radius: 12px;">
+                            <Label text="Testimonials" styleClass="section-subtitle" style="-fx-text-fill: white;"/>
+                            <VBox spacing="15" style="-fx-padding: 10 0 0 0;">
+                                <HBox spacing="15">
+                                    <VBox spacing="3" style="-fx-background-color: rgba(255, 255, 255, 0.05); -fx-padding: 12; -fx-background-radius: 8; -fx-border-color: rgba(255, 126, 95, 0.2); -fx-border-radius: 8;" HBox.hgrow="ALWAYS">
+                                        <Label text="&quot;This event changed our community for the better. I'm proud to support it.&quot;" wrapText="true" style="-fx-text-fill: white; -fx-font-style: italic; -fx-font-size: 13px;" />
+                                        <Label text="— Sarah J." style="-fx-text-fill: #feb47b; -fx-padding: 5 0 0 0; -fx-font-size: 12px;" />
+                                    </VBox>
+                                    <VBox spacing="3" style="-fx-background-color: rgba(255, 255, 255, 0.05); -fx-padding: 12; -fx-background-radius: 8; -fx-border-color: rgba(255, 126, 95, 0.2); -fx-border-radius: 8;" HBox.hgrow="ALWAYS">
+                                        <Label text="&quot;Donating to this cause was one of the best decisions I've made this year.&quot;" wrapText="true" style="-fx-text-fill: white; -fx-font-style: italic; -fx-font-size: 13px;" />
+                                        <Label text="— Michael T." style="-fx-text-fill: #feb47b; -fx-padding: 5 0 0 0; -fx-font-size: 12px;" />
+                                    </VBox>
+                                </HBox>
+                            </VBox>
+                        </VBox>
+                    </VBox>
+                    
+                    <!-- Right Column - Donation Form -->
+                    <VBox spacing="20" styleClass="reservation-form" minWidth="400">
+                        <Label text="Donation Form" styleClass="section-title" style="-fx-text-fill: white; -fx-effect: dropshadow(gaussian, rgba(255,126,95,0.3), 3, 0, 0, 0);"/>
+                        
+                        <!-- Donation Form Card -->
+                        <VBox styleClass="reservation-form-card" style="-fx-background-color: rgba(255, 255, 255, 0.05); -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 10, 0, 0, 0); -fx-border-color: rgba(255, 255, 255, 0.1); -fx-background-radius: 12px; -fx-border-radius: 12px;">
+                            <!-- Form Header -->
+                            <HBox styleClass="form-header" style="-fx-background-color: linear-gradient(to right, #ff7e5f, #feb47b); -fx-background-radius: 12px 12px 0 0;">
+                                <Label text="Donation Details" styleClass="form-header-text"/>
+                            </HBox>
+                            
+                            <!-- Donation Options -->
+                            <VBox styleClass="form-section">
+                                <Label text="Select Donation Amount" styleClass="form-section-title" style="-fx-text-fill: white;"/>
+                                
+                                <GridPane styleClass="amount-container" hgap="8" vgap="8" HBox.hgrow="ALWAYS" style="-fx-padding: 10 0;">
+                                    <columnConstraints>
+                                        <ColumnConstraints percentWidth="33" />
+                                        <ColumnConstraints percentWidth="33" />
+                                        <ColumnConstraints percentWidth="33" />
+                                    </columnConstraints>
+                                    <rowConstraints>
+                                        <RowConstraints />
+                                        <RowConstraints />
+                                    </rowConstraints>
+                                    
+                                    <Button fx:id="amount10Btn" text="/$10" styleClass="donation-amount" onAction="#handleAmountSelection" GridPane.columnIndex="0" GridPane.rowIndex="0" maxWidth="Infinity" style="-fx-background-color: rgba(255, 255, 255, 0.1); -fx-font-size: 13px; -fx-padding: 8 0;" />
+                                    <Button fx:id="amount25Btn" text="/$25" styleClass="donation-amount" onAction="#handleAmountSelection" GridPane.columnIndex="1" GridPane.rowIndex="0" maxWidth="Infinity" style="-fx-background-color: rgba(255, 255, 255, 0.1); -fx-font-size: 13px; -fx-padding: 8 0;" />
+                                    <Button fx:id="amount50Btn" text="/$50" styleClass="donation-amount" onAction="#handleAmountSelection" GridPane.columnIndex="2" GridPane.rowIndex="0" maxWidth="Infinity" style="-fx-background-color: rgba(255, 255, 255, 0.1); -fx-font-size: 13px; -fx-padding: 8 0;" />
+                                    <Button fx:id="amount100Btn" text="/$100" styleClass="donation-amount" onAction="#handleAmountSelection" GridPane.columnIndex="0" GridPane.rowIndex="1" maxWidth="Infinity" style="-fx-background-color: rgba(255, 255, 255, 0.1); -fx-font-size: 13px; -fx-padding: 8 0;" />
+                                    <Button fx:id="amount200Btn" text="/$200" styleClass="donation-amount" onAction="#handleAmountSelection" GridPane.columnIndex="1" GridPane.rowIndex="1" maxWidth="Infinity" style="-fx-background-color: rgba(255, 255, 255, 0.1); -fx-font-size: 13px; -fx-padding: 8 0;" />
+                                    <Button fx:id="amountCustomBtn" text="Custom" styleClass="donation-amount" onAction="#handleCustomAmount" GridPane.columnIndex="2" GridPane.rowIndex="1" maxWidth="Infinity" style="-fx-background-color: rgba(255, 255, 255, 0.1); -fx-font-size: 13px; -fx-padding: 8 0;" />
+                                </GridPane>
+                                
+                                <!-- Custom Amount Input -->
+                                <HBox styleClass="form-field" alignment="CENTER_LEFT" spacing="10">
+                                    <Label text="Amount ($):" style="-fx-text-fill: #c0c0c0; -fx-font-size: 13px;" />
+                                    <Spinner fx:id="amountSpinner" editable="true" HBox.hgrow="ALWAYS" style="-fx-background-color: rgba(255, 255, 255, 0.1); -fx-border-color: rgba(255, 255, 255, 0.2);" />
+                                </HBox>
+                            </VBox>
+                            
+                            <Separator styleClass="form-divider"/>
+                            
+                            <!-- Personal Information Section -->
+                            <VBox styleClass="form-section">
+                                <Label text="Your Information" styleClass="form-section-title" style="-fx-text-fill: white;"/>
+                                
+                                <GridPane vgap="10" hgap="10" style="-fx-padding: 10 0;">
+                                    <columnConstraints>
+                                        <ColumnConstraints percentWidth="50" />
+                                        <ColumnConstraints percentWidth="50" />
+                                    </columnConstraints>
+                                    
+                                    <VBox spacing="3" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                                        <Label text="Full Name" style="-fx-text-fill: #c0c0c0; -fx-font-size: 13px;" />
+                                        <TextField fx:id="nameField" promptText="Enter your name" style="-fx-background-color: rgba(255, 255, 255, 0.1); -fx-border-color: rgba(255, 255, 255, 0.2); -fx-text-fill: white;" />
+                                    </VBox>
+                                    
+                                    <VBox spacing="3" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                                        <Label text="Email Address" style="-fx-text-fill: #c0c0c0; -fx-font-size: 13px;" />
+                                        <TextField fx:id="emailField" promptText="your@email.com" style="-fx-background-color: rgba(255, 255, 255, 0.1); -fx-border-color: rgba(255, 255, 255, 0.2); -fx-text-fill: white;" />
+                                    </VBox>
+                                    
+                                    <VBox spacing="3" GridPane.columnIndex="0" GridPane.rowIndex="1">
+                                        <Label text="Phone Number" style="-fx-text-fill: #c0c0c0; -fx-font-size: 13px;" />
+                                        <TextField fx:id="phoneField" promptText="Your phone number" style="-fx-background-color: rgba(255, 255, 255, 0.1); -fx-border-color: rgba(255, 255, 255, 0.2); -fx-text-fill: white;" />
+                                    </VBox>
+                                    
+                                    <VBox spacing="3" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                        <Label text="Payment Method" style="-fx-text-fill: #c0c0c0; -fx-font-size: 13px;" />
+                                        <ComboBox fx:id="paymentMethodCombo" maxWidth="Infinity" style="-fx-background-color: rgba(255, 255, 255, 0.1); -fx-border-color: rgba(255, 255, 255, 0.2); -fx-text-fill: white;" />
+                                    </VBox>
+                                </GridPane>
+                            </VBox>
+                            
+                            <Separator styleClass="form-divider"/>
+                            
+                            <!-- Additional Options Section -->
+                            <VBox styleClass="form-section">
+                                <Label text="Additional Options" styleClass="form-section-title" style="-fx-text-fill: white;"/>
+                                
+                                <HBox spacing="15" style="-fx-padding: 10 0 0 0;">
+                                    <RadioButton text="One-time donation" selected="true" style="-fx-text-fill: white; -fx-font-size: 13px;">
+                                        <toggleGroup>
+                                            <ToggleGroup fx:id="frequencyGroup" />
+                                        </toggleGroup>
+                                    </RadioButton>
+                                    <RadioButton text="Monthly donation" toggleGroup="$frequencyGroup" style="-fx-text-fill: white; -fx-font-size: 13px;" />
+                                </HBox>
+                                
+                                <!-- Agreement Section -->
+                                <HBox styleClass="agreement-section" style="-fx-padding: 10 0 0 0;">
+                                    <CheckBox text="Make this donation anonymous" style="-fx-text-fill: white; -fx-padding: 5 0 0 0; -fx-font-size: 13px;" />
+                                </HBox>
+                                <HBox styleClass="agreement-section">
+                                    <CheckBox text="Remember my information for next time" style="-fx-text-fill: white; -fx-padding: 3 0 0 0; -fx-font-size: 13px;" />
+                                </HBox>
+                            </VBox>
+                            
+                            <!-- Action Buttons -->
+                            <HBox styleClass="action-buttons">
+                                <Button fx:id="cancelButton" text="CANCEL" 
+                                        onAction="#handleCancel" styleClass="cancel-button" style="-fx-background-color: rgba(255, 255, 255, 0.05); -fx-text-fill: #c0c0c0; -fx-border-color: rgba(255, 255, 255, 0.2); -fx-background-radius: 20px; -fx-border-radius: 20px;"/>
+                                <Button fx:id="submitButton" text="COMPLETE DONATION" 
+                                        onAction="#handleSubmit" styleClass="get-ticket-button" style="-fx-background-color: linear-gradient(to right, #ff7e5f, #feb47b); -fx-text-fill: white; -fx-background-radius: 20px; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 3, 0, 0, 1);"/>
+                            </HBox>
+                        </VBox>
+                    </VBox>
+                </HBox>
+                
+                <!-- Status Message -->
+                <Label fx:id="statusMessageLabel" styleClass="status-message" style="-fx-text-fill: #ff7e5f;"/>
+            </VBox>
+        </content>
+    </ScrollPane>
+</AnchorPane>

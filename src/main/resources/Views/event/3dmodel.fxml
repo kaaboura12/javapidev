@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="Controllers.event.ModelController"
+            prefHeight="600.0" prefWidth="800.0"
+            stylesheets="@../../Styles/model-viewer.css">
+
+    <!-- Main container for the 3D model viewer -->
+    <AnchorPane fx:id="modelContainer" 
+                AnchorPane.topAnchor="0.0" 
+                AnchorPane.leftAnchor="0.0" 
+                AnchorPane.rightAnchor="0.0" 
+                AnchorPane.bottomAnchor="80.0"
+                style="-fx-background-color: #2D3748;">
+        <!-- The SubScene will be created programmatically in the controller -->
+    </AnchorPane>
+    
+    <!-- Controls panel at the bottom -->
+    <VBox AnchorPane.leftAnchor="0.0" 
+          AnchorPane.rightAnchor="0.0" 
+          AnchorPane.bottomAnchor="0.0"
+          style="-fx-background-color: #1A202C; -fx-padding: 10px;">
+        
+        <!-- Help text -->
+        <Label text="Drag to rotate | Scroll to zoom | Double-click to reset" 
+               style="-fx-text-fill: #E2E8F0; -fx-padding: 0 0 8 0;"/>
+        
+        <!-- Controls row -->
+        <HBox spacing="15" alignment="CENTER">
+            <!-- Zoom slider -->
+            <HBox spacing="10" alignment="CENTER">
+                <Label text="Zoom:" style="-fx-text-fill: #E2E8F0;"/>
+                <Slider fx:id="zoomSlider" prefWidth="200" min="0.5" max="2.0" value="1.0"/>
+            </HBox>
+            
+            <!-- Reset button -->
+            <Button fx:id="resetButton" text="Reset View" 
+                    style="-fx-background-color: #4A5568; -fx-text-fill: white;"/>
+            
+            <!-- Info -->
+            <Label text="3D Model: Green Energy City" style="-fx-text-fill: #E2E8F0;"/>
+        </HBox>
+    </VBox>
+
+</AnchorPane>
