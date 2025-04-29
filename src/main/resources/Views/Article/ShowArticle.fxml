@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="Controllers.Article.ArticleController"
+      spacing="0"
+      styleClass="main-container"
+      stylesheets="@../../Styles/article_galerie.css"
+      VBox.vgrow="ALWAYS">
+
+    <!-- Header Bar -->
+    <VBox styleClass="header-bar">
+        <padding>
+            <Insets top="15" right="25" bottom="15" left="25"/>
+        </padding>
+        
+        <HBox alignment="CENTER_LEFT" spacing="15">
+            <Label text="Gestion des Articles" styleClass="header-title"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Button fx:id="newArticleBtn" onAction="#handleNouvelArticle" prefHeight="45.0" prefWidth="200.0"
+                    styleClass="action-button">
+                <graphic>
+                    <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                            <Image url="@../Images/add.png" />
+                        </image>
+                    </ImageView>
+                </graphic>
+                <Label text="Nouvel Article" styleClass="button-label"/>
+            </Button>
+
+        </HBox>
+        
+        <Label text="Gérez les articles de votre galerie" styleClass="header-subtitle"/>
+    </VBox>
+
+    <!-- Content Area -->
+    <VBox spacing="20" VBox.vgrow="ALWAYS" styleClass="content-container">
+        <padding>
+            <Insets top="20" right="20" bottom="20" left="20"/>
+        </padding>
+
+        <HBox spacing="20" VBox.vgrow="ALWAYS">
+            <!-- Table des articles -->
+            <VBox spacing="15" HBox.hgrow="ALWAYS" styleClass="table-container">
+                <HBox styleClass="table-header" alignment="CENTER_LEFT" spacing="15">
+                    <padding>
+                        <Insets top="15" right="15" bottom="15" left="15"/>
+                    </padding>
+                    <Label text="Articles disponibles" styleClass="table-header-label"/>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <TextField fx:id="searchField" promptText="Rechercher un article..." styleClass="search-field" prefWidth="250"/>
+                    <Button fx:id="exportExcelBtn" onAction="#handleExportExcel" prefHeight="45.0" prefWidth="200.0"
+                            styleClass="action-button">
+                        <graphic>
+                            <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                <image>
+                                    <Image url="@../Images/excel.png" />
+                                </image>
+                            </ImageView>
+                        </graphic>
+                    </Button>
+                </HBox>
+                
+                <TableView fx:id="articlesTableView" VBox.vgrow="ALWAYS" styleClass="event-table">
+                    <columns>
+                        <TableColumn fx:id="idColumn" text="ID" prefWidth="50" style="-fx-alignment: CENTER;"/>
+                        <TableColumn fx:id="titreColumn" text="Titre" prefWidth="150"/>
+                        <TableColumn fx:id="descriptionColumn" text="Description" prefWidth="200"/>
+                        <TableColumn fx:id="prixColumn" text="Prix" prefWidth="100"/>
+                        <TableColumn fx:id="datePubColumn" text="Date Publication" prefWidth="150"/>
+                        <TableColumn fx:id="disponibleColumn" text="Disponible" prefWidth="100"/>
+                        <TableColumn fx:id="nbrArticleColumn" text="Quantité" prefWidth="100"/>
+                        <TableColumn fx:id="nbrLikesColumn" text="Likes" prefWidth="100"/>
+                        <TableColumn fx:id="categorieColumn" text="Catégorie" prefWidth="150"/>
+                        <TableColumn fx:id="contenuColumn" text="Contenu" prefWidth="200"/>
+                    </columns>
+                </TableView>
+            </VBox>
+
+            <!-- Détails de l'article -->
+            <VBox spacing="15" prefWidth="350" styleClass="dashboard-card">
+                <Label text="Détails de l'article" styleClass="dashboard-card-header"/>
+                
+                <Label text="Titre:" styleClass="form-label"/>
+                <TextField fx:id="titreField" styleClass="form-field"/>
+                
+                <Label text="Description:" styleClass="form-label"/>
+                <TextArea fx:id="descriptionField" prefRowCount="3"
+                          wrapText="true"
+                          style="-fx-background-color: #2d2d45;
+                                -fx-text-fill: white;
+                                -fx-prompt-text-fill: rgba(255,255,255,0.5);
+                                -fx-background-radius: 5;
+                                -fx-padding: 8 15;
+                                -fx-control-inner-background: #2d2d45;
+                                -fx-focus-color: #ff7e5f;
+                                -fx-faint-focus-color: #ff7e5f22;
+                                -fx-text-box-border: transparent;
+                                -fx-border-color: rgba(255,255,255,0.1);
+                                -fx-border-radius: 5;"/>
+                
+                <Label text="Prix:" styleClass="form-label"/>
+                <TextField fx:id="prixField" styleClass="form-field"/>
+                
+                <Label text="Catégorie:" styleClass="form-label"/>
+                <TextField fx:id="categorieField" styleClass="form-field"/>
+                
+                <Label text="Contenu (Image):" styleClass="form-label"/>
+                <ImageView fx:id="contenuImageView" fitWidth="200" fitHeight="200" preserveRatio="true"
+                          styleClass="image-preview"/>
+                
+                <Region VBox.vgrow="ALWAYS"/>
+                
+                <HBox spacing="15" alignment="CENTER_RIGHT">
+                    <Button fx:id="editBtn" onAction="#handleModifier" prefHeight="10.0" prefWidth="200.0"
+                            styleClass="action-button">
+                        <graphic>
+                            <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                                <image>
+                                    <Image url="@../Images/edit.png" />
+                                </image>
+                            </ImageView>
+                        </graphic>
+                    </Button>
+                    <Button fx:id="deleteBtn" onAction="#handleSupprimer" prefHeight="10.0" prefWidth="200.0"
+                            styleClass="cancel-button">
+                        <graphic>
+                            <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                                <image>
+                                    <Image url="@../Images/delete.png" />
+                                </image>
+                            </ImageView>
+                        </graphic>
+                    </Button>
+                </HBox>
+            </VBox>
+        </HBox>
+    </VBox>
+
+</VBox> 

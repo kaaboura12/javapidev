@@ -14,6 +14,8 @@ import javafx.scene.Scene;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.scene.control.MenuButton;
+import javafx.scene.control.MenuItem;
 
 public class Basebackcontroller implements Initializable {
     
@@ -49,6 +51,18 @@ public class Basebackcontroller implements Initializable {
     
     @FXML
     private Button statisticsBtn;
+
+    @FXML
+    private MenuButton galerieMenuBtn;
+    
+    @FXML
+    private MenuItem galerieMenuItem;
+    
+    @FXML
+    private MenuItem articlesMenuItem;
+    
+    @FXML
+    private MenuItem commandesMenuItem;
     
     @FXML
     private Button logoutBtn;
@@ -99,6 +113,27 @@ public class Basebackcontroller implements Initializable {
         setActiveControl(usersBtn);
         updatePageTitle("Users Management");
         loadPage("/Views/users/listuser.fxml");
+    }
+    @FXML
+    private void navigateToGaleries() {
+        setActiveControl(galerieMenuBtn);
+        updatePageTitle("Galeries Management");
+        loadPage("/Views/Galerie/ShowGalerie.fxml");
+    }
+    
+    @FXML
+    private void navigateToArticles() {
+        setActiveControl(galerieMenuBtn);
+        updatePageTitle("Articles Management");
+        loadPage("/Views/Article/ShowArticle.fxml");
+    }
+    
+    @FXML
+    private void navigateToCommandes() {
+        setActiveControl(galerieMenuBtn);
+        updatePageTitle("Commandes Management");
+        // TODO: Créer la page des commandes
+        loadPage("/Views/Commande/ShowCommande.fxml");
     }
     
     @FXML

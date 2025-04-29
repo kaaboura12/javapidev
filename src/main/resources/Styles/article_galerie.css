@@ -1,0 +1,394 @@
+/* Styles pour les vues d'articles et de galeries */
+
+/* Styles de base */
+.root {
+    -fx-background-color: #1e1e30;
+}
+
+/* Styles pour les conteneurs principaux */
+.main-container {
+    -fx-background-color: #1e1e30;
+    -fx-padding: 20px;
+}
+
+/* Styles pour les titres */
+.title-label {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #ff7e5f;
+    -fx-effect: dropshadow(gaussian, rgba(255,126,95,0.4), 5, 0, 0, 0);
+}
+
+/* Styles pour les séparateurs */
+.separator {
+    -fx-background-color: rgba(255, 126, 95, 0.2);
+    -fx-padding: 5px 0;
+}
+
+/* Styles pour les conteneurs de formulaire */
+.form-container {
+    -fx-background-color: rgba(30, 30, 48, 0.6);
+    -fx-background-radius: 8px;
+    -fx-border-radius: 8px;
+    -fx-border-color: rgba(255, 126, 95, 0.2);
+    -fx-border-width: 1px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10, 0, 0, 3);
+    -fx-padding: 20px;
+}
+
+/* Styles pour les champs de formulaire */
+.form-label {
+    -fx-font-weight: bold;
+    -fx-text-fill: #e0e0e0;
+    -fx-font-size: 14px;
+}
+
+.form-field {
+    -fx-background-color: #2b2b2b;   /* fond sombre */
+    -fx-text-fill: white;            /* texte clair */
+    -fx-background-radius: 5;
+    -fx-border-radius: 5;
+    -fx-border-color: #555555;
+    -fx-padding: 5;
+}
+
+
+.form-field:focused {
+    -fx-border-color: #ff7e5f;
+    -fx-effect: dropshadow(gaussian, rgba(255,126,95,0.3), 5, 0, 0, 0);
+}
+
+/* Styles pour les boutons */
+.action-button {
+    -fx-background-color: linear-gradient(to right, #ff7e5f, #feb47b);
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 20px;
+    -fx-padding: 10px 15px;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 3, 0, 0, 1);
+}
+
+.action-button:hover {
+    -fx-background-color: linear-gradient(to right, #feb47b, #ff7e5f);
+    -fx-effect: dropshadow(gaussian, rgba(255,126,95,0.5), 8, 0, 0, 0);
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+}
+
+.cancel-button {
+    -fx-background-color: #f44336;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 20px;
+    -fx-padding: 10px 15px;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 3, 0, 0, 1);
+}
+
+.cancel-button:hover {
+    -fx-background-color: #d32f2f;
+    -fx-effect: dropshadow(gaussian, rgba(244,67,54,0.5), 8, 0, 0, 0);
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+}
+
+/* Styles améliorés pour les tableaux */
+.table-view {
+    -fx-background-color: transparent;
+    -fx-background-radius: 8px;
+    -fx-padding: 5px;
+    -fx-border-color: transparent;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 10, 0, 0, 2);
+}
+
+.table-view .column-header {
+    -fx-background-color: linear-gradient(to bottom, #2a2a40, #1e1e30);
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-padding: 12px 15px;
+    -fx-border-color: rgba(255, 126, 95, 0.3);
+    -fx-border-width: 0 0 2 0;
+    -fx-alignment: center-left;
+}
+
+.table-view .column-header .label {
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-alignment: center-left;
+    -fx-padding: 0 5px;
+}
+
+.table-view .column-header-background {
+    -fx-background-color: linear-gradient(to bottom, #2a2a40, #1e1e30);
+    -fx-background-radius: 8px 8px 0 0;
+}
+
+.table-view .table-row-cell {
+    -fx-background-color: rgba(30, 30, 48, 0.8);
+    -fx-border-color: rgba(255, 126, 95, 0.2);
+    -fx-border-width: 0 0 1 0;
+    -fx-padding: 12px 0;
+    -fx-cell-size: 100px;
+    -fx-alignment: center-left;
+}
+
+.table-view .table-row-cell .text {
+    -fx-fill: white;
+    -fx-font-size: 14px;
+}
+
+.table-view .table-row-cell:odd {
+    -fx-background-color: rgba(30, 30, 48, 0.6);
+}
+
+.table-view .table-row-cell:hover {
+    -fx-background-color: rgba(255, 126, 95, 0.3);
+    -fx-cursor: hand;
+}
+
+.table-view .table-row-cell:selected {
+    -fx-background-color: rgba(255, 126, 95, 0.4);
+    -fx-text-fill: white;
+}
+
+.table-view .table-row-cell:selected .text {
+    -fx-fill: white;
+    -fx-font-weight: bold;
+}
+
+/* Styles pour les en-têtes de tableau */
+.table-header {
+    -fx-background-color: linear-gradient(to right, #ff7e5f, #feb47b);
+    -fx-padding: 15px;
+    -fx-background-radius: 8px 8px 0 0;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 5, 0, 0, 1);
+}
+
+.table-header-label {
+    -fx-text-fill: white;
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 2, 0, 0, 1);
+}
+
+/* Styles pour les images */
+.image-preview {
+    -fx-border-color: rgba(255, 126, 95, 0.2);
+    -fx-border-width: 1px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-background-color: rgba(30, 30, 48, 0.4);
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 5, 0, 0, 1);
+}
+
+/* Styles pour les ComboBox */
+.combo-box {
+    -fx-background-color: rgba(30, 30, 48, 0.8);
+    -fx-background-radius: 5px;
+    -fx-border-radius: 5px;
+    -fx-border-color: rgba(255, 126, 95, 0.2);
+}
+
+.combo-box .list-cell {
+    -fx-text-fill: white;
+    -fx-padding: 8px;
+}
+
+.combo-box .arrow-button {
+    -fx-background-color: transparent;
+}
+
+.combo-box .arrow {
+    -fx-background-color: #ff7e5f;
+}
+
+.combo-box .list-view {
+    -fx-background-color: rgba(30, 30, 48, 0.9);
+    -fx-background-radius: 5px;
+    -fx-border-radius: 5px;
+    -fx-border-color: rgba(255, 126, 95, 0.3);
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 10, 0, 0, 2);
+}
+
+.combo-box .list-view .list-cell {
+    -fx-text-fill: white;
+    -fx-padding: 8px 15px;
+}
+
+.combo-box .list-view .list-cell:hover {
+    -fx-background-color: rgba(255, 126, 95, 0.2);
+}
+
+.combo-box .list-view .list-cell:selected {
+    -fx-background-color: rgba(255, 126, 95, 0.4);
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+
+/* Styles pour les CheckBox */
+.check-box {
+    -fx-text-fill: white;
+}
+
+.check-box .box {
+    -fx-background-color: rgba(30, 30, 48, 0.8);
+    -fx-border-color: rgba(255, 126, 95, 0.2);
+    -fx-border-radius: 3px;
+}
+
+.check-box:selected .box {
+    -fx-background-color: #ff7e5f;
+}
+
+/* Styles pour les TextArea */
+.text-area {
+    -fx-background-color: rgba(30, 30, 48, 0.8);
+    -fx-background-radius: 5px;
+    -fx-border-radius: 5px;
+    -fx-border-color: rgba(255, 126, 95, 0.2);
+    -fx-text-fill: white;
+    -fx-padding: 8px;
+}
+/*
+.text-area .content {
+    -fx-background-color: transparent;
+}*/
+
+.text-area:focused {
+    -fx-border-color: #ff7e5f;
+    -fx-effect: dropshadow(gaussian, rgba(255,126,95,0.3), 5, 0, 0, 0);
+}
+
+/* Styles pour les boutons d'action dans les tableaux */
+.table-action-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 4px;
+    -fx-padding: 5px 10px;
+    -fx-cursor: hand;
+}
+
+.table-edit-button {
+    -fx-background-color: rgba(102, 187, 106, 0.8);
+}
+
+.table-edit-button:hover {
+    -fx-background-color: #4CAF50;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 3, 0, 0, 1);
+}
+
+.table-delete-button {
+    -fx-background-color: rgba(239, 83, 80, 0.8);
+}
+
+.table-delete-button:hover {
+    -fx-background-color: #F44336;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 3, 0, 0, 1);
+}
+
+/* Styles pour les conteneurs de tableau */
+.table-container {
+    -fx-background-color: rgba(30, 30, 48, 0.6);
+    -fx-background-radius: 8px;
+    -fx-border-radius: 8px;
+    -fx-border-color: rgba(255, 126, 95, 0.2);
+    -fx-border-width: 1px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 10, 0, 0, 3);
+    -fx-padding: 0;
+}
+
+/* Styles pour les en-têtes de colonnes */
+.column-header-cell {
+    -fx-background-color: linear-gradient(to bottom, #2a2a40, #1e1e30);
+    -fx-padding: 10px 15px;
+    -fx-alignment: center-left;
+}
+
+/* Styles pour les cellules de tableau */
+.table-cell {
+    -fx-padding: 8px 15px;
+    -fx-alignment: center-left;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+}
+
+/* Styles pour les lignes de tableau */
+.table-row {
+    -fx-background-color: rgba(30, 30, 48, 0.4);
+    -fx-border-color: rgba(255, 126, 95, 0.1);
+    -fx-border-width: 0 0 1 0;
+}
+
+.table-row:hover {
+    -fx-background-color: rgba(255, 126, 95, 0.2);
+}
+
+.table-row:selected {
+    -fx-background-color: rgba(255, 126, 95, 0.3);
+}
+
+/* Styles pour les détails */
+.details-container {
+    -fx-background-color: rgba(30, 30, 48, 0.8);
+    -fx-background-radius: 8px;
+    -fx-border-radius: 8px;
+    -fx-border-color: rgba(255, 126, 95, 0.2);
+    -fx-border-width: 1px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 10, 0, 0, 3);
+    -fx-padding: 20px;
+}
+
+.details-title {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #ff7e5f;
+    -fx-effect: dropshadow(gaussian, rgba(255,126,95,0.3), 3, 0, 0, 1);
+    -fx-padding: 0 0 15 0;
+}
+
+.details-field {
+    -fx-background-color: rgba(30, 30, 48, 0.9);
+    -fx-background-radius: 5px;
+    -fx-border-radius: 5px;
+    -fx-border-color: rgba(255, 126, 95, 0.2);
+    -fx-text-fill: white;
+    -fx-padding: 8px;
+    -fx-font-size: 14px;
+}
+
+.details-field:focused {
+    -fx-border-color: #ff7e5f;
+    -fx-border-width: 2px;
+    -fx-effect: dropshadow(gaussian, rgba(255,126,95,0.3), 5, 0, 0, 0);
+}
+
+.details-label {
+    -fx-font-weight: bold;
+    -fx-text-fill: #e0e0e0;
+    -fx-font-size: 13px;
+    -fx-padding: 5px 0;
+}
+
+/* Styles pour les TextArea dans les détails */
+.details-field .text-area {
+    -fx-background-color: rgba(30, 30, 48, 0.9);
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+}
+
+.details-field .text-area .content {
+    -fx-background-color: transparent;
+}
+
+.details-field .text-area .viewport {
+    -fx-background-color: transparent;
+}
+
+.details-field .text-area:focused {
+    -fx-border-color: #ff7e5f;
+    -fx-border-width: 2px;
+    -fx-effect: dropshadow(gaussian, rgba(255,126,95,0.3), 5, 0, 0, 0);
+} 

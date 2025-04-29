@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.geometry.Pos?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.text.Text?>
+
+<StackPane xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="Controllers.Article.ArticleDetailsController"
+      style="-fx-background-color: linear-gradient(to bottom right, #27273c, #333347, #3d2f3f);"
+      stylesheets="@../../Styles/navigation.css">
+
+    <VBox alignment="TOP_CENTER" maxWidth="1000" spacing="20">
+    <padding>
+            <Insets top="30" right="30" bottom="30" left="30"/>
+    </padding>
+        <StackPane.margin>
+            <Insets top="20" bottom="20"/>
+        </StackPane.margin>
+
+        <!-- Header (optional) -->
+        <Label text="DÉTAILS DE L'ARTICLE" style="-fx-font-size: 26px; -fx-font-weight: bold; -fx-text-fill: #ff7e5f; -fx-padding: 0 0 10 0;"/>
+
+        <!-- Main Content HBox -->
+        <HBox spacing="30" alignment="TOP_LEFT"
+              style="-fx-background-color: rgba(255,255,255,0.05); -fx-padding: 30; -fx-background-radius: 15;">
+            <effect>
+                <DropShadow color="rgba(0,0,0,0.3)" radius="15" spread="0.1"/>
+            </effect>
+
+        <!-- Image de l'article -->
+        <ImageView fx:id="articleImage"
+                       fitWidth="450" fitHeight="450" preserveRatio="true"
+                       style="-fx-background-color: rgba(0,0,0,0.2); -fx-background-radius: 10;">
+                <effect>
+                    <DropShadow color="rgba(0,0,0,0.2)" radius="8" spread="0.1"/>
+                </effect>
+            </ImageView>
+
+        <!-- Détails de l'article -->
+            <VBox spacing="18" HBox.hgrow="ALWAYS">
+            <Label fx:id="titleLabel"
+                       style="-fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: white;" wrapText="true"/>
+
+            <Label fx:id="priceLabel"
+                       style="-fx-font-size: 22px; -fx-text-fill: #ff7e5f; -fx-font-weight: bold;"/>
+
+                <!-- Affichage de la quantité disponible -->
+                <Label fx:id="disponibleLabel" text="En stock: -"
+                       style="-fx-font-size: 14px; -fx-text-fill: #a0ffa0;"/>
+
+                <Separator style="-fx-background-color: rgba(255,255,255,0.1);"/>
+
+            <Label text="Description:"
+                       style="-fx-font-weight: bold; -fx-text-fill: rgba(255,255,255,0.6); -fx-font-size: 14px;"/>
+            <Text fx:id="descriptionText"
+                      wrappingWidth="450"
+                      style="-fx-font-size: 15px; -fx-fill: rgba(255,255,255,0.9); -fx-line-spacing: 4px;"/>
+
+                <Separator style="-fx-background-color: rgba(255,255,255,0.1);"/>
+
+                <!-- Grid for other details -->
+                <GridPane hgap="20" vgap="10">
+                    <columnConstraints>
+                        <ColumnConstraints percentWidth="50.0"/>
+                        <ColumnConstraints percentWidth="50.0"/>
+                    </columnConstraints>
+
+                    <VBox GridPane.rowIndex="0" GridPane.columnIndex="0">
+                    <Label text="Catégorie:"
+                               style="-fx-font-weight: bold; -fx-text-fill: rgba(255,255,255,0.6); -fx-font-size: 14px;"/>
+                    <Label fx:id="categoryLabel"
+                               style="-fx-text-fill: white; -fx-font-size: 15px;"/>
+                </VBox>
+
+                    <VBox GridPane.rowIndex="1" GridPane.columnIndex="0">
+                    <Label text="Date de publication:"
+                               style="-fx-font-weight: bold; -fx-text-fill: rgba(255,255,255,0.6); -fx-font-size: 14px;"/>
+                    <Label fx:id="dateLabel"
+                               style="-fx-text-fill: white; -fx-font-size: 15px;"/>
+                    </VBox>
+
+                    <VBox GridPane.rowIndex="0" GridPane.columnIndex="1">
+                        <Label text="Galerie:"
+                               style="-fx-font-weight: bold; -fx-text-fill: rgba(255,255,255,0.6); -fx-font-size: 14px;"/>
+                        <Label fx:id="galerieLabel" text="-"
+                               style="-fx-text-fill: white; -fx-font-size: 15px;"/>
+                </VBox>
+
+                    <VBox GridPane.rowIndex="1" GridPane.columnIndex="1">
+                        <Label text="Popularité (Likes):"
+                               style="-fx-font-weight: bold; -fx-text-fill: rgba(255,255,255,0.6); -fx-font-size: 14px;"/>
+                    <Label fx:id="likesLabel"
+                               style="-fx-text-fill: white; -fx-font-size: 15px;"/>
+                </VBox>
+
+                </GridPane>
+
+            <Region VBox.vgrow="ALWAYS"/>
+
+                 <!-- Section Quantité et Achat -->
+                <VBox fx:id="achatSection" spacing="10" alignment="BOTTOM_LEFT" managed="false" visible="false">
+                    <Separator style="-fx-background-color: rgba(255,255,255,0.1);"/>
+                    <Label text="Quantité à acheter:" style="-fx-font-weight: bold; -fx-text-fill: white;"/>
+                    <HBox spacing="10" alignment="CENTER_LEFT">
+                        <Button fx:id="decrementBtn" text="-" onAction="#handleDecrementQuantity"
+                                style="-fx-font-size: 14px; -fx-padding: 5 10;"/>
+                        <TextField fx:id="quantityField" text="1" prefWidth="50" alignment="CENTER"
+                                   style="-fx-background-color: rgba(0,0,0,0.2); -fx-text-fill: white; -fx-padding: 5;"/>
+                        <Button fx:id="incrementBtn" text="+" onAction="#handleIncrementQuantity"
+                                style="-fx-font-size: 14px; -fx-padding: 5 10;"/>
+                        <Region HBox.hgrow="ALWAYS"/>
+                        <Button fx:id="buyBtn" text="Acheter" onAction="#handleAcheter"
+                                style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 8; -fx-padding: 10 20;"/>
+                    </HBox>
+                    <Label fx:id="totalPriceLabel" text="Total: 0.00 DT" style="-fx-font-weight: bold; -fx-text-fill: #ff7e5f; -fx-font-size: 16px;"/>
+                </VBox>
+
+                <HBox spacing="15" alignment="CENTER_RIGHT">
+                    <Button fx:id="closeBtn" text="Fermer" onAction="#handleClose"
+                            style="-fx-background-color: #6c757d; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 8; -fx-padding: 12 25;"/>
+            </HBox>
+        </VBox>
+    </HBox>
+</VBox> 
+</StackPane> 

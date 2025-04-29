@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="Controllers.Article.FrontAddArticleController"
+      style="-fx-background-color: linear-gradient(to bottom right, #27273c, #333347, #3d2f3f);"
+      spacing="15"
+      stylesheets="@../../Styles/navigation.css">
+    <padding>
+        <Insets top="30" right="40" bottom="30" left="40"/>
+    </padding>
+
+    <!-- Header Section -->
+    <HBox alignment="CENTER_LEFT" spacing="15" style="-fx-padding: 0 0 15 0;">
+        <effect>
+            <DropShadow color="rgba(0,0,0,0.3)" radius="10" spread="0.2"/>
+        </effect>
+        <Label text="AJOUTER UN NOUVEL ARTICLE" styleClass="app-title"
+               style="-fx-text-fill: #ff7e5f; -fx-font-size: 28px; -fx-font-weight: bold;"/>
+        <Separator orientation="VERTICAL" style="-fx-background-color: #ff7e5f; -fx-opacity: 0.5;" prefHeight="30"/>
+    </HBox>
+
+    <!-- Error Label -->
+    <Label fx:id="errorLabel"
+           style="-fx-text-fill: #ff7e5f; -fx-font-weight: bold; -fx-padding: 0 0 10 0;"
+           visible="false" managed="false"/> <!-- Hide when not visible -->
+
+    <!-- Scrollable Content -->
+    <ScrollPane fitToWidth="true" fitToHeight="true" hbarPolicy="NEVER" vbarPolicy="AS_NEEDED"
+                style="-fx-background: transparent; -fx-background-color: transparent;" VBox.vgrow="ALWAYS">
+        <StackPane alignment="TOP_CENTER"> <!-- Center the form VBox -->
+            <!-- Form Container with improved styling -->
+            <VBox maxWidth="800" spacing="20"
+                  style="-fx-background-color: rgba(255,255,255,0.08); -fx-padding: 30; -fx-background-radius: 15;">
+                <effect>
+                    <DropShadow color="rgba(0,0,0,0.4)" radius="15" spread="0.1"/>
+                </effect>
+
+                <!-- Form Grid -->
+                <GridPane hgap="20" vgap="15">
+                    <!-- Titre -->
+                    <Label text="Titre" style="-fx-text-fill: rgba(255,255,255,0.8); -fx-font-weight: bold;"
+                           GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                    <TextField fx:id="titleField" promptText="Nom de l'œuvre..."
+                               style="-fx-background-color: rgba(0,0,0,0.2); -fx-text-fill: white; -fx-prompt-text-fill: rgba(255,255,255,0.5); -fx-background-radius: 5; -fx-padding: 10;"
+                               GridPane.rowIndex="0" GridPane.columnIndex="1" GridPane.columnSpan="2"/>
+
+                    <!-- Description -->
+                    <Label text="Description" style="-fx-text-fill: rgba(255,255,255,0.8); -fx-font-weight: bold;"
+                           GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                    <TextArea fx:id="descriptionField"
+                              promptText="Détails sur l'œuvre..."
+                              prefRowCount="3"
+                              wrapText="true"
+                              style="-fx-background-color: #2d2d45; 
+                                     -fx-text-fill: white; 
+                                     -fx-prompt-text-fill: rgba(255,255,255,0.5); 
+                                     -fx-background-radius: 5; 
+                                     -fx-padding: 8 15;
+                                     -fx-control-inner-background: #2d2d45;
+                                     -fx-focus-color: #ff7e5f;
+                                     -fx-faint-focus-color: #ff7e5f22;
+                                     -fx-text-box-border: transparent;
+                                     -fx-border-color: rgba(255,255,255,0.1);
+                                     -fx-border-radius: 5;"
+                              GridPane.rowIndex="1" GridPane.columnIndex="1" GridPane.columnSpan="2"/>
+
+                    <!-- Prix -->
+                    <Label text="Prix (DT)" style="-fx-text-fill: rgba(255,255,255,0.8); -fx-font-weight: bold;"
+                           GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                    <TextField fx:id="priceField" promptText="0.00"
+                               style="-fx-background-color: rgba(0,0,0,0.2); -fx-text-fill: white; -fx-prompt-text-fill: rgba(255,255,255,0.5); -fx-background-radius: 5; -fx-padding: 10;"
+                               GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+
+                    <!-- Quantité -->
+                    <Label text="Quantité" style="-fx-text-fill: rgba(255,255,255,0.8); -fx-font-weight: bold;"
+                           GridPane.rowIndex="2" GridPane.columnIndex="2"/>
+                    <TextField fx:id="nbrArticleField" promptText="1"
+                               style="-fx-background-color: rgba(0,0,0,0.2); -fx-text-fill: white; -fx-prompt-text-fill: rgba(255,255,255,0.5); -fx-background-radius: 5; -fx-padding: 10;"
+                               GridPane.rowIndex="2" GridPane.columnIndex="3"/>
+
+                    <!-- Catégorie -->
+                    <Label text="Catégorie" style="-fx-text-fill: rgba(255,255,255,0.8); -fx-font-weight: bold;"
+                           GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+                    <ComboBox fx:id="categoryField" promptText="Choisir..."
+                              style="-fx-background-color: rgba(0,0,0,0.2); -fx-background-radius: 5;-fx-text-fill: white;"
+                              styleClass="combo-box-custom"
+                              GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+
+                    <!-- Galerie -->
+                    <Label text="Galerie" style="-fx-text-fill: rgba(255,255,255,0.8); -fx-font-weight: bold;"
+                           GridPane.rowIndex="3" GridPane.columnIndex="2"/>
+                    <ComboBox fx:id="galerieField" promptText="Choisir..."
+                              style="-fx-background-color: rgba(0,0,0,0.2); -fx-background-radius: 5;"
+                              styleClass="combo-box-custom"
+                              GridPane.rowIndex="3" GridPane.columnIndex="3" disable="true"/> <!-- Disable galerie field as it's set by parent -->
+
+                    <!-- Image -->
+                    <Label text="Image" style="-fx-text-fill: rgba(255,255,255,0.8); -fx-font-weight: bold;"
+                           GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+                    <HBox spacing="10" alignment="CENTER_LEFT" GridPane.rowIndex="4" GridPane.columnIndex="1" GridPane.columnSpan="3">
+                        <TextField fx:id="imagePathField" promptText="Chemin vers l'image..." editable="false"
+                                   style="-fx-background-color: rgba(0,0,0,0.2); -fx-text-fill: white; -fx-prompt-text-fill: rgba(255,255,255,0.5); -fx-background-radius: 5; -fx-padding: 10;"
+                                   HBox.hgrow="ALWAYS"/>
+                        <Button text="Parcourir..." onAction="#handleParcourirImage"
+                                style="-fx-background-color: linear-gradient(to right, #ff7e5f, #feb47b);
+                                       -fx-text-fill: white;
+                                       -fx-font-weight: bold;
+                                       -fx-background-radius: 8;
+                                       -fx-padding: 10 18;
+                                       -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 3, 0, 0, 1);"/>
+                    </HBox>
+
+                     <!-- Image Preview -->
+                    <ImageView fx:id="imagePreview"
+                               fitWidth="250" fitHeight="180" preserveRatio="true"
+                               style="-fx-background-color: rgba(0,0,0,0.2); -fx-background-radius: 8; -fx-border-color: rgba(255,255,255,0.1); -fx-border-radius: 8;"
+                               GridPane.rowIndex="5" GridPane.columnIndex="1" GridPane.columnSpan="3"/>
+                </GridPane>
+
+                <!-- Buttons -->
+                <HBox fx:id="buttonsContainer" spacing="15" alignment="CENTER_RIGHT" style="-fx-padding: 20 0 0 0;">
+                    <Button text="Annuler" onAction="#handleAnnuler"
+                            style="-fx-background-color: rgba(255,255,255,0.1);
+                                   -fx-text-fill: white;
+                                   -fx-font-weight: bold;
+                                   -fx-background-radius: 8;
+                                   -fx-padding: 12 20;"/>
+                    <Button text="Ajouter l'Article" onAction="#handleEnregistrer"
+                            style="-fx-background-color: linear-gradient(to right, #ff7e5f, #feb47b);
+                                   -fx-text-fill: white;
+                                   -fx-font-weight: bold;
+                                   -fx-background-radius: 8;
+                                   -fx-padding: 12 20;
+                                   -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 3, 0, 0, 1);"/>
+                </HBox>
+            </VBox>
+        </StackPane>
+    </ScrollPane>
+</VBox> 

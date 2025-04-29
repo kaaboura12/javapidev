@@ -120,7 +120,7 @@ public class BasefrontController implements Initializable {
         
         // Setup navigation buttons
         setupNavButton(accueilBtn, "/Views/home.fxml");
-        setupNavButton(galerieBtn, "/Views/galerie.fxml");
+        setupNavButton(galerieBtn, "/Views/Article/FrontShowArticle.fxml");
         setupNavButton(formationsBtn, "/Views/formations.fxml");
         setupNavButton(eventsBtn, "/Views/event/listevent.fxml");
         setupNavButton(emploiBtn, "/Views/emploi.fxml");

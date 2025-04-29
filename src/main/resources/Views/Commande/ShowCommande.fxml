@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="Controllers.Commande.CommandeController"
+      spacing="0"
+      styleClass="main-container"
+      stylesheets="@../../Styles/article_galerie.css"
+      VBox.vgrow="ALWAYS">
+
+    <!-- Header Bar -->
+    <VBox styleClass="header-bar">
+        <padding>
+            <Insets top="15" right="25" bottom="15" left="25"/>
+        </padding>
+        
+        <HBox alignment="CENTER_LEFT" spacing="15">
+            <Label text="Gestion des Commandes" styleClass="header-title"/>
+            <Region HBox.hgrow="ALWAYS"/>
+
+        </HBox>
+        
+        <Label text="Gérez les commandes de vos articles" styleClass="header-subtitle"/>
+    </VBox>
+
+    <!-- Content Area -->
+    <VBox spacing="20" VBox.vgrow="ALWAYS" styleClass="content-container">
+        <padding>
+            <Insets top="20" right="20" bottom="20" left="20"/>
+        </padding>
+
+        <!-- Table des commandes -->
+        <VBox spacing="15" VBox.vgrow="ALWAYS" styleClass="table-container">
+            <HBox styleClass="table-header" alignment="CENTER_LEFT" spacing="15">
+                <padding>
+                    <Insets top="15" right="15" bottom="15" left="15"/>
+                </padding>
+                <Label text="Commandes disponibles" styleClass="table-header-label"/>
+                <Region HBox.hgrow="ALWAYS"/>
+                <Button fx:id="deleteBtn" onAction="#handleSupprimer" prefHeight="45.0" prefWidth="200.0"
+                        styleClass="cancel-button" disable="true">
+                    <graphic>
+                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../Images/delete.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                    <Label text="Supprimer" styleClass="button-label"/>
+                </Button>
+                <Button fx:id="exportExcelBtn" onAction="#handleExportExcel" prefHeight="45.0" prefWidth="200.0"
+                        styleClass="action-button">
+                    <graphic>
+                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../Images/excel.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                    <Label text="Exporter Excel" styleClass="button-label"/>
+                </Button>
+                <TextField fx:id="searchField" promptText="Rechercher une commande..." styleClass="search-field" prefWidth="250"/>
+            </HBox>
+            
+            <TableView fx:id="commandesTableView" VBox.vgrow="ALWAYS" styleClass="event-table">
+                <columns>
+                    <TableColumn fx:id="idColumn" text="ID" prefWidth="50" style="-fx-alignment: CENTER;"/>
+                    <TableColumn fx:id="numeroColumn" text="Numéro" prefWidth="150"/>
+                    <TableColumn fx:id="dateCommandeColumn" text="Date Commande" prefWidth="150"/>
+                    <TableColumn fx:id="userIdColumn" text="User ID" prefWidth="100"/>
+                    <TableColumn fx:id="articleIdColumn" text="Article ID" prefWidth="100"/>
+                    <TableColumn fx:id="quantiteColumn" text="Quantité" prefWidth="100"/>
+                    <TableColumn fx:id="prixUnitaireColumn" text="Prix Unitaire" prefWidth="120"/>
+                    <TableColumn fx:id="totalColumn" text="Total" prefWidth="120"/>
+                </columns>
+            </TableView>
+        </VBox>
+    </VBox>
+
+</VBox> 

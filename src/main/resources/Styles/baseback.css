@@ -44,48 +44,93 @@
     -fx-spacing: 5px;
 }
 
+/* Menu Button Styles */
 .menu-button {
     -fx-background-color: transparent;
-    -fx-text-fill: #e0e0e0;
+    -fx-text-fill: white;
     -fx-font-size: 14px;
-    -fx-font-weight: normal;
-    -fx-padding: 12px 20px;
-    -fx-border-radius: 6px;
-    -fx-background-radius: 6px;
-    -fx-cursor: hand;
     -fx-alignment: CENTER_LEFT;
-    -fx-transition: all 0.2s ease;
+    -fx-padding: 0 15 0 15;
+    -fx-cursor: hand;
 }
 
 .menu-button:hover {
-    -fx-background-color: rgba(255, 126, 95, 0.2);
-    -fx-text-fill: white;
-    -fx-effect: dropshadow(gaussian, rgba(255,126,95,0.3), 5, 0, 0, 0);
+    -fx-background-color: rgba(255, 255, 255, 0.1);
 }
 
-.menu-button:focused, .menu-button:pressed {
-    -fx-background-color: rgba(255, 126, 95, 0.3);
+.menu-button:showing {
+    -fx-background-color: rgba(255, 255, 255, 0.15);
+}
+
+.menu-button .arrow-button {
+    -fx-padding: 0 0 0 0;
+    -fx-background-color: transparent;
+}
+
+.menu-button .arrow {
+    -fx-background-color: white;
+}
+
+/* Menu Items Styles */
+.menu-item {
+    -fx-background-color: #2d2d45;
+    -fx-text-fill: white;
+    -fx-padding: 8 15 8 15;
+    -fx-cursor: hand;
+}
+
+.menu-item:hover {
+    -fx-background-color: #ff7e5f;
+}
+
+.menu-item .label {
+    -fx-text-fill: white;
+    -fx-font-size: 13px;
+}
+
+.menu-item:focused {
+    -fx-background-color: #ff7e5f;
+}
+
+.menu-item:focused .label {
     -fx-text-fill: white;
 }
 
-.menu-button.active {
-    -fx-background-color: linear-gradient(to right, rgba(255, 126, 95, 0.8), rgba(254, 180, 123, 0.8));
-    -fx-text-fill: white;
-    -fx-font-weight: bold;
-    -fx-effect: dropshadow(gaussian, rgba(255,126,95,0.5), 8, 0, 0, 0);
+/* Context Menu Style */
+.context-menu {
+    -fx-background-color: #2d2d45;
+    -fx-background-radius: 5;
+    -fx-border-radius: 5;
+    -fx-border-color: rgba(255, 255, 255, 0.1);
+    -fx-padding: 5 0 5 0;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 10, 0, 0, 5);
 }
 
+/* Menu Button Icon Style */
 .menu-button .graphic {
-    -fx-min-width: 30px;
+    -fx-padding: 0 10 0 0;
+}
+
+/* Menu Item Icon Style */
+.menu-item .graphic {
+    -fx-padding: 0 10 0 0;
+}
+
+/* Active Menu Button Style */
+.menu-button.active {
+    -fx-background-color: #ff7e5f;
+}
+
+.menu-button.active:hover {
+    -fx-background-color: #ff7e5f;
     -fx-opacity: 0.9;
 }
 
-.menu-button:hover .graphic {
-    -fx-opacity: 1.0;
-}
-
-.menu-button.active .graphic {
-    -fx-opacity: 1.0;
+/* Menu Button Text Style */
+.menu-button .label {
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
 }
 
 /* User info styling in sidebar */

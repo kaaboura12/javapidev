@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="Controllers.Galerie.AddGalerieController"
+      spacing="0"
+      styleClass="main-container"
+      stylesheets="@../../Styles/article_galerie.css">
+
+    <!-- Header Bar -->
+    <VBox styleClass="header-bar">
+        <padding>
+            <Insets top="15" right="25" bottom="15" left="25"/>
+        </padding>
+        
+        <HBox alignment="CENTER_LEFT" spacing="15">
+            <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                <image>
+                    <Image url="@../Images/gallery.png" />
+                </image>
+            </ImageView>
+            <Label text="Nouvelle Galerie" styleClass="header-title"/>
+        </HBox>
+        
+        <Label text="Créez une nouvelle galerie pour organiser vos articles" styleClass="header-subtitle"/>
+    </VBox>
+
+    <!-- Content Area -->
+    <VBox spacing="20" VBox.vgrow="ALWAYS" styleClass="content-container">
+        <padding>
+            <Insets top="20" right="20" bottom="20" left="20"/>
+        </padding>
+
+        <!-- Form Container -->
+        <VBox styleClass="dashboard-card" spacing="15">
+            <padding>
+                <Insets top="20" right="20" bottom="20" left="20"/>
+            </padding>
+
+            <Label text="Informations de la galerie" styleClass="dashboard-card-header"/>
+            
+            <GridPane hgap="15" vgap="15">
+                <Label text="Nom:" GridPane.columnIndex="0" GridPane.rowIndex="0" styleClass="form-label"/>
+                <TextField fx:id="nomField" GridPane.columnIndex="1" GridPane.rowIndex="0" prefWidth="300" 
+                          styleClass="form-field"/>
+
+                <Label text="Description:" GridPane.columnIndex="0" GridPane.rowIndex="1" styleClass="form-label"/>
+                <TextArea fx:id="descriptionField" GridPane.columnIndex="1" GridPane.rowIndex="1"
+                          prefWidth="300" prefRowCount="3" wrapText="true"
+                          style="-fx-background-color: #2d2d45;
+                            -fx-text-fill: white;
+                            -fx-prompt-text-fill: rgba(255,255,255,0.5);
+                            -fx-background-radius: 5;
+                            -fx-padding: 8 15;
+                            -fx-control-inner-background: #2d2d45;
+                            -fx-focus-color: #ff7e5f;
+                            -fx-faint-focus-color: #ff7e5f22;
+                            -fx-text-box-border: transparent;
+                            -fx-border-color: rgba(255,255,255,0.1);
+                            -fx-border-radius: 5;"/>
+                
+                <Label text="User ID:" GridPane.columnIndex="0" GridPane.rowIndex="2" styleClass="form-label"/>
+                <TextField fx:id="userIdField" GridPane.columnIndex="1" GridPane.rowIndex="2" prefWidth="300"
+                          styleClass="form-field"/>
+            </GridPane>
+
+            <Region VBox.vgrow="ALWAYS"/>
+
+            <HBox spacing="15" alignment="CENTER_RIGHT">
+                <Button text="Annuler" onAction="#handleAnnuler" prefHeight="45.0" prefWidth="150.0"
+                        styleClass="cancel-button">
+                    <graphic>
+                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../Images/cancel.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <Button text="Ajouter" onAction="#handleAjouter" prefHeight="45.0" prefWidth="150.0"
+                        styleClass="save-button">
+                    <graphic>
+                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../Images/add.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+            </HBox>
+        </VBox>
+    </VBox>
+</VBox> 

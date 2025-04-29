@@ -9,6 +9,7 @@ import Services.UserService;
 import Services.DonationService;
 import Services.ReservationService;
 
+import Utils.MyDb;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -19,6 +20,7 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
 
 import java.net.URL;
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.util.HashMap;
@@ -45,21 +47,33 @@ public class DashboardController implements Initializable {
     
     @FXML
     private PieChart donationPieChart;
-    
+
     // Services
-    private final EventService eventService = new EventService();
-    private final UserService userService = new UserService();
-    private final DonationService donationService = new DonationService();
-    private final ReservationService reservationService = new ReservationService();
-    
-    // Formatter for displaying monetary values
+    private EventService eventService;
+    private UserService userService;
+    private DonationService donationService;
+    private ReservationService reservationService;
+
     private final DecimalFormat currencyFormat = new DecimalFormat("$#,##0.00");
-    
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        loadSummaryData();
-        populateEventsBarChart();
-        populateDonationsPieChart();
+        try {
+            Connection con = MyDb.getInstance().getConnection();
+
+            // Initialisation des services avec la connexion
+            eventService = new EventService();
+            userService = new UserService();
+            donationService = new DonationService();
+            reservationService = new ReservationService();
+
+            loadSummaryData();
+            populateEventsBarChart();
+            populateDonationsPieChart();
+
+        } catch (Exception e) {
+            System.err.println("Erreur lors de l'initialisation du Dashboard : " + e.getMessage());
+        }
     }
     
     /**

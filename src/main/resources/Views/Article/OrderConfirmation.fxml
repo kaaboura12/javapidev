@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.text.Text?>
+
+<VBox spacing="20" style="-fx-background-color: #1e1e30;" 
+      xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" 
+      fx:controller="Controllers.Article.OrderConfirmationController">
+    <padding>
+        <Insets top="40" right="50" bottom="40" left="50"/>
+    </padding>
+
+    <!-- Logo Section -->
+    <HBox alignment="CENTER" style="-fx-padding: 0 0 20 0;">
+        <ImageView fx:id="logoImage" fitHeight="120" fitWidth="120" preserveRatio="true"/>
+    </HBox>
+
+    <!-- Header -->
+    <VBox alignment="CENTER" spacing="10">
+        <Label text="Commande confirmée" style="-fx-font-size: 32px; -fx-font-weight: bold; -fx-text-fill: #ff7e5f; -fx-effect: dropshadow(gaussian, rgba(255,126,95,0.4), 5, 0, 0, 0);"/>
+        <Label text="Merci pour votre achat !" style="-fx-font-size: 16px; -fx-text-fill: #e0e0e0;"/>
+    </VBox>
+    
+    <!-- Order Details Card -->
+    <VBox spacing="15" styleClass="details-container" style="-fx-background-color: rgba(30, 30, 48, 0.8);
+          -fx-background-radius: 8px; -fx-border-radius: 8px; -fx-border-color: rgba(255, 126, 95, 0.2);
+          -fx-border-width: 1px; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 10, 0, 0, 3);
+          -fx-padding: 30;">
+        
+        <Label text="Détails de la commande" 
+               style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #ff7e5f;
+                      -fx-effect: dropshadow(gaussian, rgba(255,126,95,0.3), 3, 0, 0, 1);
+                      -fx-padding: 0 0 10 0;"/>
+        
+        <GridPane vgap="15" hgap="30" style="-fx-padding: 10 0;">
+            <columnConstraints>
+                <ColumnConstraints minWidth="150" />
+                <ColumnConstraints hgrow="ALWAYS" />
+            </columnConstraints>
+
+            <!-- Order Number -->
+            <Label text="N° de commande:" 
+                   style="-fx-font-size: 14px; -fx-text-fill: #e0e0e0;" 
+                   GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+            <Label fx:id="orderNumberLabel" 
+                   style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: white;" 
+                   GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+            
+            <!-- Date -->
+            <Label text="Date:" 
+                   style="-fx-font-size: 14px; -fx-text-fill: #e0e0e0;" 
+                   GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+            <Label fx:id="dateLabel" 
+                   style="-fx-font-size: 14px; -fx-text-fill: white;" 
+                   GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+            
+            <!-- Article -->
+            <Label text="Article:" 
+                   style="-fx-font-size: 14px; -fx-text-fill: #e0e0e0;" 
+                   GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+            <Label fx:id="articleLabel" 
+                   style="-fx-font-size: 14px; -fx-text-fill: white;" 
+                   GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+            
+            <!-- Quantity -->
+            <Label text="Quantité:" 
+                   style="-fx-font-size: 14px; -fx-text-fill: #e0e0e0;" 
+                   GridPane.columnIndex="0" GridPane.rowIndex="3"/>
+            <Label fx:id="quantityLabel" 
+                   style="-fx-font-size: 14px; -fx-text-fill: white;" 
+                   GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+            
+            <!-- Unit Price -->
+            <Label text="Prix unitaire:" 
+                   style="-fx-font-size: 14px; -fx-text-fill: #e0e0e0;" 
+                   GridPane.columnIndex="0" GridPane.rowIndex="4"/>
+            <Label fx:id="unitPriceLabel" 
+                   style="-fx-font-size: 14px; -fx-text-fill: white;" 
+                   GridPane.columnIndex="1" GridPane.rowIndex="4"/>
+        </GridPane>
+
+        <!-- Total Section -->
+        <HBox alignment="CENTER_RIGHT" style="-fx-padding: 20 0 0 0; -fx-border-color: rgba(255, 126, 95, 0.2); -fx-border-width: 1 0 0 0;">
+            <HBox spacing="20" alignment="CENTER_RIGHT" style="-fx-padding: 20 0 0 0;">
+                <Label text="Total:" style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #e0e0e0;"/>
+                <Label fx:id="totalLabel" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #ff7e5f;"/>
+            </HBox>
+        </HBox>
+    </VBox>
+
+    <!-- Action Buttons -->
+    <HBox spacing="20" alignment="CENTER" style="-fx-padding: 20 0 0 0;">
+        <Button fx:id="downloadInvoiceBtn" text="Télécharger la facture" onAction="#handleDownloadInvoice" 
+                styleClass="action-button"
+                style="-fx-background-color: linear-gradient(to right, #ff7e5f, #feb47b);
+                       -fx-text-fill: white; -fx-font-weight: bold;
+                       -fx-background-radius: 20px; -fx-padding: 10px 15px;
+                       -fx-cursor: hand;
+                       -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 3, 0, 0, 1);"/>
+        <Button fx:id="closeBtn" text="Fermer" onAction="#handleClose" 
+                styleClass="cancel-button"
+                style="-fx-background-color: #f44336;
+                       -fx-text-fill: white; -fx-font-weight: bold;
+                       -fx-background-radius: 20px; -fx-padding: 10px 15px;
+                       -fx-cursor: hand;
+                       -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 3, 0, 0, 1);"/>
+    </HBox>
+</VBox> 

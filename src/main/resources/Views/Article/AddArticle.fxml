@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.image.Image?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="Controllers.Article.AddArticleController"
+      spacing="20"
+      styleClass="main-container"
+      stylesheets="@../../Styles/article_galerie.css">
+
+    <padding>
+        <Insets top="20" right="20" bottom="20" left="20"/>
+    </padding>
+
+    <HBox alignment="CENTER_LEFT" spacing="10" styleClass="header-bar">
+        <padding>
+            <Insets top="15" right="25" bottom="15" left="25"/>
+        </padding>
+        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../Images/article.png" />
+            </image>
+        </ImageView>
+        <Label text="Ajouter un nouvel article" styleClass="header-title"/>
+    </HBox>
+
+    <VBox styleClass="content-container">
+        <padding>
+            <Insets top="20" right="20" bottom="20" left="20"/>
+        </padding>
+
+        <VBox styleClass="dashboard-card">
+            <padding>
+                <Insets top="20" right="20" bottom="20" left="20"/>
+            </padding>
+
+            <GridPane vgap="15" hgap="15">
+                <Label text="Titre :" GridPane.columnIndex="0" GridPane.rowIndex="0" styleClass="form-label"/>
+                <TextField fx:id="titreField" GridPane.columnIndex="1" GridPane.rowIndex="0" styleClass="form-field"/>
+
+                <Label text="Description :" GridPane.columnIndex="0" GridPane.rowIndex="1" styleClass="form-label"/>
+                <TextArea fx:id="descriptionField" prefRowCount="3" wrapText="true"
+                          GridPane.columnIndex="1" GridPane.rowIndex="1" 
+                          style="-fx-background-color: #2d2d45;
+                                -fx-text-fill: white;
+                                -fx-prompt-text-fill: rgba(255,255,255,0.5);
+                                -fx-background-radius: 5;
+                                -fx-padding: 8 15;
+                                -fx-control-inner-background: #2d2d45;
+                                -fx-focus-color: #ff7e5f;
+                                -fx-faint-focus-color: #ff7e5f22;
+                                -fx-text-box-border: transparent;
+                                -fx-border-color: rgba(255,255,255,0.1);
+                                -fx-border-radius: 5;"/>
+
+                <Label text="Prix :" GridPane.columnIndex="0" GridPane.rowIndex="2" styleClass="form-label"/>
+                <TextField fx:id="prixField" GridPane.columnIndex="1" GridPane.rowIndex="2" styleClass="form-field"/>
+
+                <Label text="Catégorie :" GridPane.columnIndex="0" GridPane.rowIndex="3" styleClass="form-label"/>
+                <ComboBox fx:id="categorieComboBox" GridPane.columnIndex="1" GridPane.rowIndex="3" 
+                          style="-fx-background-color: #2d2d45;
+                                -fx-text-fill: black;
+                                -fx-prompt-text-fill: rgba(0,0,0,0.5);
+                                -fx-background-radius: 5;
+                                -fx-padding: 8 15;
+                                -fx-control-inner-background: black;
+                                -fx-focus-color: #ff7e5f;
+                                -fx-faint-focus-color: #ff7e5f22;
+                                -fx-text-box-border: transparent;
+                                -fx-border-color: rgba(255,255,255,0.1);
+                                -fx-border-radius: 5;"/>
+
+                <Label text="Galerie :" GridPane.columnIndex="0" GridPane.rowIndex="4" styleClass="form-label"/>
+                <ComboBox fx:id="galerieComboBox" GridPane.columnIndex="1" GridPane.rowIndex="4" 
+                          style="-fx-background-color: #2d2d45;
+                                -fx-text-fill: black;
+                                -fx-prompt-text-fill: rgba(0,0,0,0.5);
+                                -fx-background-radius: 5;
+                                -fx-padding: 8 15;
+                                -fx-control-inner-background: black;
+                                -fx-focus-color: #ff7e5f;
+                                -fx-faint-focus-color: #ff7e5f22;
+                                -fx-text-box-border: transparent;
+                                -fx-border-color: rgba(255,255,255,0.1);
+                                -fx-border-radius: 5;"/>
+
+                <Label text="Quantité :" GridPane.columnIndex="0" GridPane.rowIndex="5" styleClass="form-label"/>
+                <TextField fx:id="nbrArticleField" GridPane.columnIndex="1" GridPane.rowIndex="5" styleClass="form-field"/>
+
+                <Label text="Disponible :" GridPane.columnIndex="0" GridPane.rowIndex="6" styleClass="form-label"/>
+                <CheckBox fx:id="disponibleCheckBox" selected="true"
+                          GridPane.columnIndex="1" GridPane.rowIndex="6" styleClass="form-checkbox"/>
+
+                <Label text="Image :" GridPane.columnIndex="0" GridPane.rowIndex="7" styleClass="form-label"/>
+                <HBox spacing="10" GridPane.columnIndex="1" GridPane.rowIndex="7">
+                    <TextField fx:id="imagePathField" HBox.hgrow="ALWAYS" styleClass="form-field"/>
+                    <Button text="Parcourir" onAction="#handleParcourirImage" styleClass="action-button"/>
+                </HBox>
+            </GridPane>
+
+            <ImageView fx:id="imagePreview" fitWidth="200" fitHeight="200"
+                      preserveRatio="true" styleClass="image-preview"/>
+
+            <HBox spacing="15" alignment="CENTER_RIGHT" styleClass="button-container">
+                <Button text="Annuler" onAction="#handleAnnuler" styleClass="cancel-button">
+                    <graphic>
+                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../Images/cancel.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <Button text="Ajouter" onAction="#handleAjouter" styleClass="action-button">
+                    <graphic>
+                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../Images/add.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+            </HBox>
+        </VBox>
+    </VBox>
+</VBox> 

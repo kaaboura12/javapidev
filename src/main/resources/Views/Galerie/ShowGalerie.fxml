@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="Controllers.Galerie.GalerieController"
+      spacing="0"
+      styleClass="main-container"
+      stylesheets="@../../Styles/article_galerie.css"
+      VBox.vgrow="ALWAYS">
+
+    <!-- Header Bar -->
+    <VBox styleClass="header-bar">
+        <padding>
+            <Insets top="15" right="25" bottom="15" left="25"/>
+        </padding>
+        
+        <HBox alignment="CENTER_LEFT" spacing="15">
+            <Label text="Gestion des Galeries" styleClass="header-title"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Button fx:id="newGalerieBtn" onAction="#handleNouvelleGalerie" prefHeight="45.0" prefWidth="200.0"
+                    styleClass="action-button">
+                <graphic>
+                    <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                            <Image url="@../Images/add.png" />
+                        </image>
+                    </ImageView>
+                </graphic>
+                <Label text="Nouvelle Galerie" styleClass="button-label"/>
+            </Button>
+        </HBox>
+        
+        <Label text="Gérez vos galeries et leurs articles associés" styleClass="header-subtitle"/>
+    </VBox>
+
+    <!-- Content Area -->
+    <VBox spacing="20" VBox.vgrow="ALWAYS" styleClass="content-container">
+        <padding>
+            <Insets top="20" right="20" bottom="20" left="20"/>
+        </padding>
+
+        <HBox spacing="20" VBox.vgrow="ALWAYS">
+            <!-- Table des galeries -->
+            <VBox spacing="15" HBox.hgrow="ALWAYS" styleClass="table-container">
+                <HBox styleClass="table-header" alignment="CENTER_LEFT" spacing="15">
+                    <padding>
+                        <Insets top="15" right="15" bottom="15" left="15"/>
+                    </padding>
+                    <Label text="Galeries disponibles" styleClass="table-header-label"/>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <TextField fx:id="searchField" promptText="Rechercher une galerie..." styleClass="search-field" prefWidth="250"/>
+                </HBox>
+                
+                <TableView fx:id="galeriesTableView" VBox.vgrow="ALWAYS" styleClass="event-table">
+                    <columns>
+                        <TableColumn fx:id="idColumn" text="ID" prefWidth="50" style="-fx-alignment: CENTER;"/>
+                        <TableColumn fx:id="nomColumn" text="Nom" prefWidth="150"/>
+                        <TableColumn fx:id="descriptionColumn" text="Description" prefWidth="200"/>
+                        <TableColumn fx:id="dateCreationColumn" text="Date de création" prefWidth="150"/>
+                        <TableColumn fx:id="userIdColumn" text="User ID" prefWidth="100"/>
+                        <TableColumn fx:id="nbrArticlesColumn" text="Nombre d'articles" prefWidth="120"/>
+                    </columns>
+                </TableView>
+            </VBox>
+
+            <!-- Détails de la galerie -->
+            <VBox spacing="15" prefWidth="350" styleClass="dashboard-card">
+                <Label text="Détails de la galerie" styleClass="dashboard-card-header"/>
+
+                <Label text="Nom:" styleClass="form-label"/>
+                <TextField fx:id="nomField" styleClass="form-field"/>
+
+                <Label text="Description:" styleClass="form-label"/>
+                <TextArea fx:id="descriptionField"
+                          style="-fx-background-color: #2d2d45;
+                            -fx-text-fill: white;
+                            -fx-prompt-text-fill: rgba(255,255,255,0.5);
+                            -fx-background-radius: 5;
+                            -fx-padding: 8 15;
+                            -fx-control-inner-background: #2d2d45;
+                            -fx-focus-color: #ff7e5f;
+                            -fx-faint-focus-color: #ff7e5f22;
+                            -fx-text-box-border: transparent;
+                            -fx-border-color: rgba(255,255,255,0.1);
+                            -fx-border-radius: 5;"
+                          prefRowCount="3"
+                          wrapText="true"
+                          />
+
+                <Label text="User ID:" styleClass="form-label"/>
+                <TextField fx:id="userIdField" styleClass="form-field"/>
+
+                <Label text="Date de création:" styleClass="form-label"/>
+                <TextField fx:id="dateCreationField" editable="false" styleClass="form-field-disabled"/>
+
+                <Label text="Nombre d'articles:" styleClass="form-label"/>
+                <TextField fx:id="nbrArticlesField"  styleClass="form-field"/>
+
+                <Region VBox.vgrow="ALWAYS"/>
+
+                <HBox spacing="15" alignment="CENTER_RIGHT">
+                    <Button text="Modifier" onAction="#handleModifier" prefHeight="40.0" prefWidth="120.0"
+                            styleClass="action-button">
+                        <graphic>
+                            <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                                <image>
+                                    <Image url="@../Images/edit.png" />
+                                </image>
+                            </ImageView>
+                        </graphic>
+                    </Button>
+                    <Button text="Supprimer" onAction="#handleSupprimer" prefHeight="40.0" prefWidth="120.0"
+                            styleClass="cancel-button">
+                        <graphic>
+                            <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                                <image>
+                                    <Image url="@../Images/delete.png" />
+                                </image>
+                            </ImageView>
+                        </graphic>
+                    </Button>
+                </HBox>
+            </VBox>
+        </HBox>
+    </VBox>
+
+</VBox>

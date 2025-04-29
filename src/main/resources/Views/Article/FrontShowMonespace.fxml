@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.shape.Rectangle?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="Controllers.Article.FrontMonespaceController"
+      style="-fx-background-color: linear-gradient(to bottom right, #27273c, #333347, #3d2f3f);"
+      spacing="20"
+      stylesheets="@../../Styles/navigation.css">
+    <padding>
+        <Insets top="30" right="40" bottom="30" left="40"/>
+    </padding>
+
+    <!-- Header Section avec effet d'ombre -->
+    <HBox alignment="CENTER_LEFT" spacing="15" style="-fx-padding: 0 0 20 0;">
+        <effect>
+            <DropShadow color="rgba(0,0,0,0.3)" radius="10" spread="0.2"/>
+        </effect>
+        <Label text="MON ESPACE" styleClass="app-title"
+               style="-fx-text-fill: #ff7e5f; -fx-font-size: 32px; -fx-font-weight: bold;"/>
+        <Separator orientation="VERTICAL" style="-fx-background-color: #ff7e5f; -fx-opacity: 0.5;" prefHeight="35"/>
+    </HBox>
+
+    <!-- Error Label -->
+    <Label fx:id="errorLabel"
+           style="-fx-text-fill: #ff7e5f; -fx-font-weight: bold;"
+           visible="false"/>
+
+    <!-- Content Area -->
+    <StackPane fx:id="contentArea" VBox.vgrow="ALWAYS" minHeight="600">
+        <ScrollPane fitToWidth="true" style="-fx-background: transparent; -fx-background-color: transparent;">
+            <VBox spacing="30" minHeight="600">
+                <!-- Galerie Details View -->
+                <VBox fx:id="galerieDetailsView" spacing="25" visible="false" VBox.vgrow="ALWAYS">
+                    <!-- Card principale de la galerie -->
+                    <VBox style="-fx-background-color: rgba(255,255,255,0.1); -fx-padding: 30; -fx-background-radius: 15;" spacing="20">
+                        <effect>
+                            <DropShadow color="rgba(0,0,0,0.3)" radius="10" spread="0.1"/>
+                        </effect>
+                        
+                        <Label text="MA GALERIE" style="-fx-text-fill: white; -fx-font-size: 24px; -fx-font-weight: bold;"/>
+                        
+                        <VBox spacing="15">
+                            <Label text="Nom de la galerie" style="-fx-text-fill: rgba(255,255,255,0.7); -fx-font-size: 14px;"/>
+                            <Label fx:id="galerieNameLabel" style="-fx-text-fill: white; -fx-font-size: 20px; -fx-font-weight: bold;"/>
+                        </VBox>
+                        
+                        <VBox spacing="15">
+                            <Label text="Description" style="-fx-text-fill: rgba(255,255,255,0.7); -fx-font-size: 14px;"/>
+                            <Label fx:id="galerieDescriptionLabel" style="-fx-text-fill: white; -fx-font-size: 16px;" wrapText="true"/>
+                        </VBox>
+                        
+                        <VBox spacing="15">
+                            <Label text="Date de création" style="-fx-text-fill: rgba(255,255,255,0.7); -fx-font-size: 14px;"/>
+                            <Label fx:id="galerieDateLabel" style="-fx-text-fill: white; -fx-font-size: 16px;"/>
+                        </VBox>
+                        
+                        <HBox spacing="15" alignment="CENTER_RIGHT">
+                            <Button fx:id="showOrdersBtn" text="Mes Ventes" onAction="#handleShowOrders"
+                                    style="-fx-background-color: #ff7e5f; -fx-text-fill: white; 
+                                           -fx-font-weight: bold; -fx-background-radius: 8; -fx-padding: 12 20;"/>
+                            <Button fx:id="editGalerieBtn" text="Modifier ma galerie" onAction="#handleEditGalerie"
+                                    style="-fx-background-color: #4a90e2; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 8; -fx-padding: 12 20;"/>
+                            <Button fx:id="deleteGalerieBtn" text="Supprimer ma galerie" onAction="#handleDeleteGalerie"
+                                    style="-fx-background-color: #ff4444; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 8; -fx-padding: 12 20;"/>
+                        </HBox>
+                    </VBox>
+
+                    <!-- Section Articles -->
+                    <VBox spacing="20" VBox.vgrow="ALWAYS">
+                        <HBox alignment="CENTER_LEFT" spacing="20">
+                            <Label text="MES ARTICLES" style="-fx-text-fill: white; -fx-font-size: 24px; -fx-font-weight: bold;"/>
+                            <Region HBox.hgrow="ALWAYS"/>
+                            <Button fx:id="addArticleBtn" text="Ajouter un article" onAction="#handleAddArticle"
+                                    style="-fx-background-color: #ff7e5f; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 8; -fx-padding: 12 20;"/>
+                        </HBox>
+
+                        <!-- Articles Grid -->
+                        <GridPane fx:id="articlesGrid" hgap="20" vgap="20" VBox.vgrow="ALWAYS">
+                            <padding>
+                                <Insets top="10"/>
+                            </padding>
+                        </GridPane>
+                    </VBox>
+                </VBox>
+                <!-- No Galerie View -->
+                <VBox fx:id="noGalerieView" spacing="20" alignment="CENTER" visible="false"
+                      style="-fx-background-color: rgba(255,255,255,0.1); -fx-padding: 40; -fx-background-radius: 15;"
+                      minHeight="400">
+                    <effect>
+                        <DropShadow color="rgba(0,0,0,0.3)" radius="10" spread="0.1"/>
+                    </effect>
+
+                    <Label text="Vous n'avez pas encore de galerie"
+                           style="-fx-text-fill: white; -fx-font-size: 24px; -fx-font-weight: bold;"/>
+                    <Label text="Créez votre galerie pour exposer vos œuvres"
+                           style="-fx-text-fill: rgba(255,255,255,0.7); -fx-font-size: 16px;"/>
+                    <Button fx:id="createGalerieBtn" text="Créer ma galerie" onAction="#handleCreateGalerie"
+                            style="-fx-background-color: #ff7e5f; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 8; -fx-padding: 12 25;"/>
+                </VBox>
+            </VBox>
+        </ScrollPane>
+    </StackPane>
+
+    <!-- Add this button in the appropriate HBox or VBox in your layout -->
+    <Button fx:id="showOrdersBtn" text="Mes Commandes" onAction="#handleShowOrders"
+            style="-fx-background-color: #ff7e5f; -fx-text-fill: white; 
+                   -fx-font-weight: bold; -fx-padding: 10 20; -fx-background-radius: 5;
+                   -fx-cursor: hand;"/>
+</VBox> 
