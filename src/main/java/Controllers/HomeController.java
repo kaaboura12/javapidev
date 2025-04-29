@@ -3,6 +3,7 @@ package Controllers;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Hyperlink;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -12,10 +13,17 @@ public class HomeController implements Initializable {
     @FXML
     private Button goToEventsBtn;
     
+    @FXML
+    private Hyperlink goToForumLink;
+    
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         if (goToEventsBtn != null) {
             goToEventsBtn.setOnAction(e -> navigateToEvents());
+        }
+        
+        if (goToForumLink != null) {
+            goToForumLink.setOnAction(e -> navigateToForum());
         }
         
         // Find all buttons by walking the scene graph and add appropriate handlers
@@ -46,6 +54,20 @@ public class HomeController implements Initializable {
             }
         } catch (Exception e) {
             System.err.println("Error navigating to events: " + e.getMessage());
+        }
+    }
+    
+    private void navigateToForum() {
+        try {
+            // Find the parent BasefrontController to use its navigation method
+            BasefrontController parentController = findParentController();
+            if (parentController != null) {
+                parentController.navigateTo("/Views/forum/post.fxml");
+            } else {
+                System.err.println("Could not find parent controller for navigation");
+            }
+        } catch (Exception e) {
+            System.err.println("Error navigating to forum: " + e.getMessage());
         }
     }
     

@@ -1,0 +1,1041 @@
+/* Post styling - Modern Theme */
+.forum-container {
+    -fx-background-color: linear-gradient(to bottom, #1e1e30, #2d3748);
+    -fx-padding: 30px;
+    -fx-alignment: center;
+}
+
+.forum-scroll-pane {
+    -fx-background: transparent;
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-fit-to-width: true;
+    -fx-fit-to-height: true;
+}
+
+.forum-scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+/* Page Header */
+.page-header-container {
+    -fx-padding: 0 0 20 0;
+    -fx-border-color: transparent transparent rgba(255, 255, 255, 0.1) transparent;
+    -fx-border-width: 0 0 1px 0;
+    -fx-max-width: 800px;
+    -fx-pref-width: 100%;
+}
+
+.page-title-modern {
+    -fx-font-size: 42px;
+    -fx-font-weight: bold;
+    -fx-text-fill: linear-gradient(to right, #ff7e5f, #feb47b);
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.4), 15, 0.2, 0, 4);
+    -fx-padding: 0 0 10 0;
+}
+
+.page-description-modern {
+    -fx-font-size: 16px;
+    -fx-text-fill: #e2e8f0;
+    -fx-padding: 8 0 20 0;
+    -fx-opacity: 0.9;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 3, 0, 0, 1);
+    -fx-border-color: linear-gradient(to right, rgba(255,126,95,0.3), rgba(254,180,123,0.3));
+    -fx-border-width: 0 0 1 0;
+    -fx-border-style: solid;
+    -fx-padding: 8 0 15 0;
+}
+
+/* Search */
+.search-container {
+    -fx-padding: 10 0;
+}
+
+.search-field {
+    -fx-min-width: 250px;
+    -fx-pref-height: 40px;
+    -fx-background-radius: 24px;
+    -fx-border-radius: 24px;
+    -fx-background-color: rgba(255, 255, 255, 0.12);
+    -fx-border-color: rgba(255, 255, 255, 0.2);
+    -fx-padding: 0 15;
+    -fx-text-fill: white;
+    -fx-prompt-text-fill: #ced4da;
+}
+
+.search-button {
+    -fx-background-color: linear-gradient(to bottom, #FF7F61, #ff6347);
+    -fx-text-fill: white;
+    -fx-background-radius: 24px;
+    -fx-min-height: 40px;
+}
+
+.search-button:hover {
+    -fx-background-color: linear-gradient(to bottom, #ff6347, #e74c3c);
+}
+
+/* New Post Form */
+.new-post-container {
+    -fx-background-color: rgba(30, 30, 48, 0.7);
+    -fx-background-radius: 8px;
+    -fx-border-radius: 8px;
+    -fx-border-color: rgba(255, 255, 255, 0.15);
+    -fx-padding: 20px;
+    -fx-spacing: 15;
+}
+
+.section-title-modern {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+    -fx-padding: 0 0 10 0;
+}
+
+.post-input {
+    -fx-background-color: rgba(30, 30, 48, 0.6);
+    -fx-border-color: rgba(255, 255, 255, 0.1);
+    -fx-border-radius: 4px;
+    -fx-background-radius: 4px;
+    -fx-text-fill: white;
+    -fx-prompt-text-fill: rgba(255, 255, 255, 0.5);
+    -fx-padding: 8px;
+}
+
+.post-text-area {
+    -fx-background-color: rgba(30, 30, 48, 0.6);
+    -fx-border-color: rgba(255, 255, 255, 0.1);
+    -fx-border-radius: 4px;
+    -fx-background-radius: 4px;
+    -fx-text-fill: white;
+    -fx-prompt-text-fill: rgba(255, 255, 255, 0.5);
+    -fx-padding: 8px;
+    -fx-pref-height: 100px;
+}
+
+/* Button styles - match events section orange gradient */
+.primary-button, .secondary-button, .search-button, .comment-button {
+    -fx-background-color: linear-gradient(to right, #ff7e5f, #feb47b);
+    -fx-text-fill: white;
+    -fx-padding: 6px 12px;
+    -fx-background-radius: 4px;
+    -fx-cursor: hand;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-border-width: 0;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 3, 0, 0, 1);
+    -fx-transition: all 0.2s ease-in-out;
+}
+
+.primary-button:hover, .secondary-button:hover, .search-button:hover, .comment-button:hover {
+    -fx-background-color: linear-gradient(to right, #feb47b, #ff7e5f);
+    -fx-effect: dropshadow(gaussian, rgba(255,126,95,0.5), 5, 0, 0, 2);
+}
+
+.cancel-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: rgba(255, 255, 255, 0.7);
+    -fx-padding: 6px 12px;
+    -fx-background-radius: 4px;
+    -fx-cursor: hand;
+    -fx-font-size: 13px;
+    -fx-min-height: 32px;
+}
+
+.cancel-button:hover {
+    -fx-text-fill: white;
+    -fx-background-color: rgba(255, 255, 255, 0.1);
+}
+
+.update-button {
+    -fx-background-color: linear-gradient(to right, #ff7e5f, #feb47b);
+    -fx-text-fill: white;
+    -fx-padding: 6px 12px;
+    -fx-background-radius: 4px;
+    -fx-cursor: hand;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-border-width: 0;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 3, 0, 0, 1);
+}
+
+.update-button:hover {
+    -fx-background-color: linear-gradient(to right, #feb47b, #ff7e5f);
+    -fx-effect: dropshadow(gaussian, rgba(255,126,95,0.5), 5, 0, 0, 2);
+}
+
+/* Post action buttons */
+.edit-button {
+    -fx-background-color: linear-gradient(to right, #ff7e5f, #feb47b);
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 4px;
+    -fx-cursor: hand;
+    -fx-padding: 5px 10px;
+    -fx-min-width: 70px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 3, 0, 0, 1);
+}
+
+.edit-button:hover {
+    -fx-background-color: linear-gradient(to right, #feb47b, #ff7e5f);
+    -fx-effect: dropshadow(gaussian, rgba(255,126,95,0.5), 5, 0, 0, 2);
+}
+
+.delete-button {
+    -fx-background-color: linear-gradient(to bottom, #a23a3a, #802d2d);
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 4px;
+    -fx-cursor: hand;
+    -fx-padding: 5px 10px;
+    -fx-min-width: 70px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 3, 0, 0, 1);
+}
+
+.delete-button:hover {
+    -fx-background-color: linear-gradient(to bottom, #e45151, #a23a3a);
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.4), 5, 0, 0, 2);
+}
+
+/* Filter buttons */
+.filter-button {
+    -fx-background-color: rgba(50, 50, 70, 0.6);
+    -fx-text-fill: white;
+    -fx-background-radius: 4px;
+    -fx-padding: 6px 12px;
+    -fx-cursor: hand;
+    -fx-border-width: 0;
+    -fx-font-weight: normal;
+    -fx-font-size: 12px;
+}
+
+.filter-button:hover {
+    -fx-background-color: rgba(80, 80, 100, 0.7);
+}
+
+.filter-button-active {
+    -fx-background-color: linear-gradient(to right, #ff7e5f, #feb47b);
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+
+.sort-combo {
+    -fx-background-color: rgba(255, 255, 255, 0.1);
+    -fx-border-color: rgba(255, 255, 255, 0.2);
+    -fx-border-radius: 4px;
+    -fx-padding: 4px 8px;
+    -fx-pref-width: 120px;
+    -fx-text-fill: white;
+}
+
+.sort-combo .list-cell {
+    -fx-text-fill: white;
+    -fx-background-color: #1e1e30;
+}
+
+.sort-combo .list-view {
+    -fx-background-color: #1e1e30;
+    -fx-border-color: rgba(255, 255, 255, 0.2);
+}
+
+.sort-label {
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-padding: 0 10 0 0;
+}
+
+/* Posts Filter */
+.posts-filter-container {
+    -fx-padding: 12 0;
+    -fx-spacing: 8;
+    -fx-max-width: 800px;
+    -fx-pref-width: 100%;
+}
+
+/* Posts List */
+.posts-list-modern {
+    -fx-spacing: 8;
+    -fx-alignment: center;
+    -fx-pref-width: 100%;
+}
+
+.post-card-modern {
+    -fx-background-color: rgba(30, 30, 48, 0.7);
+    -fx-background-radius: 4px;
+    -fx-border-radius: 4px;
+    -fx-border-color: rgba(255, 255, 255, 0.15);
+    -fx-padding: 8px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 3, 0, 0, 1);
+    -fx-spacing: 5;
+    -fx-max-width: 800px;
+    -fx-pref-width: 100%;
+}
+
+.post-card-modern:hover {
+    -fx-background-color: rgba(30, 30, 48, 0.8);
+}
+
+.user-avatar {
+    -fx-fill: linear-gradient(to bottom, #FF7F61, #ff6347);
+    -fx-stroke: white;
+    -fx-stroke-width: 1.5px;
+}
+
+.post-author {
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+
+.post-date {
+    -fx-font-size: 11px;
+    -fx-text-fill: rgba(255, 255, 255, 0.7);
+}
+
+.post-actions .icon-button {
+    -fx-background-color: transparent;
+    -fx-min-width: 30px;
+    -fx-min-height: 30px;
+    -fx-background-radius: 15px;
+    -fx-cursor: hand;
+    -fx-padding: 5px;
+}
+
+.post-actions .icon-button:hover {
+    -fx-background-color: rgba(0, 0, 0, 0.05);
+}
+
+/* Post Content */
+.post-title-modern {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+    -fx-padding: 0 0 1 0;
+}
+
+.post-content-text {
+    -fx-font-size: 12px;
+    -fx-text-fill: rgba(255, 255, 255, 0.9);
+    -fx-wrap-text: true;
+    -fx-line-spacing: 1.0;
+}
+
+/* Post image - now responsive */
+.post-image-container {
+    -fx-padding: 6 0;
+    -fx-alignment: center;
+    -fx-max-width: 100%;
+}
+
+.post-image-modern {
+    -fx-background-radius: 3px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 3, 0, 0, 0);
+    -fx-max-width: 100%;
+    -fx-max-height: 400px;
+    -fx-preserve-ratio: true;
+}
+
+/* Post Stats */
+.post-stats {
+    -fx-padding: 8 0;
+    -fx-border-color: transparent transparent rgba(255, 255, 255, 0.1) transparent;
+    -fx-border-width: 0 0 1px 0;
+}
+
+.stat-icon {
+    -fx-opacity: 0.8;
+}
+
+.likes-icon {
+    -fx-fill: #e53e3e;
+}
+
+.comments-icon {
+    -fx-fill: #4299e1;
+}
+
+.stat-value {
+    -fx-font-size: 12px;
+    -fx-text-fill: rgba(255, 255, 255, 0.8);
+    -fx-font-weight: normal;
+}
+
+/* Comments Section */
+.comments-section {
+    -fx-padding: 15 0 0 0;
+}
+
+.section-subtitle {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+    -fx-padding: 0 0 5 0;
+}
+
+.comments-box {
+    -fx-padding: 6 0;
+    -fx-spacing: 6;
+}
+
+.comment-box {
+    -fx-padding: 8px 12px;
+    -fx-background-color: rgba(20, 20, 35, 0.3);
+    -fx-background-radius: 4px;
+    -fx-border-color: rgba(255, 255, 255, 0.05);
+    -fx-border-radius: 4px;
+    -fx-margin: 0 0 5px 0;
+    -fx-transition: -fx-background-color 0.2s;
+}
+
+.comment-box:hover {
+    -fx-background-color: rgba(30, 30, 48, 0.5);
+}
+
+/* Animation */
+.animate-on-hover {
+    -fx-transition: -fx-scale-x 0.2s, -fx-scale-y 0.2s;
+}
+
+.animate-on-hover:hover {
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+}
+
+/* Responsive adjustments */
+.screen-size-small .post-card-modern {
+    -fx-padding: 15px;
+}
+
+.screen-size-small .page-title-modern {
+    -fx-font-size: 24px;
+}
+
+/* Comment form */
+.new-comment-container {
+    -fx-padding: 15 0 0 0;
+    -fx-spacing: 12;
+}
+
+.comment-text-area {
+    -fx-pref-height: 60px;
+}
+
+/* Prompt text styling */
+.text-input {
+    -fx-background-color: rgba(30, 30, 48, 0.9);
+    -fx-text-fill: white;
+    -fx-prompt-text-fill: rgba(255, 255, 255, 0.5);
+    -fx-highlight-fill: rgba(255, 127, 97, 0.3);
+    -fx-highlight-text-fill: white;
+}
+
+/* Fix text areas to ensure dark background and visible text */
+.text-area {
+    -fx-control-inner-background: rgba(30, 30, 48, 0.9);
+}
+
+.text-area .content {
+    -fx-background-color: rgba(30, 30, 48, 0.9);
+}
+
+.text-area:focused .content {
+    -fx-background-color: rgba(30, 30, 48, 0.9);
+}
+
+/* Input validation styles - Contrôle de saisie */
+.input-error {
+    -fx-border-color: #e74c3c;
+    -fx-border-width: 1.5px;
+}
+
+.input-error:focused {
+    -fx-border-color: #e74c3c;
+    -fx-effect: dropshadow(gaussian, rgba(231,76,60,0.3), 5, 0, 0, 0);
+}
+
+.input-success {
+    -fx-border-color: #2ecc71;
+    -fx-border-width: 1.5px;
+}
+
+.input-success:focused {
+    -fx-border-color: #2ecc71;
+    -fx-effect: dropshadow(gaussian, rgba(46,204,113,0.3), 5, 0, 0, 0);
+}
+
+.validation-message {
+    -fx-font-size: 11px;
+    -fx-padding: 2 0 0 2;
+}
+
+.error-message {
+    -fx-text-fill: #e74c3c;
+    -fx-font-size: 11px;
+    -fx-padding: 2 0 0 2;
+}
+
+.success-message {
+    -fx-text-fill: #2ecc71;
+    -fx-font-size: 11px;
+    -fx-padding: 2 0 0 2;
+}
+
+.validation-icon {
+    -fx-min-width: 16px;
+    -fx-min-height: 16px;
+    -fx-max-width: 16px;
+    -fx-max-height: 16px;
+}
+
+.error-icon {
+    -fx-fill: #e74c3c;
+}
+
+.success-icon {
+    -fx-fill: #2ecc71;
+}
+
+/* Form field container with validation */
+.form-field-container {
+    -fx-spacing: 2;
+}
+
+/* Character counter for text areas */
+.character-counter {
+    -fx-font-size: 10px;
+    -fx-text-fill: rgba(255, 255, 255, 0.6);
+    -fx-padding: 2 4 0 0;
+    -fx-alignment: center-right;
+}
+
+.character-counter-limit {
+    -fx-text-fill: #e74c3c;
+}
+
+/* Required field indicators for post creation */
+.required-field {
+    -fx-border-color: rgba(255, 255, 255, 0.3);
+    -fx-border-width: 1px;
+}
+
+.required-field:empty {
+    -fx-border-color: rgba(231, 76, 60, 0.5);
+    -fx-border-width: 1px;
+}
+
+.required-field:focused:empty {
+    -fx-border-color: #e74c3c;
+    -fx-border-width: 1.5px;
+    -fx-effect: dropshadow(gaussian, rgba(231, 76, 60, 0.3), 5, 0, 0, 0);
+}
+
+/* Required field indicator dot */
+.required-indicator {
+    -fx-fill: #e74c3c;
+    -fx-min-width: 6px;
+    -fx-min-height: 6px;
+    -fx-max-width: 6px;
+    -fx-max-height: 6px;
+    -fx-background-radius: 3px;
+    -fx-background-color: #e74c3c;
+}
+
+/* Form field groups with proper spacing */
+.input-group {
+    -fx-spacing: 4;
+    -fx-fill-width: true;
+}
+
+.field-label-container {
+    -fx-spacing: 5;
+    -fx-alignment: center-left;
+}
+
+/* Enhanced validation messages for empty fields */
+.empty-field-message {
+    -fx-text-fill: #e74c3c;
+    -fx-font-size: 11px;
+    -fx-font-style: italic;
+    -fx-padding: 2 0 0 2;
+    -fx-opacity: 0.9;
+}
+
+/* Enhanced input validation styles */
+.input-error {
+    -fx-border-color: #e74c3c;
+    -fx-border-width: 1.5px;
+    -fx-background-color: rgba(231, 76, 60, 0.05);
+}
+
+/* Input with visible validation */
+.validated-input-container {
+    -fx-spacing: 4;
+}
+
+.validated-input {
+    -fx-background-color: rgba(30, 30, 48, 0.9);
+    -fx-border-color: rgba(255, 255, 255, 0.15);
+    -fx-border-radius: 4px;
+    -fx-background-radius: 4px;
+    -fx-text-fill: white;
+}
+
+.validated-input:empty {
+    -fx-border-color: rgba(231, 76, 60, 0.5);
+}
+
+.validated-input:focused:empty {
+    -fx-border-color: #e74c3c;
+    -fx-effect: dropshadow(gaussian, rgba(231, 76, 60, 0.3), 5, 0, 0, 0);
+}
+
+/* Input validation tooltip */
+.validation-tooltip {
+    -fx-background-color: rgba(231, 76, 60, 0.9);
+    -fx-text-fill: white;
+    -fx-font-size: 11px;
+    -fx-padding: 5 8;
+    -fx-background-radius: 4px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 5, 0, 0, 2);
+}
+
+/* Character requirements indicator */
+.character-requirements {
+    -fx-font-size: 10px;
+    -fx-text-fill: rgba(255, 255, 255, 0.6);
+    -fx-padding: 2 0 0 2;
+}
+
+/* Inline error messages for post submission */
+.validation-error-box {
+    -fx-background-color: rgba(231, 76, 60, 0.1);
+    -fx-border-color: #e74c3c;
+    -fx-border-width: 1px;
+    -fx-border-radius: 4px;
+    -fx-background-radius: 4px;
+    -fx-padding: 8px;
+    -fx-spacing: 5;
+    -fx-max-width: 800px;
+    -fx-pref-width: 100%;
+    -fx-effect: dropshadow(gaussian, rgba(231, 76, 60, 0.2), 5, 0, 0, 1);
+    -fx-alignment: center-left;
+}
+
+.validation-error-title {
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #e74c3c;
+}
+
+.validation-error-message {
+    -fx-font-size: 11px;
+    -fx-text-fill: #e74c3c;
+    -fx-wrap-text: true;
+}
+
+.validation-error-icon {
+    -fx-fill: #e74c3c;
+    -fx-min-width: 16px;
+    -fx-min-height: 16px;
+}
+
+.form-validation-error {
+    -fx-background-color: rgba(231, 76, 60, 0.1);
+    -fx-border-color: #e74c3c;
+    -fx-border-width: 1px;
+    -fx-border-radius: 4px;
+    -fx-background-radius: 4px;
+    -fx-padding: 8px 12px;
+    -fx-font-size: 12px;
+    -fx-text-fill: #e74c3c;
+    -fx-alignment: center-left;
+    -fx-opacity: 0.9;
+    -fx-max-width: 800px;
+    -fx-pref-width: 100%;
+    -fx-spacing: 5;
+}
+
+.field-error-label {
+    -fx-text-fill: #e74c3c;
+    -fx-font-size: 11px;
+    -fx-padding: 2px 5px;
+    -fx-background-color: rgba(231, 76, 60, 0.1);
+    -fx-background-radius: 2px;
+    -fx-border-color: #e74c3c;
+    -fx-border-width: 0 0 0 2px;
+    -fx-border-radius: 1px;
+}
+
+/* Error popup styling */
+.error-popup {
+    -fx-background-color: rgba(231, 76, 60, 0.95);
+    -fx-padding: 10px;
+    -fx-background-radius: 5px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.4), 10, 0, 0, 3);
+    -fx-max-width: 300px;
+}
+
+.error-popup-title {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+
+.error-popup-message {
+    -fx-font-size: 12px;
+    -fx-text-fill: white;
+    -fx-wrap-text: true;
+}
+
+.error-popup-close {
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+}
+
+.error-popup-close:hover {
+    -fx-effect: dropshadow(gaussian, rgba(255,255,255,0.3), 5, 0, 0, 0);
+}
+
+/* Updated like button styles */
+.like-button {
+    -fx-background-color: rgba(255, 255, 255, 0.7);
+    -fx-min-width: 30px;
+    -fx-min-height: 30px;
+    -fx-padding: 5px;
+    -fx-cursor: hand;
+    -fx-shape: "M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z";
+    -fx-background-insets: 0;
+    -fx-border-width: 0;
+    -fx-transition: -fx-background-color 0.2s, -fx-scale-x 0.1s, -fx-scale-y 0.1s;
+}
+
+.like-button:hover {
+    -fx-effect: dropshadow(gaussian, rgba(255,0,0,0.4), 10, 0, 0, 0);
+    -fx-scale-x: 1.1;
+    -fx-scale-y: 1.1;
+    -fx-background-color: rgba(255, 100, 100, 0.8);
+}
+
+.like-button.liked {
+    -fx-background-color: rgba(255, 0, 0, 0.8);
+    -fx-effect: dropshadow(gaussian, rgba(255,0,0,0.4), 5, 0, 0, 0);
+}
+
+.like-button:pressed {
+    -fx-scale-x: 0.9;
+    -fx-scale-y: 0.9;
+}
+
+/* Enhanced Reaction styles for image-based emojis */
+.reaction-trigger-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+    -fx-font-size: 20px;
+    -fx-min-width: 40px;
+    -fx-min-height: 40px;
+    -fx-background-radius: 50%;
+    -fx-padding: 5px;
+    -fx-cursor: hand;
+    -fx-border-width: 0;
+    -fx-transition: -fx-scale-x 0.15s, -fx-scale-y 0.15s, -fx-background-color 0.15s;
+    -fx-font-family: "Segoe UI Emoji", "Apple Color Emoji", "Noto Color Emoji", sans-serif;
+    -fx-content-display: graphic-only;
+}
+
+.reaction-trigger-button:hover {
+    -fx-scale-x: 1.1;
+    -fx-scale-y: 1.1;
+    -fx-background-color: rgba(255, 127, 97, 0.2);
+}
+
+.reaction-trigger-button.reacted {
+    -fx-effect: dropshadow(gaussian, rgba(255, 127, 97, 0.5), 6, 0, 0, 1);
+    -fx-background-color: rgba(255, 127, 97, 0.1);
+}
+
+/* Reaction panel for emoji selection */
+.reaction-panel {
+    -fx-background-color: rgba(25, 25, 35, 0.95);
+    -fx-background-radius: 20px;
+    -fx-border-color: rgba(255, 255, 255, 0.15);
+    -fx-border-radius: 20px;
+    -fx-padding: 10px;
+    -fx-hgap: 5;
+    -fx-vgap: 5;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.8), 15, 0, 0, 3);
+    -fx-alignment: center;
+}
+
+/* Emoji buttons in the panel */
+.reaction-emoji-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+    -fx-font-size: 20px;
+    -fx-min-width: 48px;
+    -fx-min-height: 48px;
+    -fx-background-radius: 50%;
+    -fx-padding: 8px;
+    -fx-cursor: hand;
+    -fx-transition: -fx-scale-x 0.15s, -fx-scale-y 0.15s, -fx-background-color 0.2s;
+    -fx-border-width: 0;
+    -fx-content-display: graphic-only;
+}
+
+.reaction-emoji-button:hover {
+    -fx-scale-x: 1.2;
+    -fx-scale-y: 1.2;
+    -fx-effect: dropshadow(gaussian, rgba(255, 255, 255, 0.3), 10, 0, 0, 0);
+}
+
+.reaction-emoji-button:pressed {
+    -fx-scale-x: 0.9;
+    -fx-scale-y: 0.9;
+}
+
+/* Colored backgrounds for hover effects on emoji buttons */
+.reaction-like:hover {
+    -fx-background-color: rgba(66, 103, 178, 0.3);
+}
+
+.reaction-happy:hover {
+    -fx-background-color: rgba(255, 193, 7, 0.3);
+}
+
+.reaction-laugh:hover {
+    -fx-background-color: rgba(255, 152, 0, 0.3);
+}
+
+.reaction-wow:hover {
+    -fx-background-color: rgba(156, 39, 176, 0.3);
+}
+
+.reaction-sad:hover {
+    -fx-background-color: rgba(33, 150, 243, 0.3);
+}
+
+.reaction-angry:hover {
+    -fx-background-color: rgba(233, 30, 99, 0.3);
+}
+
+/* Styling for the main reaction button when a reaction is selected */
+.reaction-trigger-button.reaction-like {
+    -fx-background-color: rgba(66, 103, 178, 0.2);
+    -fx-effect: dropshadow(gaussian, rgba(66, 103, 178, 0.5), 6, 0, 0, 1);
+}
+
+.reaction-trigger-button.reaction-happy {
+    -fx-background-color: rgba(255, 193, 7, 0.2);
+    -fx-effect: dropshadow(gaussian, rgba(255, 193, 7, 0.5), 6, 0, 0, 1);
+}
+
+.reaction-trigger-button.reaction-laugh {
+    -fx-background-color: rgba(255, 152, 0, 0.2);
+    -fx-effect: dropshadow(gaussian, rgba(255, 152, 0, 0.5), 6, 0, 0, 1);
+}
+
+.reaction-trigger-button.reaction-wow {
+    -fx-background-color: rgba(156, 39, 176, 0.2);
+    -fx-effect: dropshadow(gaussian, rgba(156, 39, 176, 0.5), 6, 0, 0, 1);
+}
+
+.reaction-trigger-button.reaction-sad {
+    -fx-background-color: rgba(33, 150, 243, 0.2);
+    -fx-effect: dropshadow(gaussian, rgba(33, 150, 243, 0.5), 6, 0, 0, 1);
+}
+
+.reaction-trigger-button.reaction-angry {
+    -fx-background-color: rgba(233, 30, 99, 0.2);
+    -fx-effect: dropshadow(gaussian, rgba(233, 30, 99, 0.5), 6, 0, 0, 1);
+}
+
+/* Fallback for emoji text if images fail to load */
+.emoji-fallback {
+    -fx-font-size: 22px;
+    -fx-text-fill: white;
+    -fx-font-family: "Segoe UI Emoji", "Apple Color Emoji", "Noto Color Emoji", sans-serif;
+}
+
+/* Comment delete button styling for SVG icon */
+.comment-delete-button {
+    -fx-background-color: transparent;
+    -fx-min-width: 30px;
+    -fx-min-height: 30px;
+    -fx-padding: 5px;
+    -fx-cursor: hand;
+    -fx-border-width: 0;
+    -fx-background-radius: 50%;
+    -fx-content-display: graphic-only;
+    -fx-transition: -fx-scale-x 0.1s, -fx-scale-y 0.1s, -fx-background-color 0.2s;
+}
+
+.comment-delete-button:hover {
+    -fx-background-color: rgba(207, 34, 46, 0.1);
+    -fx-scale-x: 1.1;
+    -fx-scale-y: 1.1;
+}
+
+.comment-delete-button:pressed {
+    -fx-scale-x: 0.95;
+    -fx-scale-y: 0.95;
+    -fx-background-color: rgba(207, 34, 46, 0.2);
+}
+
+/* Image Section Styles */
+.image-section {
+    -fx-min-width: 200px;
+    -fx-max-width: 200px;
+    -fx-pref-width: 200px;
+}
+
+.image-preview-container {
+    -fx-background-color: rgba(30, 30, 48, 0.6);
+    -fx-background-radius: 8px;
+    -fx-border-color: rgba(255, 255, 255, 0.1);
+    -fx-border-radius: 8px;
+    -fx-padding: 12px;
+    -fx-max-width: 180px;
+    -fx-max-height: 120px;
+    -fx-min-height: 80px;
+    -fx-alignment: center;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 4, 0, 0, 1);
+}
+
+.image-preview {
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.25), 4, 0, 0, 1);
+    -fx-fit-width: 150px;
+    -fx-max-height: 100px;
+}
+
+/* Make the clear button smaller */
+.clear-image-button {
+    -fx-min-width: 22px;
+    -fx-min-height: 22px;
+    -fx-max-width: 22px;
+    -fx-max-height: 22px;
+    -fx-background-radius: 11px;
+    -fx-background-color: rgba(239, 68, 68, 0.9);
+    -fx-text-fill: white;
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 2, 0, 0, 1);
+    -fx-transition: all 0.15s ease-in-out;
+}
+
+.clear-image-button:hover {
+    -fx-background-color: #DC2626;
+    -fx-effect: dropshadow(gaussian, rgba(239,68,68,0.3), 4, 0, 0, 2);
+    -fx-scale-x: 1.1;
+    -fx-scale-y: 1.1;
+}
+
+.clear-image-button:pressed {
+    -fx-background-color: #B91C1C;
+    -fx-scale-x: 0.95;
+    -fx-scale-y: 0.95;
+    -fx-effect: dropshadow(gaussian, rgba(239,68,68,0.2), 2, 0, 0, 0);
+}
+
+/* Generate Image Button */
+.generate-button {
+    -fx-min-width: 100px;
+    -fx-min-height: 32px;
+    -fx-padding: 6px 12px;
+    -fx-background-color: #10B981;
+    -fx-text-fill: white;
+    -fx-background-radius: 4px;
+    -fx-cursor: hand;
+    -fx-font-size: 13px;
+    -fx-font-weight: normal;
+}
+
+.generate-button:hover {
+    -fx-background-color: #059669;
+}
+
+.generate-button:pressed {
+    -fx-background-color: #047857;
+}
+
+.generate-button:disabled {
+    -fx-opacity: 0.6;
+    -fx-cursor: default;
+    -fx-background-color: linear-gradient(to bottom right, #9CA3AF, #6B7280);
+    -fx-effect: none;
+}
+
+/* Loading indicator for image generation */
+.loading-indicator {
+    -fx-background-color: rgba(0, 0, 0, 0.7);
+    -fx-background-radius: 4px;
+    -fx-padding: 10px;
+    -fx-spacing: 10px;
+    -fx-alignment: center;
+}
+
+.loading-text {
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+}
+
+.loading-spinner {
+    -fx-progress-color: white;
+}
+
+/* Secondary button styling */
+.secondary-button {
+    -fx-min-width: 100px;
+    -fx-min-height: 32px;
+    -fx-padding: 6px 12px;
+    -fx-background-color: white;
+    -fx-text-fill: #333333;
+    -fx-background-radius: 4px;
+    -fx-cursor: hand;
+    -fx-font-size: 13px;
+    -fx-font-weight: normal;
+}
+
+.secondary-button:hover {
+    -fx-background-color: #f8f9fa;
+}
+
+.secondary-button:pressed {
+    -fx-background-color: #e9ecef;
+}
+
+/* GIF Button Styles */
+.gif-button {
+    -fx-background-color: linear-gradient(to right, #7e5fff, #7b9dfe);
+    -fx-text-fill: white;
+    -fx-padding: 6px 12px;
+    -fx-background-radius: 4px;
+    -fx-cursor: hand;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-border-width: 0;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 3, 0, 0, 1);
+    -fx-transition: all 0.2s ease-in-out;
+}
+
+.gif-button:hover {
+    -fx-background-color: linear-gradient(to right, #7b9dfe, #7e5fff);
+    -fx-effect: dropshadow(gaussian, rgba(126,95,255,0.5), 5, 0, 0, 2);
+}
+
+/* GIF Picker Dialog */
+.gif-picker-dialog {
+    -fx-background-color: #1e1e30;
+    -fx-padding: 20px;
+}
+
+/* GIF in comments */
+.comment-gif-container {
+    -fx-padding: 5 0 0 0;
+    -fx-alignment: center-left;
+}
+
+.comment-gif {
+    -fx-background-radius: 4px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 4, 0, 0, 1);
+}

@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="700.0" prefWidth="1000.0" styleClass="main-container" stylesheets="@../../Styles/backposts.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.backforum.BackPostcontroller">
+    <children>
+        <!-- Header Bar -->
+        <HBox layoutY="0.0" prefHeight="60.0" prefWidth="1000.0" styleClass="header-bar" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <padding>
+                <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
+            </padding>
+            <children>
+                <VBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
+                    <children>
+                        <Label styleClass="header-title" text="FORUM POSTS MANAGEMENT">
+                            <font>
+                                <Font name="System Bold" size="18.0" />
+                            </font>
+                        </Label>
+                        <Label styleClass="header-subtitle" text="ADMIN DASHBOARD" />
+                    </children>
+                </VBox>
+            </children>
+        </HBox>
+
+        <!-- Main Content -->
+        <ScrollPane fitToWidth="true" layoutY="60.0" prefHeight="640.0" prefWidth="1000.0" styleClass="content-pane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="60.0">
+            <content>
+                <VBox styleClass="content-container" spacing="20.0">
+                    <padding>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                    </padding>
+                    <children>
+                        <!-- Top Posts Section -->
+                        <VBox fx:id="topPostsContainer" spacing="10.0" />
+
+                        <!-- Title and Search section -->
+                        <HBox alignment="CENTER_LEFT" spacing="20.0">
+                            <children>
+                                <Label styleClass="section-title" text="Forum Posts">
+                                    <font>
+                                        <Font name="System Bold" size="16.0" />
+                                    </font>
+                                </Label>
+                                <HBox alignment="CENTER_LEFT" spacing="10.0" HBox.hgrow="ALWAYS">
+                                    <children>
+                                        <TextField fx:id="searchField" promptText="Search posts..." styleClass="search-field" HBox.hgrow="ALWAYS" />
+                                        <Button fx:id="refreshBtn" mnemonicParsing="false" onAction="#refreshPosts" styleClass="refresh-button" text="Refresh" />
+                                    </children>
+                                </HBox>
+                            </children>
+                        </HBox>
+
+                        <!-- Status Section -->
+                        <HBox alignment="CENTER_LEFT" spacing="10.0" styleClass="status-section">
+                            <children>
+                                <Label fx:id="statusLabel" text="Total Posts: 0" />
+                            </children>
+                        </HBox>
+
+                        <!-- Reaction Filter Section -->
+                        <VBox spacing="15.0" styleClass="reaction-filter-section">
+                            <children>
+                                <Label text="Filter Posts by Reactions" styleClass="section-title">
+                                    <font>
+                                        <Font name="System Bold" size="16.0" />
+                                    </font>
+                                </Label>
+                                
+                                <HBox spacing="10.0" styleClass="emoji-filter-section">
+                                    <children>
+                                        <HBox fx:id="emojiFilterContainer" spacing="10.0" styleClass="emoji-filter-container">
+                                            <!-- Emoji filter buttons will be added here programmatically -->
+                                        </HBox>
+                                        <Button fx:id="clearFilterBtn" text="Clear Filter" styleClass="clear-filter-button" onAction="#clearEmojiFilter"/>
+                                    </children>
+                                </HBox>
+                                
+                                <!-- Filtered Posts Container -->
+                                <VBox fx:id="filteredPostsContainer" spacing="20.0" styleClass="filtered-posts-container">
+                                    <children>
+                                        <!-- Filtered posts will be added here programmatically -->
+                                    </children>
+                                </VBox>
+                            </children>
+                        </VBox>
+
+                        <!-- Posts Table -->
+                        <VBox styleClass="table-container" VBox.vgrow="ALWAYS">
+                            <children>
+                                <TableView fx:id="postsTable" styleClass="posts-table" VBox.vgrow="ALWAYS">
+                                    <columns>
+                                        <TableColumn fx:id="idColumn" prefWidth="50.0" text="ID" />
+                                        <TableColumn fx:id="titleColumn" prefWidth="150.0" text="Title" />
+                                        <TableColumn fx:id="authorColumn" prefWidth="100.0" text="Author" />
+                                        <TableColumn fx:id="dateColumn" prefWidth="120.0" text="Date" />
+                                        <TableColumn fx:id="likesColumn" prefWidth="80.0" text="Likes" />
+                                        <TableColumn fx:id="reactionsColumn" prefWidth="80.0" text="Reactions" />
+                                        <TableColumn fx:id="actionsColumn" prefWidth="120.0" text="Actions" />
+                                    </columns>
+                                    <placeholder>
+                                        <Label text="No posts available" />
+                                    </placeholder>
+                                    <columnResizePolicy>
+                                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                    </columnResizePolicy>
+                                </TableView>
+                            </children>
+                        </VBox>
+                    </children>
+                </VBox>
+            </content>
+        </ScrollPane>
+    </children>
+</AnchorPane>

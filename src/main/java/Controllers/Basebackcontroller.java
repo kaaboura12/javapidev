@@ -53,6 +53,12 @@ public class Basebackcontroller implements Initializable {
     @FXML
     private Button logoutBtn;
     
+    @FXML
+    private Button forumPostsBtn;
+    
+    @FXML
+    private Button badWordsBtn;
+    
     // Keep track of the currently active control to highlight it
     private Control currentActiveControl;
     
@@ -120,6 +126,20 @@ public class Basebackcontroller implements Initializable {
         setActiveControl(statisticsBtn);
         updatePageTitle("Statistics");
         loadPage("/Views/statistics/statistics.fxml");
+    }
+    
+    @FXML
+    private void navigateToForumPosts() {
+        setActiveControl(forumPostsBtn);
+        updatePageTitle("Forum Posts");
+        loadPage("/Views/backforum/backposts.fxml");
+    }
+    
+    @FXML
+    private void navigateToBadWords() {
+        setActiveControl(badWordsBtn);
+        updatePageTitle("Bad Words Management");
+        loadPage("/Views/backforum/badwords.fxml");
     }
     
     @FXML

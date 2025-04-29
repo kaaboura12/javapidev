@@ -85,6 +85,30 @@
                         <Insets left="5.0" right="5.0" />
                      </VBox.margin>
                   </Button>
+                  <Button fx:id="forumPostsBtn" mnemonicParsing="false" onAction="#navigateToForumPosts" prefHeight="48.0" prefWidth="250.0" styleClass="menu-button" text="Forum Posts">
+                     <graphic>
+                        <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../Images/forum.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <VBox.margin>
+                        <Insets left="5.0" right="5.0" />
+                     </VBox.margin>
+                  </Button>
+                  <Button fx:id="badWordsBtn" mnemonicParsing="false" onAction="#navigateToBadWords" prefHeight="48.0" prefWidth="250.0" styleClass="menu-button" text="Bad Words Filter">
+                     <graphic>
+                        <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../Images/filter.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <VBox.margin>
+                        <Insets left="5.0" right="5.0" />
+                     </VBox.margin>
+                  </Button>
                   <Button fx:id="donationsBtn" mnemonicParsing="false" onAction="#navigateToDonations" prefHeight="48.0" prefWidth="250.0" styleClass="menu-button" text="Donations">
                      <graphic>
                         <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">

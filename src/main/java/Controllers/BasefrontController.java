@@ -124,7 +124,7 @@ public class BasefrontController implements Initializable {
         setupNavButton(formationsBtn, "/Views/formations.fxml");
         setupNavButton(eventsBtn, "/Views/event/listevent.fxml");
         setupNavButton(emploiBtn, "/Views/emploi.fxml");
-        setupNavButton(forumBtn, "/Views/forum.fxml");
+        setupNavButton(forumBtn, "/Views/forum/post.fxml");
         
         // Setup mobile navigation buttons
         setupNavButton(mobileAccueilBtn, "/Views/home.fxml");
@@ -132,7 +132,7 @@ public class BasefrontController implements Initializable {
         setupNavButton(mobileFormationsBtn, "/Views/formations.fxml");
         setupNavButton(mobileEventsBtn, "/Views/event/listevent.fxml");
         setupNavButton(mobileEmploiBtn, "/Views/emploi.fxml");
-        setupNavButton(mobileForumBtn, "/Views/forum.fxml");
+        setupNavButton(mobileForumBtn, "/Views/forum/post.fxml");
         
         // Setup hamburger button
         if (hamburgerBtn != null) {

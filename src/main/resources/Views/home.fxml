@@ -144,7 +144,7 @@
                     <Label text="About Us" styleClass="footer-link"/>
                     <Label text="Events" styleClass="footer-link"/>
                     <Label text="Gallery" styleClass="footer-link"/>
-                    <Label text="Forum" styleClass="footer-link"/>
+                    <Hyperlink fx:id="goToForumLink" text="Forum" styleClass="footer-link"/>
                     <Label text="Contact" styleClass="footer-link"/>
                 </HBox>
                 <Label text="© 2023 ArtXCope. All rights reserved." styleClass="footer-copyright"/>
