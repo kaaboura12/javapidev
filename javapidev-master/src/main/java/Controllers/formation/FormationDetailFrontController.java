@@ -12,6 +12,12 @@ import javafx.stage.Stage;
 import java.awt.Desktop;
 import java.net.URI;
 import java.time.format.DateTimeFormatter;
+import Models.Formation;
+import Models.Inscription;
+import Services.InscriptionService;
+
+
+
 
 public class FormationDetailFrontController {
     @FXML private Label titleLabel;
@@ -179,12 +185,42 @@ public class FormationDetailFrontController {
     
     @FXML
     private void handleRegister() {
-        // Registration logic here
-        javafx.scene.control.Alert alert = new javafx.scene.control.Alert(javafx.scene.control.Alert.AlertType.INFORMATION);
-        alert.setTitle("Registration");
-        alert.setHeaderText(null);
-        alert.setContentText("Registration functionality will be implemented in a future update!");
-        alert.showAndWait();
+        try {
+            int testUserId =4;
+            System.out.println("test");
+            InscriptionService inscriptionService= new InscriptionService();
+           if (inscriptionService.checkIfAlreadyRegistered(testUserId, formation.getId())) {
+                showAlert("Already Registered", "You are already registered for this formation.", Alert.AlertType.WARNING);
+                return;
+            }
+
+            // Check if spots are available
+            if (formation.getNbrpart() <= 0) {
+                showAlert("Registration Failed", "No more spots available for this formation.", Alert.AlertType.ERROR);
+                return;
+            }
+
+            Inscription inscription = new Inscription(
+                    formation.getId(),
+                    testUserId,
+                    LocalDate.now(),
+                    "pending",
+                    LocalDate.now()
+            );
+
+            inscriptionService.insert(inscription);
+
+            showAlert("Success", "Registration successful!", Alert.AlertType.INFORMATION);
+            closeWindow();
+
+        } catch (SQLException e) {
+            if (e.getMessage().contains("No more spots available")) {
+                showAlert("Registration Failed", "No more spots available for this formation.", Alert.AlertType.ERROR);
+            } else {
+                showAlert("Error", "Registration failed: " + e.getMessage(), Alert.AlertType.ERROR);
+            }
+            e.printStackTrace();
+        }
     }
     
     @FXML

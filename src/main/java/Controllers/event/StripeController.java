@@ -7,16 +7,10 @@ import Models.User;
 import Services.ReservationService;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 
 import java.net.URL;
@@ -24,6 +18,7 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
+import java.util.function.Consumer;
 
 public class StripeController extends BasefrontController {
     
@@ -53,6 +48,9 @@ public class StripeController extends BasefrontController {
     private User currentUser;
     private String stripePublicKey;
     private ReservationService reservationService;
+    private String paymentTitle;
+    private boolean isFormationPayment = false;
+    private Consumer<Boolean> paymentCompletionHandler;
     
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -87,7 +85,37 @@ public class StripeController extends BasefrontController {
     }
     
     /**
-     * Set the transaction details
+     * Set a callback handler to be called when payment completes
+     * 
+     * @param handler Consumer<Boolean> that handles the payment result
+     */
+    public void setPaymentCompletionHandler(Consumer<Boolean> handler) {
+        this.paymentCompletionHandler = handler;
+    }
+    
+    /**
+     * Set transaction details for a formation payment
+     * This method allows the Stripe controller to be reused for formation payments
+     * 
+     * @param formationTitle The title of the formation
+     * @param amount The payment amount
+     * @param quantity The quantity being purchased (usually 1 for formations)
+     * @param user The current user
+     * @param title The title to display for this payment
+     */
+    public void setTransactionDetailsForFormation(String formationTitle, double amount, int quantity, User user, String title) {
+        this.isFormationPayment = true;
+        this.amount = amount;
+        this.seatsReserved = quantity;
+        this.currentUser = user;
+        this.paymentTitle = title;
+        
+        // Update UI with formation transaction details
+        updateFormationTransactionDetails(formationTitle);
+    }
+    
+    /**
+     * Set the transaction details for an event reservation
      * 
      * @param event The event being reserved
      * @param amount The payment amount
@@ -99,9 +127,42 @@ public class StripeController extends BasefrontController {
         this.amount = amount;
         this.seatsReserved = seatsReserved;
         this.currentUser = user;
+        this.isFormationPayment = false;
         
         // Update UI with transaction details
         updateTransactionDetails();
+    }
+    
+    /**
+     * Update formation transaction details in the UI
+     */
+    private void updateFormationTransactionDetails(String formationTitle) {
+        // Format the amount
+        String formattedAmount = String.format("%.2f", amount);
+        
+        if (amountLabel != null) {
+            amountLabel.setText("/$" + formattedAmount);
+        }
+        
+        // Update title
+        if (pageTitle != null) {
+            pageTitle.setText(paymentTitle != null ? paymentTitle : "Formation Payment");
+        }
+        
+        // Update formation name
+        if (eventNameLabel != null) {
+            eventNameLabel.setText(formationTitle);
+        }
+        
+        // Update details
+        if (eventDetailsLabel != null) {
+            eventDetailsLabel.setText("Registration fee");
+        }
+        
+        // Update quantity text (instead of seats)
+        if (seatsLabel != null) {
+            seatsLabel.setText("1 registration");
+        }
     }
     
     /**
@@ -305,6 +366,14 @@ public class StripeController extends BasefrontController {
     }
     
     /**
+     * Setup responsive layout handlers
+     */
+    private void setupResponsiveLayout() {
+        // Initial layout will be handled by CSS
+        // This method is here for future dynamic adjustments if needed
+    }
+    
+    /**
      * Handle the payment button click
      */
     @FXML
@@ -345,14 +414,29 @@ public class StripeController extends BasefrontController {
                 // Update UI on JavaFX thread
                 javafx.application.Platform.runLater(() -> {
                     if (paymentSuccessful) {
-                        // Create the reservation in the database
-                        createReservation();
-                        
-                        // Show success message
-                        showPaymentSuccess();
+                        if (isFormationPayment) {
+                            // Call the handler if this is a formation payment
+                            if (paymentCompletionHandler != null) {
+                                paymentCompletionHandler.accept(true);
+                            }
+                            
+                            // Show success message
+                            showFormationPaymentSuccess();
+                        } else {
+                            // Create the reservation in the database
+                            createReservation();
+                            
+                            // Show success message
+                            showPaymentSuccess();
+                        }
                     } else {
                         // Show error message
                         showError("Payment failed. Please try again.");
+                        
+                        // Call the handler with false if this is a formation payment
+                        if (isFormationPayment && paymentCompletionHandler != null) {
+                            paymentCompletionHandler.accept(false);
+                        }
                     }
                     
                     // Hide progress and re-enable buttons
@@ -366,6 +450,11 @@ public class StripeController extends BasefrontController {
                 // Update UI on JavaFX thread
                 javafx.application.Platform.runLater(() -> {
                     showError("Payment processing was interrupted.");
+                    
+                    // Call the handler with false if this is a formation payment
+                    if (isFormationPayment && paymentCompletionHandler != null) {
+                        paymentCompletionHandler.accept(false);
+                    }
                     
                     // Hide progress and re-enable buttons
                     if (paymentProgress != null) {
@@ -466,6 +555,21 @@ public class StripeController extends BasefrontController {
     }
     
     /**
+     * Show formation payment success dialog
+     */
+    private void showFormationPaymentSuccess() {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Payment Successful");
+        alert.setHeaderText("Thank you for your payment!");
+        alert.setContentText("Your formation registration payment has been confirmed. A confirmation email will be sent to you shortly.");
+        
+        // Style the alert
+        styleAlert(alert);
+        
+        alert.showAndWait();
+    }
+    
+    /**
      * Handle cancel button click
      */
     @FXML
@@ -482,7 +586,17 @@ public class StripeController extends BasefrontController {
         alert.showAndWait().ifPresent(response -> {
             if (response == ButtonType.OK) {
                 // Navigate back to event list
-                navigateToEventList();
+                if (isFormationPayment) {
+                    // For formations, just close the payment window and return to registration
+                    if (paymentCompletionHandler != null) {
+                        paymentCompletionHandler.accept(false);
+                    }
+                    Stage stage = (Stage) cancelButton.getScene().getWindow();
+                    stage.close();
+                } else {
+                    // For events, navigate back to event list
+                    navigateToEventList();
+                }
             }
         });
     }
@@ -531,52 +645,5 @@ public class StripeController extends BasefrontController {
         if (cancelButton != null) {
             cancelButton.setDisable(!enabled);
         }
-    }
-    
-    /**
-     * Setup responsive layout handlers
-     */
-    private void setupResponsiveLayout() {
-        // Initial layout will be handled by CSS
-        // This method is here for future dynamic adjustments if needed
-        
-        // For now, we'll rely on CSS media queries for responsive layout
-        // This is a more reliable approach for JavaFX
-    }
-    
-    /**
-     * Adjust layout based on available width - simplified version
-     * This method is unused but kept for future reference
-     */
-    private void adjustLayoutForWidth(double width) {
-        // Find the order summary component
-        Node orderSummary = lookup("#orderSummary");
-        if (orderSummary == null) {
-            return;
-        }
-        
-        // Adjust max width based on screen size
-        if (width < 700) {
-            // For narrow screens
-            orderSummary.setStyle("-fx-max-width: infinity;");
-        } else {
-            // For wider screens
-            orderSummary.setStyle("-fx-max-width: 300px;");
-        }
-    }
-    
-    /**
-     * Find the parent HBox containing the payment components
-     * This method is unused but kept for future reference
-     */
-    private HBox findHBoxInParents(Node node) {
-        Node parent = node.getParent();
-        while (parent != null) {
-            if (parent instanceof HBox) {
-                return (HBox) parent;
-            }
-            parent = parent.getParent();
-        }
-        return null;
     }
 }

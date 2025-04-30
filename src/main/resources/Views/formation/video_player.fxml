@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.media.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="Controllers.formation.VideoPlayerController"
+            prefHeight="700.0" prefWidth="1000.0"
+            styleClass="video-player-container"
+            stylesheets="/Styles/formation.css">
+    
+    <center>
+        <VBox spacing="10">
+            <padding>
+                <Insets top="20" right="20" bottom="20" left="20"/>
+            </padding>
+            
+            <!-- Video player -->
+            <MediaView fx:id="mediaView" preserveRatio="true" fitWidth="800" fitHeight="450" VBox.vgrow="SOMETIMES"/>
+            
+            <!-- Video controls -->
+            <HBox spacing="10" alignment="CENTER" styleClass="player-controls">
+                <Button fx:id="playButton" text="Play" onAction="#togglePlayback"/>
+                <Slider fx:id="timeSlider" HBox.hgrow="ALWAYS"/>
+                <Label fx:id="timeLabel" text="00:00 / 00:00"/>
+                <Button fx:id="muteButton" text="Mute" onAction="#toggleMute"/>
+                <Slider fx:id="volumeSlider" prefWidth="100"/>
+                <Button fx:id="fullscreenButton" text="Fullscreen" onAction="#toggleFullscreen"/>
+            </HBox>
+            
+            <!-- Transcription panel -->
+            <VBox spacing="10" styleClass="transcription-panel">
+                <HBox alignment="CENTER" spacing="10">
+                    <Label text="Speech-to-Text Transcription" styleClass="transcription-header"/>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    
+                    <Button fx:id="transcribeButton" text="Transcribe Video" 
+                            onAction="#transcribeVideo"
+                            styleClass="transcribe-button"/>
+                    
+                    <Button fx:id="downloadTranscriptButton" text="Download" 
+                            onAction="#downloadTranscript"
+                            styleClass="download-button"
+                            disable="true"/>
+                    
+                    <Button fx:id="copyTranscriptButton" text="Copy" 
+                            onAction="#copyTranscript"
+                            styleClass="copy-button"
+                            disable="true"/>
+                </HBox>
+                
+                <ProgressBar fx:id="transcriptionProgress" progress="0.0" visible="false"/>
+                
+                <Label fx:id="transcriptionStatusLabel" text="" 
+                       styleClass="transcription-status"
+                       visible="false"/>
+                
+                <ScrollPane fitToWidth="true" VBox.vgrow="ALWAYS" styleClass="transcript-scrollpane">
+                    <TextArea fx:id="transcriptionTextArea" 
+                             editable="false" 
+                             wrapText="true"
+                             styleClass="transcript-text"
+                             promptText="Transcription will appear here after you click the 'Transcribe Video' button."
+                             VBox.vgrow="ALWAYS"/>
+                </ScrollPane>
+            </VBox>
+        </VBox>
+    </center>
+    
+    <bottom>
+        <HBox alignment="CENTER_RIGHT" spacing="10" styleClass="bottom-controls">
+            <padding>
+                <Insets top="10" right="20" bottom="20" left="20"/>
+            </padding>
+            <Button fx:id="closeButton" text="Close" onAction="#closePlayer"/>
+            <Label text="Powered by AssemblyAI" styleClass="powered-by-label"/>
+        </HBox>
+    </bottom>
+    
+</BorderPane>

@@ -1,0 +1,113 @@
+/* Main container styles */
+.main-container {
+    -fx-background-color: linear-gradient(to bottom right, #1e1e30, #2a2a45);
+}
+
+.search-section {
+    -fx-background-color: rgba(255, 255, 255, 0.05);
+    -fx-padding: 25;
+    -fx-background-radius: 10;
+    -fx-border-color: rgba(255, 255, 255, 0.1);
+    -fx-border-radius: 10;
+}
+
+.search-box {
+    -fx-background-color: rgba(255, 255, 255, 0.1);
+    -fx-border-color: rgba(255, 255, 255, 0.2);
+    -fx-border-radius: 20;
+    -fx-background-radius: 20;
+    -fx-padding: 8 15;
+    -fx-spacing: 10;
+}
+
+.search-box:hover {
+    -fx-border-color: #3498db;
+    -fx-effect: dropshadow(gaussian, rgba(52,152,219,0.3), 8, 0, 0, 0);
+}
+
+.search-icon {
+    -fx-background-color: rgba(255, 255, 255, 0.6);
+    -fx-scale-x: 0.7;
+    -fx-scale-y: 0.7;
+}
+
+.search-field {
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+    -fx-prompt-text-fill: rgba(255, 255, 255, 0.5);
+    -fx-font-size: 14px;
+}
+
+.search-field:focused {
+    -fx-prompt-text-fill: rgba(255, 255, 255, 0.3);
+}
+
+.category-combo {
+    -fx-background-color: rgba(255, 255, 255, 0.1);
+    -fx-border-color: rgba(255, 255, 255, 0.2);
+    -fx-border-radius: 20;
+    -fx-background-radius: 20;
+    -fx-padding: 8;
+    -fx-font-size: 14px;
+    -fx-text-fill: white;
+}
+
+.category-combo:hover {
+    -fx-border-color: #3498db;
+    -fx-effect: dropshadow(gaussian, rgba(52,152,219,0.3), 8, 0, 0, 0);
+}
+
+.category-combo .arrow-button {
+    -fx-background-color: transparent;
+}
+
+.category-combo .arrow {
+    -fx-background-color: rgba(255, 255, 255, 0.6);
+}
+
+.category-combo .list-cell {
+    -fx-padding: 8 12;
+    -fx-text-fill: white;
+    -fx-background-color: transparent;
+}
+
+.category-combo .list-view {
+    -fx-background-color: #2a2a45;
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+    -fx-border-color: rgba(255, 255, 255, 0.1);
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 8, 0, 0, 4);
+}
+
+.category-combo .list-cell:hover {
+    -fx-background-color: rgba(52,152,219,0.3);
+}
+
+.category-combo .list-cell:selected {
+    -fx-background-color: #3498db;
+}
+
+/* Scroll pane styling */
+.scroll-pane {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+/* Pagination styling */
+.pagination {
+    -fx-page-information-visible: false;
+}
+
+.pagination .pagination-control .button {
+    -fx-background-color: rgba(255, 255, 255, 0.1);
+    -fx-border-color: rgba(255, 255, 255, 0.2);
+    -fx-text-fill: white;
+}
+
+.pagination .pagination-control .button:hover {
+    -fx-background-color: rgba(52,152,219,0.3);
+    -fx-border-color: #3498db;
+}

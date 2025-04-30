@@ -145,7 +145,7 @@
                         <Insets right="5.0" />
                      </GridPane.margin>
                   </ComboBox>
-                  <TextField fx:id="videoField" promptText="Enter video URL (YouTube or direct link)" style="-fx-background-radius: 5;" GridPane.columnIndex="1" GridPane.rowIndex="7">
+                  <TextField fx:id="videoField" promptText="Enter YouTube video URL" style="-fx-background-radius: 5;" GridPane.columnIndex="1" GridPane.rowIndex="7">
                      <GridPane.margin>
                         <Insets right="5.0" />
                      </GridPane.margin>

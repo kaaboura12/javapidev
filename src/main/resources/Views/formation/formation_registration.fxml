@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.text.*?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="Controllers.formation.FormationRegistrationController"
+      spacing="20" styleClass="registration-dialog"
+      stylesheets="@../../Styles/formation-detail.css">
+
+    <padding><Insets top="30" right="40" bottom="30" left="40"/></padding>
+
+    <Label text="Formation Registration" styleClass="dialog-title"/>
+    
+    <VBox spacing="15" styleClass="formation-info">
+        <Label text="Formation Details:" styleClass="info-label"/>
+        <Label fx:id="formationTitleLabel" styleClass="info-value"/>
+        <Label fx:id="formationDateLabel" styleClass="info-value"/>
+        <Label fx:id="formationPriceLabel" styleClass="info-value"/>
+    </VBox>
+
+    <VBox spacing="15" styleClass="terms-section">
+        <TextFlow>
+            <Text text="By registering, you agree to participate in this formation and follow its schedule." 
+                  styleClass="terms-text"/>
+        </TextFlow>
+        <CheckBox fx:id="termsCheckBox" text="I agree to the terms and conditions"/>
+    </VBox>
+
+    <HBox spacing="15" alignment="CENTER_RIGHT" styleClass="button-bar">
+        <Button text="Cancel" onAction="#handleCancel" styleClass="cancel-button"/>
+        <Button text="Confirm Registration" onAction="#handleRegistration" 
+                fx:id="confirmButton" styleClass="confirm-button"/>
+    </HBox>
+
+</VBox>

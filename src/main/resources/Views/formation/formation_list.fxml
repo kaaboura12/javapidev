@@ -1,63 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.text.Font?>
-<?import javafx.scene.effect.DropShadow?>
-<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" 
-            prefHeight="800.0" prefWidth="1000.0" stylesheets="@../../styles/style.css"
-            xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" 
-            fx:controller="Controllers.formation.FormationListFrontController">
-    <top>
-        <VBox alignment="CENTER" spacing="20" styleClass="header-section">
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="Controllers.formation.FormationListFrontController"
+      spacing="20" 
+      styleClass="main-container"
+      stylesheets="@../../Styles/formations.css">
+
+    <!-- Search and Filter Section -->
+    <VBox spacing="20" styleClass="search-section">
+        <HBox spacing="15" alignment="CENTER_LEFT">
+            <!-- Search Field with Icon -->
+            <HBox alignment="CENTER_LEFT" styleClass="search-box">
+                <Region prefWidth="20" prefHeight="20" 
+                        styleClass="search-icon"
+                        style="-fx-shape: 'M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z';"/>
+                
+                <TextField fx:id="searchField" 
+                          promptText="Search formations..." 
+                          prefWidth="300"
+                          styleClass="search-field"/>
+            </HBox>
+
+            <!-- Category Filter -->
+            <ComboBox fx:id="categoryCombo" 
+                      prefWidth="200"
+                      styleClass="category-combo"/>
+        </HBox>
+    </VBox>
+
+    <!-- Scrollable Content Area -->
+    <ScrollPane VBox.vgrow="ALWAYS" fitToWidth="true" style="-fx-background-color: transparent;">
+        <FlowPane fx:id="formationsContainer" hgap="20" vgap="20" style="-fx-padding: 20;">
             <padding>
-                <Insets top="30" bottom="20" left="30" right="30"/>
+                <Insets top="10" right="20" bottom="20" left="20"/>
             </padding>
-            <!-- Page Title with effect -->
-            <HBox alignment="CENTER_LEFT" styleClass="page-title-container">
-                <Label text="Available Formations" styleClass="page-title">
-                    <font>
-                        <Font name="System Bold" size="28.0"/>
-                    </font>
-                    <effect>
-                        <DropShadow color="#3498db33" radius="10.0" spread="0.2" />
-                    </effect>
-                </Label>
-            </HBox>
-            
-            <!-- Subtitle/Description -->
-            <Label text="Enhance your skills with our professional training courses" 
-                   styleClass="page-description"/>
-                   
-            <!-- Filter Section -->
-            <HBox alignment="CENTER" spacing="15" styleClass="filters-container">
-                <HBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
-                    <ComboBox fx:id="categoryCombo" prefWidth="200" promptText="All Categories" styleClass="filter-combo"/>
-                    <Region HBox.hgrow="ALWAYS" />
-                </HBox>
-                <TextField fx:id="searchField" prefWidth="300" promptText="Search formations..." styleClass="search-field"/>
-                <Button text="Search" styleClass="search-button"/>
-            </HBox>
-        </VBox>
-    </top>
-    <center>
-        <ScrollPane fitToWidth="true" styleClass="content-area">
-            <VBox spacing="30" styleClass="formations-container">
-                <padding>
-                    <Insets top="20" bottom="30" left="30" right="30"/>
-                </padding>
-                
-                <!-- Formation Cards Grid -->
-                <FlowPane fx:id="formationsContainer" hgap="25" vgap="35" styleClass="formations-grid"/>
-                
-                <!-- Pagination (if needed) -->
-                <HBox alignment="CENTER" styleClass="pagination-container">
-                    <Pagination fx:id="formationsPagination" pageCount="1" styleClass="formations-pagination"/>
-                </HBox>
-            </VBox>
-        </ScrollPane>
-    </center>
-</BorderPane>
+        </FlowPane>
+    </ScrollPane>
+
+    <!-- Pagination -->
+    <Pagination fx:id="formationsPagination" style="-fx-padding: 10;"/>
+</VBox>

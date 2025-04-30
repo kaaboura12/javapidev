@@ -15,11 +15,11 @@
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="Controllers.formation.FormationCardController"
       styleClass="formation-card-modern"
-      style="-fx-background-color: #f5f5f7; -fx-background-radius: 8px; -fx-border-radius: 8px; -fx-border-color: #dddddd; -fx-border-width: 1px;">
+      stylesheets="@../../Styles/formation-card.css">
     
     <!-- Add a drop shadow effect to the entire card -->
     <effect>
-        <DropShadow color="rgba(0,0,0,0.2)" radius="10" spread="0.05" />
+        <DropShadow color="rgba(52,152,219,0.3)" radius="15" spread="0.1" />
     </effect>
     
     <!-- Card Header -->
@@ -37,14 +37,14 @@
                wrapText="true" HBox.hgrow="ALWAYS"/>
     </HBox>
     
-    <!-- Thumbnail Image -->
+    <!-- Thumbnail Image with improved margins -->
     <ImageView fx:id="formationImage" 
-               fitWidth="320" 
-               fitHeight="180" 
+               fitWidth="340" 
+               fitHeight="200" 
                preserveRatio="true"
-               style="-fx-background-color: #f0f0f0; -fx-background-radius: 4px;">
+               styleClass="formation-image">
         <VBox.margin>
-            <Insets bottom="10" left="15" right="15"/>
+            <Insets bottom="15" left="15" right="15" top="10"/>
         </VBox.margin>
     </ImageView>
     
@@ -52,6 +52,13 @@
     <HBox alignment="CENTER_LEFT">
         <padding><Insets top="0" right="15" bottom="5" left="15"/></padding>
         <Label fx:id="categoryLabel" text="Category" style="-fx-font-size: 12px; -fx-text-fill: #3498db; -fx-font-weight: bold;"/>
+    </HBox>
+
+    <!-- Start Date -->
+    <HBox alignment="CENTER_LEFT" spacing="10">
+        <padding><Insets top="0" right="15" bottom="5" left="15"/></padding>
+        <Label fx:id="categoryLabel" style="-fx-font-size: 12px; -fx-text-fill: #3498db; -fx-font-weight: bold;"/>
+        <Label fx:id="startDateLabel" style="-fx-font-size: 12px; -fx-text-fill: #e74c3c; -fx-font-weight: bold;"/>
     </HBox>
     
     <!-- Description -->
@@ -68,21 +75,17 @@
         <Label fx:id="dateRangeLabel" text="Jan 10, 2023 - Feb 10, 2023" style="-fx-font-size: 12px; -fx-text-fill: #555555;"/>
     </HBox>
     
-    <!-- Bottom Row (Price & Participants & Button) -->
-    <HBox alignment="CENTER_LEFT" spacing="10" style="-fx-background-color: #f9f9f9; -fx-background-radius: 0 0 8px 8px;">
-        <padding><Insets top="12" right="15" bottom="12" left="15"/></padding>
+    <!-- Bottom Row with enhanced styling -->
+    <HBox alignment="CENTER_LEFT" spacing="10" styleClass="card-footer">
+        <padding><Insets top="15" right="15" bottom="15" left="15"/></padding>
         
-        <VBox spacing="2" HBox.hgrow="ALWAYS">
-            <Label fx:id="priceLabel" text="199.99" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #2ecc71;"/>
-            <Label fx:id="participantsLabel" text="25 spots available" style="-fx-font-size: 11px; -fx-text-fill: #666666;"/>
+        <VBox spacing="3" HBox.hgrow="ALWAYS">
+            <Label fx:id="priceLabel" styleClass="price-label"/>
+            <Label fx:id="participantsLabel" styleClass="participants-label"/>
         </VBox>
         
         <Button fx:id="viewDetailsButton" text="DETAILS" 
-                style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 4px; -fx-cursor: hand;"
-                onAction="#handleViewDetails">
-            <effect>
-                <DropShadow color="rgba(0,0,0,0.2)" radius="5" spread="0.1" />
-            </effect>
-        </Button>
+                styleClass="details-button"
+                onAction="#handleViewDetails"/>
     </HBox>
 </VBox>

@@ -9,9 +9,11 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 import javafx.scene.Node;
 import javafx.event.ActionEvent;
+import javafx.stage.FileChooser;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.sql.SQLException;
+import java.io.File;
 
 public class FormationAddController {
     @FXML private TextField titreField;
@@ -25,6 +27,7 @@ public class FormationAddController {
 
     private FormationService formationService;
     private CategorieService categorieService;
+    private String selectedVideoPath;
 
     @FXML
     public void initialize() {
@@ -49,6 +52,34 @@ public class FormationAddController {
                 prixField.setText(oldValue);
             }
         });
+
+        // Add YouTube URL validation
+        videoField.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null && !newValue.isEmpty() && !isValidYouTubeUrl(newValue)) {
+                videoField.setStyle("-fx-border-color: red;");
+            } else {
+                videoField.setStyle("");
+            }
+        });
+    }
+
+    private boolean isValidYouTubeUrl(String url) {
+        return url.matches("^(https?://)?(www\\.)?(youtube\\.com/watch\\?v=|youtu\\.be/)[a-zA-Z0-9_-]{11}.*$");
+    }
+
+    @FXML
+    private void handleVideoSelection() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Select Video File");
+        fileChooser.getExtensionFilters().add(
+            new FileChooser.ExtensionFilter("Video Files", "*.mp4", "*.mov", "*.avi")
+        );
+        
+        File selectedFile = fileChooser.showOpenDialog(null);
+        if (selectedFile != null) {
+            selectedVideoPath = selectedFile.getAbsolutePath();
+            videoField.setText(selectedFile.getName());
+        }
     }
 
     @FXML
@@ -66,7 +97,8 @@ public class FormationAddController {
                 formation.setDateCreation(LocalDateTime.now());
                 formation.setVideo(videoField.getText());
 
-                formationService.insert(formation);
+                formationService.insert(formation, selectedVideoPath);
+                
                 showAlert(Alert.AlertType.INFORMATION, "Success", "Formation added successfully!");
                 closeWindow(event);
             } catch (Exception e) {

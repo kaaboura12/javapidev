@@ -2,14 +2,19 @@ package Controllers.formation;
 
 import Models.Formation;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import java.awt.Desktop;
+import java.io.IOException;
 import java.net.URI;
 import java.time.format.DateTimeFormatter;
 
@@ -21,6 +26,7 @@ public class FormationDetailFrontController {
     @FXML private Label dateFinLabel;
     @FXML private Label nbrpartLabel;
     @FXML private Label prixLabel;
+    @FXML private Label startDateLabel; // Add this field
     @FXML private StackPane videoContainer; // New container for the thumbnail and play button
     @FXML private ImageView videoThumbnail; // Thumbnail image
     @FXML private Button playVideoButton; // Play button
@@ -32,7 +38,7 @@ public class FormationDetailFrontController {
     public void initialize() {
         // Set up play button click handler if it exists
         if (playVideoButton != null) {
-            playVideoButton.setOnAction(e -> openVideoInBrowser());
+            playVideoButton.setOnAction(e -> openVideoPlayer());
         }
     }
     
@@ -51,9 +57,14 @@ public class FormationDetailFrontController {
         categorieLabel.setText(formation.getCategorie().getNom());
         descriptionText.setText(formation.getDescription());
         
+        // Add start date display
+        startDateLabel.setText("Starting " + formation.getDateDebut().format(
+            DateTimeFormatter.ofPattern("d MMM yyyy")
+        ));
+        
         // Format dates
-        dateDebutLabel.setText("Start Date: " + formation.getDateDebut().format(DATE_FORMATTER));
-        dateFinLabel.setText("End Date: " + formation.getDateFin().format(DATE_FORMATTER));
+        dateDebutLabel.setText(formation.getDateDebut().format(DATE_FORMATTER));
+        dateFinLabel.setText(formation.getDateFin().format(DATE_FORMATTER));
         
         // Other details
         nbrpartLabel.setText("Maximum participants: " + formation.getNbrpart());
@@ -130,6 +141,42 @@ public class FormationDetailFrontController {
         }
     }
     
+    @FXML
+    private void openVideoPlayer() {
+        if (formation != null && formation.getVideo() != null && !formation.getVideo().isEmpty()) {
+            try {
+                // Load the video player view
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/formation/video_player.fxml"));
+                Parent root = loader.load();
+                
+                // Get the controller and set up the video
+                VideoPlayerController controller = loader.getController();
+                controller.loadVideo(formation.getVideo());
+                
+                // Create and configure the stage
+                Stage stage = new Stage();
+                stage.setTitle(formation.getTitre() + " - Video");
+                stage.setScene(new Scene(root));
+                stage.setMinWidth(800);
+                stage.setMinHeight(600);
+                stage.initModality(Modality.APPLICATION_MODAL);
+                
+                // Show the window
+                stage.show();
+                
+            } catch (IOException e) {
+                System.err.println("Error opening video player: " + e.getMessage());
+                e.printStackTrace();
+                showError("Could not open video player: " + e.getMessage());
+                
+                // Fallback to browser if video player fails
+                openVideoInBrowser();
+            }
+        } else {
+            showError("No video URL available");
+        }
+    }
+    
     private String extractYoutubeVideoId(String url) {
         String videoId = null;
         try {
@@ -184,12 +231,22 @@ public class FormationDetailFrontController {
     
     @FXML
     private void handleRegister() {
-        // Registration logic here
-        javafx.scene.control.Alert alert = new javafx.scene.control.Alert(javafx.scene.control.Alert.AlertType.INFORMATION);
-        alert.setTitle("Registration");
-        alert.setHeaderText(null);
-        alert.setContentText("Registration functionality will be implemented in a future update!");
-        alert.showAndWait();
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Views/formation/formation_registration.fxml"));
+            Parent root = loader.load();
+            
+            FormationRegistrationController controller = loader.getController();
+            controller.setFormation(formation);
+            
+            Stage stage = new Stage();
+            stage.setTitle("Formation Registration");
+            stage.setScene(new Scene(root));
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.showAndWait();
+            
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
     
     @FXML

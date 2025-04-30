@@ -8,70 +8,70 @@
 
 <ScrollPane fitToWidth="true" 
             prefHeight="800" 
-            maxHeight="900"
-            style="-fx-background: transparent; -fx-background-color: transparent;"
+            maxHeight="800"
+            styleClass="detail-scroll-pane"
+            stylesheets="@../../Styles/formation-detail.css"
             xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="Controllers.formation.FormationDetailFrontController">
 
-    <VBox spacing="25" style="-fx-background-color: white; -fx-padding: 0;">
-        <!-- Hero Section with Title and Category -->
-        <VBox spacing="10" style="-fx-background-color: #f8f9fa; -fx-padding: 40 30;">
-            <Label fx:id="titleLabel" style="-fx-font-size: 32px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;"/>
+    <VBox spacing="30">
+        <!-- Hero Section with enhanced styling -->
+        <VBox spacing="15" styleClass="hero-section">
+            <padding><Insets top="40" right="40" bottom="40" left="40"/></padding>
+            <Label fx:id="titleLabel" styleClass="hero-title"/>
             <HBox spacing="10" alignment="CENTER_LEFT">
-                <Label fx:id="categorieLabel" style="-fx-font-size: 16px; -fx-text-fill: white; -fx-padding: 5 15; 
-                       -fx-background-color: #3498db; -fx-background-radius: 20;"/>
+                <Label fx:id="categorieLabel" styleClass="category-label"/>
+                <Label fx:id="startDateLabel" styleClass="start-date"/>
             </HBox>
         </VBox>
         
-        <!-- Content Container -->
-        <VBox style="-fx-padding: 0 30 30 30;" spacing="25">
+        <!-- Content Container with improved spacing -->
+        <VBox styleClass="content-section">
             <!-- Video Section -->
             <StackPane fx:id="videoContainer">
                 <ImageView fx:id="videoThumbnail" fitWidth="800" fitHeight="450" preserveRatio="true"/>
-                <Button fx:id="playVideoButton" text="Play Video" 
-                        style="-fx-background-color: rgba(231, 76, 60, 0.9); -fx-text-fill: white;
-                               -fx-font-size: 16px; -fx-padding: 15 30; -fx-background-radius: 25;"/>
+                <Button fx:id="playVideoButton" text="Play Video" styleClass="play-button"/>
             </StackPane>
             
             <!-- Description Section -->
-            <VBox style="-fx-background-color: #f8f9fa; -fx-padding: 25; -fx-background-radius: 8;" spacing="15">
-                <Label text="Description" style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;"/>
-                <Text fx:id="descriptionText" wrappingWidth="740" style="-fx-font-size: 15px; -fx-fill: #4a5568;"/>
+            <VBox styleClass="description-section" spacing="15">
+                <Label text="Description" styleClass="section-title"/>
+                <Text fx:id="descriptionText" wrappingWidth="740" styleClass="section-content"/>
             </VBox>
             
             <!-- Details Section -->
-            <GridPane style="-fx-background-color: #f8f9fa; -fx-padding: 25; -fx-background-radius: 8;" 
-                      vgap="15" hgap="30">
-                <columnConstraints>
-                    <ColumnConstraints minWidth="150" prefWidth="200"/>
-                    <ColumnConstraints minWidth="200" prefWidth="500"/>
-                </columnConstraints>
-                
-                <Label text="Details" style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;"
+            <GridPane styleClass="details-grid">
+                <Label text="Details" styleClass="section-title"
                        GridPane.columnSpan="2" GridPane.rowIndex="0"/>
                        
-                <Label text="Start Date" style="-fx-font-weight: bold;" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
-                <Label fx:id="dateDebutLabel" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+                <Label text="Start Date" styleClass="details-label" 
+                       GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                <Label fx:id="dateDebutLabel" styleClass="details-value" 
+                       GridPane.rowIndex="1" GridPane.columnIndex="1"/>
                 
-                <Label text="End Date" style="-fx-font-weight: bold;" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
-                <Label fx:id="dateFinLabel" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+                <Label text="End Date" styleClass="details-label" 
+                       GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                <Label fx:id="dateFinLabel" styleClass="details-value" 
+                       GridPane.rowIndex="2" GridPane.columnIndex="1"/>
                 
-                <Label text="Spots Available" style="-fx-font-weight: bold;" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
-                <Label fx:id="nbrpartLabel" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+                <Label text="Spots Available" styleClass="details-label" 
+                       GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+                <Label fx:id="nbrpartLabel" styleClass="details-value" 
+                       GridPane.rowIndex="3" GridPane.columnIndex="1"/>
                 
-                <Label text="Price" style="-fx-font-weight: bold;" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
-                <Label fx:id="prixLabel" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+                <Label text="Price" styleClass="details-label" 
+                       GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+                <Label fx:id="prixLabel" styleClass="details-value" 
+                       GridPane.rowIndex="4" GridPane.columnIndex="1"/>
             </GridPane>
             
-            <!-- Action Buttons -->
-            <HBox spacing="15" alignment="CENTER_RIGHT" style="-fx-padding: 20 0 0 0;">
+            <!-- Action Buttons with better positioning -->
+            <HBox spacing="20" alignment="CENTER_RIGHT" styleClass="action-buttons">
                 <Button text="Register Now" onAction="#handleRegister"
-                        style="-fx-background-color: #2ecc71; -fx-text-fill: white; 
-                               -fx-padding: 12 30; -fx-font-size: 14px; -fx-background-radius: 25;"/>
+                        styleClass="action-button, register-button"/>
                 <Button text="Close" onAction="#handleClose"
-                        style="-fx-background-color: #e0e0e0; -fx-text-fill: #606060;
-                               -fx-padding: 12 30; -fx-font-size: 14px; -fx-background-radius: 25;"/>
+                        styleClass="action-button, close-button"/>
             </HBox>
         </VBox>
     </VBox>

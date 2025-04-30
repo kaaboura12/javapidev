@@ -13,21 +13,30 @@ public class FormationService {
         conn = MyDb.getInstance().getConnection();
     }
 
-    public void insert(Formation formation) throws SQLException {
-        String query = "INSERT INTO formation (titre, description, date_debut, date_fin, nbrpart, prix, categorie_id, date_creation, video) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        PreparedStatement pst = conn.prepareStatement(query);
-        pst.setString(1, formation.getTitre());
-        pst.setString(2, formation.getDescription());
-        pst.setTimestamp(3, Timestamp.valueOf(formation.getDateDebut()));
-        pst.setTimestamp(4, Timestamp.valueOf(formation.getDateFin()));
-        pst.setInt(5, formation.getNbrpart());
-        pst.setDouble(6, formation.getPrix());
-        pst.setInt(7, formation.getCategorie().getId());
-        pst.setTimestamp(8, Timestamp.valueOf(formation.getDateCreation()));
-        pst.setString(9, formation.getVideo());
-        pst.executeUpdate();
+    public void insert(Formation formation, String videoPath) throws SQLException {
+        try {
+            // Store the video path directly if provided
+            if (videoPath != null && !videoPath.isEmpty()) {
+                formation.setVideo(videoPath);
+            }
+
+            String query = "INSERT INTO formation (titre, description, date_debut, date_fin, nbrpart, prix, categorie_id, date_creation, video) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            PreparedStatement pst = conn.prepareStatement(query);
+            pst.setString(1, formation.getTitre());
+            pst.setString(2, formation.getDescription());
+            pst.setTimestamp(3, Timestamp.valueOf(formation.getDateDebut()));
+            pst.setTimestamp(4, Timestamp.valueOf(formation.getDateFin()));
+            pst.setInt(5, formation.getNbrpart());
+            pst.setDouble(6, formation.getPrix());
+            pst.setInt(7, formation.getCategorie().getId());
+            pst.setTimestamp(8, Timestamp.valueOf(formation.getDateCreation()));
+            pst.setString(9, formation.getVideo());
+            pst.executeUpdate();
+        } catch (Exception e) {
+            throw new SQLException("Failed to create formation: " + e.getMessage());
+        }
     }
-    
+
     public void update(Formation formation) throws SQLException {
         String query = "UPDATE formation SET titre = ?, description = ?, date_debut = ?, date_fin = ?, nbrpart = ?, prix = ?, categorie_id = ?, video = ? WHERE formation_id = ?";
         PreparedStatement pst = conn.prepareStatement(query);
@@ -42,22 +51,22 @@ public class FormationService {
         pst.setInt(9, formation.getId());
         pst.executeUpdate();
     }
-    
+
     public void delete(Formation formation) throws SQLException {
         String query = "DELETE FROM formation WHERE formation_id = ?";
         PreparedStatement pst = conn.prepareStatement(query);
         pst.setInt(1, formation.getId());
         pst.executeUpdate();
     }
-    
+
     public Formation getById(int id) throws SQLException {
         String query = "SELECT * FROM formation WHERE formation_id = ?";
         PreparedStatement pst = conn.prepareStatement(query);
         pst.setInt(1, id);
         ResultSet rs = pst.executeQuery();
-        
+
         CategorieService categorieService = new CategorieService();
-        
+
         if (rs.next()) {
             Formation formation = new Formation();
             formation.setId(rs.getInt("formation_id"));
@@ -80,9 +89,9 @@ public class FormationService {
         String query = "SELECT * FROM formation";
         Statement st = conn.createStatement();
         ResultSet rs = st.executeQuery(query);
-        
+
         CategorieService categorieService = new CategorieService();
-        
+
         while (rs.next()) {
             Formation formation = new Formation();
             formation.setId(rs.getInt("formation_id"));
@@ -106,9 +115,9 @@ public class FormationService {
         PreparedStatement pst = conn.prepareStatement(query);
         pst.setInt(1, categorieId);
         ResultSet rs = pst.executeQuery();
-        
+
         CategorieService categorieService = new CategorieService();
-        
+
         while (rs.next()) {
             Formation formation = new Formation();
             formation.setId(rs.getInt("formation_id"));
@@ -123,7 +132,7 @@ public class FormationService {
             formation.setVideo(rs.getString("video"));
             formations.add(formation);
         }
-        
+
         return formations;
     }
 }
